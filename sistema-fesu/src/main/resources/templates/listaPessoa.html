@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th = "http://thymeleaf.org" xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout">  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fesudeperj</title>
+</head>
+
+<header>
+
+</header>
+
+<body>
+
+    <div>
+        <h1>Pessoas Cadastradas</h1>
+        <h3><a href="/cadastrar-pessoas">Cadastrar</a></h3>
+    </div>
+
+    <div th:each="pessoa : $(listaPessoas)">
+        <div class="row">
+            <p><span th:text="$(pessoa.nome)" ></span></p>
+            <p><span th:text="$(pessoa.sobrenome)" ></span></p>
+            <p><span th:text="$(pessoa.cpf)" ></span></p>
+            <p><span th:text="$(pessoa.telefone)" ></span></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
