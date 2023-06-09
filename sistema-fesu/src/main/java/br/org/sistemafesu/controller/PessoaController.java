@@ -1,9 +1,9 @@
 package br.org.sistemafesu.controller;
 import br.org.sistemafesu.entity.Pessoa;
 import br.org.sistemafesu.repository.PessoaRepository;
-import ch.qos.logback.core.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,10 +23,8 @@ public class PessoaController {
         return "redirect:/cadastrar-pessoa";
     }
     @RequestMapping("/pessoas")
-    public ModelAndView listarPessoas(){
-        ModelAndView modelAndView = new ModelAndView("listaPessoa");
-        Iterable<Pessoa> pessoas = pessoaRepository.findAll();
-        modelAndView.addObject("listaPessoas",listarPessoas());
-        return modelAndView;
+    public String listar(Model model){
+        model.addAttribute("listaPessoas", pessoaRepository.findAll());
+        return "listaPessoa";
     }
 }
