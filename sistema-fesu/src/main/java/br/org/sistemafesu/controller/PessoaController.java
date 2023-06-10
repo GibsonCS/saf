@@ -14,7 +14,7 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
     @RequestMapping(value = "/cadastrar-pessoa", method = RequestMethod.GET)
     public String form(){
-        return "formPessoa";
+        return "form-pessoa";
     }
 
     @RequestMapping(value = "/cadastrar-pessoa", method = RequestMethod.POST)
@@ -25,6 +25,6 @@ public class PessoaController {
     @RequestMapping("/pessoas")
     public String listar(Model model){
         model.addAttribute("listaPessoas", pessoaRepository.findAll());
-        return "listaPessoa";
+        return "lista-pessoa";
     }
 }
