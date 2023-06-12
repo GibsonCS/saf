@@ -53,17 +53,12 @@
             <thead>
                 <tr>
 
-                    <th scope="col">Nome</th>
-                    <th scope="col">Sobrenome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Telefone</th>
+                    <th scope="col">Nome da Sala</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="pessoa : ${listaPessoas}">
-                    <td> <span th:text="${pessoa.nome}"></span> </td>
-                    <td><span th:text="${pessoa.sobrenome}"></span></td>
-                    <td><span th:text="${pessoa.cpf}"></span></td>
+                <tr th:each="sala : ${listaSalas}">
+                    <td> <span th:text="${sala.nomeSala}"></span> </td>
                 </tr>
             </tbody>
         </table>

@@ -3,6 +3,7 @@ import br.org.sistemafesu.entity.Sala;
 import br.org.sistemafesu.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,5 +23,10 @@ public class SalaController {
         return "redirect:/cadastrar-sala";
     }
 
+    @RequestMapping("/salas")
+    public String listarSala(Model model){
+        model.addAttribute("listaSalas", salaRepository.findAll());
+        return "lista-sala";
+    }
 
 }
