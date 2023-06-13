@@ -38,7 +38,6 @@
         .header .header-menu .nav-menu{
             list-style: none;
             display: flex;
-            flex-wrap: wrap;
         }
 
         .header .header-menu .nav-menu .nav-item{
@@ -62,6 +61,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            height: calc(100vh - 122px);
         }
 
         form{
@@ -69,7 +69,7 @@
             flex-direction: column;
             align-items: flex-start;
             justify-content:center;
-            height: calc(100vh - 162px);
+            max-width: 500px;
         }
         form h2{
             margin-bottom: 15px;
@@ -83,7 +83,26 @@
             margin-bottom: 10px;
             width: 100%;
         }
-        
+        form select{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        form .radios{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        form .radios label{
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+        form .radios label p{
+            width: 150px;
+        }
         .btn{ 
             padding: 10px;
             border: none;
@@ -104,7 +123,6 @@
         #btn-reset:hover{
             background-color: #ffc107;
         }
-
         footer{
             display: flex;
             flex-direction: column;
@@ -114,7 +132,6 @@
             width: 100vw;
             height: 41px;
         }
-        
     </style>
 </head>
 
@@ -138,28 +155,54 @@
         </div>
     </header>
     <div class="content">
-        <form method="POST" action="#">
-            <h2>Cadastro de Equipamento</h2>
+        <form action="#" method="post">
+            <h2>Reserva de Sala</h2>
 
-            <label for="idNome">Nome:</label>  
-            <input type= "text" placeholder ="Nome" id="idNome" required>
+            <label for="nomeSala">Nome da Sala:</label>  
+            <input type= "text" placeholder ="Nome da Sala" id="nomeSala" name="nomeSala" required>
 
-            <label for="idMarc">Marca:</label>           
-            <input type= "text" placeholder ="Marca" id="idMarc" required>
+            <label for="nomeEvento">Nome do Evento:</label>           
+            <input type= "text" placeholder ="Nome do Evento" id="nomeEvento" name="evento" required>
 
-            <label for="idModelo">Modelo:</label>
-            <input type= "text" placeholder ="Modelo" id="idModelo" required>
+            <label for="dataEvento">Data do Evento:</label>
+            <input type="date" id="dataEvento" name="data" required>
             
-            <label for="idTipo">Tipo:</label>     
-            <input type= "text" placeholder ="Tipo" id="idTipo" required>
+            <label for="equipamento">Equipamentos:</label>     
+            
+            <div class="radios">
+                <label for="teste1">
+                    <p>Teste 1</p>
+                    <input type="radio" name="teste1" id="teste1" value="Teste 1">
+                </label>
+                <label for="teste2">
+                    <p>Teste 2</p>
+                    <input type="radio" name="teste2" id="teste2" value="Teste 2">
+                </label>
+                <label for="teste3">
+                    <p>Teste 3</p>
+                    <input type="radio" name="teste3" id="teste3" value="Teste 3">
+                </label>
+                <label for="teste4">
+                    <p>Teste 4</p>
+                    <input type="radio" name="teste4" id="teste4" value="Teste 4">
+                </label>
+                <label for="teste5">
+                    <p>Teste 5</p>
+                    <input type="radio" name="teste5" id="teste5" value="Teste 5">
+                </label>
+            </div>
+            <label for="responsavel">Responsável:</label>
+            <select id="responsavel" name="responsavel" required>
+                <option selected disabled value="">--</option>
+                <option value="Exemplo 1">Exemplo 1</option>
+                <option value="Exemplo 2">Exemplo 2</option>
+                <option value="Exemplo 3">Exemplo 3</option>
+                <option value="Exemplo 4">Exemplo 4</option>
+            </select>
         
-        
-            <label for = "idDate"> Data do Cadastro:</label>
-            <input type="date" id="idDate" required>
-        
-            <input type= "submit" value="Cadastrar" class="btn" id="btn-input">
+            <input type= "submit" value="Reservar" class="btn" id="btn-input">
             <input type="reset" value="Limpar" class="btn" id="btn-reset">
-    </form>
+        </form>
     </div>
     <footer class="footer">
         <p>Fesudeperj ©</p> 

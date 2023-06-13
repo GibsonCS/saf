@@ -1,9 +1,6 @@
 package br.org.sistemafesu.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Equipamento {
@@ -14,6 +11,7 @@ public class Equipamento {
     private String modeloEquipamento;
     private String marcaEquipamento;
     private String tipoEquipamento;
+
 
     public long getIdEquipamento() {
         return idEquipamento;
@@ -54,4 +52,6 @@ public class Equipamento {
     public void setTipoEquipamento(String tipoEquipamento) {
         this.tipoEquipamento = tipoEquipamento;
     }
+
+
 }

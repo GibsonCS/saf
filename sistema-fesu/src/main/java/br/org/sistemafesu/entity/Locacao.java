@@ -1,9 +1,6 @@
 package br.org.sistemafesu.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 @Entity
@@ -12,6 +9,7 @@ public class Locacao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idLocacao;
+
     private boolean situacao;
     private Date data;
 
@@ -40,4 +38,13 @@ public class Locacao {
     public void setEvento(String evento) {
         this.evento = evento;
     }
+
+    public long getIdLocacao() {
+        return idLocacao;
+    }
+
+    public void setIdLocacao(long idLocacao) {
+        this.idLocacao = idLocacao;
+    }
+
 }

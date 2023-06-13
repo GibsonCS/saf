@@ -1,9 +1,7 @@
 package br.org.sistemafesu.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 @Entity
 public class Sala {
 
@@ -11,6 +9,8 @@ public class Sala {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idSala;
     private String nomeSala;
+
+
 
     public long getIdSala() {
         return idSala;
@@ -27,4 +27,5 @@ public class Sala {
     public void setNomeSala(String nomeSala) {
         this.nomeSala = nomeSala;
     }
+
 }
