@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ept-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,13 +145,13 @@
         </div>
         <div class="header-menu">
             <ul class="nav-menu">
-                <li class="nav-item"><a href="#">Inicio</a></li>
-                <li class="nav-item"><a href="#">Cadastrar Pessoa</a></li>
-                <li class="nav-item"><a href="#">Cadastrar Sala</a></li>
-                <li class="nav-item"><a href="#">Cadastrar Equipamentos</a></li>
-                <li class="nav-item"><a href="#">Salas</a></li>
-                <li class="nav-item"><a href="#">Equipamentos</a></li>
-                <li class="nav-item"><a href="#">Pessoas</a></li>
+                <li class="nav-item"><a href="/">Inicio</a></li>
+                <li class="nav-item"><a href="cadastrar-pessoa">Cadastrar Pessoa</a></li>
+                <li class="nav-item"><a href="cadastrar-sala">Cadastrar Sala</a></li>
+                <li class="nav-item"><a href="cadastrar-equipamentos">Cadastrar Equipamentos</a></li>
+                <li class="nav-item"><a href="salas">Salas</a></li>
+                <li class="nav-item"><a href="equipamentos">Equipamentos</a></li>
+                <li class="nav-item"><a href="pessoas">Pessoas</a></li>
             </ul>
         </div>
     </header>
@@ -158,47 +159,23 @@
         <form action="#" method="post">
             <h2>Reserva de Sala</h2>
 
-            <label for="nomeSala">Nome da Sala:</label>  
-            <input type= "text" placeholder ="Nome da Sala" id="nomeSala" name="nomeSala" required>
 
-            <label for="nomeEvento">Nome do Evento:</label>           
-            <input type= "text" placeholder ="Nome do Evento" id="nomeEvento" name="evento" required>
 
-            <label for="dataEvento">Data do Evento:</label>
-            <input type="date" id="dataEvento" name="data" required>
-            
-            <label for="equipamento">Equipamentos:</label>     
-            
-            <div class="radios">
-                <label for="teste1">
-                    <p>Teste 1</p>
-                    <input type="radio" name="teste1" id="teste1" value="Teste 1">
-                </label>
-                <label for="teste2">
-                    <p>Teste 2</p>
-                    <input type="radio" name="teste2" id="teste2" value="Teste 2">
-                </label>
-                <label for="teste3">
-                    <p>Teste 3</p>
-                    <input type="radio" name="teste3" id="teste3" value="Teste 3">
-                </label>
-                <label for="teste4">
-                    <p>Teste 4</p>
-                    <input type="radio" name="teste4" id="teste4" value="Teste 4">
-                </label>
-                <label for="teste5">
-                    <p>Teste 5</p>
-                    <input type="radio" name="teste5" id="teste5" value="Teste 5">
-                </label>
-            </div>
-            <label for="responsavel">Responsável:</label>
-            <select id="responsavel" name="responsavel" required>
-                <option selected disabled value="">--</option>
-                <option value="Exemplo 1">Exemplo 1</option>
-                <option value="Exemplo 2">Exemplo 2</option>
-                <option value="Exemplo 3">Exemplo 3</option>
-                <option value="Exemplo 4">Exemplo 4</option>
+            <label for="nomeSala">Nome Sala:</label>
+            <select  id="nomeSala" name="nomeSala" required >
+                <option th:each="sala : ${listaSalas}" ><span th:text="${sala.nomeSala}"></span>
             </select>
+
+
+            <label for="evento">Nome do Evento:</label>
+            <input type= "text" placeholder ="Nome do Evento" id="evento" name="evento" required>
+
+            <label for="situacao">Situação:</label>
+            <input type= "text" placeholder ="Situação" id="situacao" name="situacao" required>
+
+            <label for="data">Data do Evento:</label>
+            <input type="date" id="data" name="data" required>
+
         
             <input type= "submit" value="Reservar" class="btn" id="btn-input">
             <input type="reset" value="Limpar" class="btn" id="btn-reset">

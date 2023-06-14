@@ -53,5 +53,4 @@ public class Equipamento {
         this.tipoEquipamento = tipoEquipamento;
     }
 
-
 }

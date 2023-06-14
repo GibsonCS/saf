@@ -10,6 +10,9 @@ public class Sala {
     private long idSala;
     private String nomeSala;
 
+    @OneToOne
+    private Locacao locacao;
+
 
 
     public long getIdSala() {
@@ -28,4 +31,11 @@ public class Sala {
         this.nomeSala = nomeSala;
     }
 
+    public Locacao getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(Locacao locacao) {
+        this.locacao = locacao;
+    }
 }

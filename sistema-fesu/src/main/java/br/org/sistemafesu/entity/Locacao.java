@@ -10,6 +10,8 @@ public class Locacao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idLocacao;
 
+    @OneToOne
+    private Sala sala;
     private boolean situacao;
     private Date data;
 
@@ -46,5 +48,14 @@ public class Locacao {
     public void setIdLocacao(long idLocacao) {
         this.idLocacao = idLocacao;
     }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
 
 }
