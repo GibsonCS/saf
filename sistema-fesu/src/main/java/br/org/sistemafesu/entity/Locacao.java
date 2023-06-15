@@ -12,24 +12,26 @@ public class Locacao {
 
     @OneToOne
     private Sala sala;
-    private boolean situacao;
-    private Date data;
+
+    private String data;
 
     private String evento;
+     private String situacao;
 
-    public boolean isSituacao() {
+    public String getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(boolean situacao) {
+    public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
 
-    public Date getData() {
+
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
