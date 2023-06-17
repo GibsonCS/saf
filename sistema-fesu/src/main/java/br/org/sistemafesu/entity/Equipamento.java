@@ -6,19 +6,30 @@ import jakarta.persistence.*;
 public class Equipamento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idEquipamento;
+    private Long id;
     private String nomeEquipamento;
     private String modeloEquipamento;
     private String marcaEquipamento;
     private String tipoEquipamento;
 
+    @ManyToOne
+    @JoinColumn(name = "id_locacao")
+    private Locacao locacao;
 
-    public long getIdEquipamento() {
-        return idEquipamento;
+    public Locacao getLocacao() {
+        return locacao;
     }
 
-    public void setIdEquipamento(long idEquipamento) {
-        this.idEquipamento = idEquipamento;
+    public void setLocacao(Locacao locacao) {
+        this.locacao = locacao;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNomeEquipamento() {

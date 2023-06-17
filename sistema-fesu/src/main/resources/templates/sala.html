@@ -1,169 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html}">
+
 <head>
-    <meta charset="UTF-8">
     <title>Fesudeperj</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        body{
-            display: flex;
-            flex-direction: column;
-        }
-
-        header{
-            width: 100vw;
-            height: 80px;
-            background-color:#198754;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            font-size: 17px;
-        }
-
-        .header .header-logo{
-
-        }
-        .header .header-menu{
-
-        }
-
-        .header .header-menu .nav-menu{
-            list-style: none;
-            display: flex;
-        }
-
-        .header .header-menu .nav-menu .nav-item{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 20px;
-        }
-
-        .header .header-menu .nav-menu .nav-item:hover{
-            height:77px;
-            border-bottom: 3px solid #fff;
-        }
-
-        .header .header-menu .nav-menu .nav-item a{
-            text-decoration: none;
-            color: #fff;
-        }
-        .content{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            height: calc(100vh - 122px);
-        }
-        form{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content:center;
-        }
-        form h2{
-            margin-bottom: 15px;
-        }
-        form label{
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        form input{
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .btn{
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #7f7f7f;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background-color:#198754;
-            color: #fff;
-        }
-
-        #btn-reset:hover{
-            background-color: #ffc107;
-        }
-        footer{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #7f7f7f;
-            width: 100vw;
-            height: 41px;
-        }
-    </style>
 </head>
-<body>
 
-<header class="header">
-    <div class="header-logo">
-        <a href="">
-            <img src="#" alt="Logo">
-        </a>
-    </div>
-    <div class="header-menu">
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="/">Inicio</a></li>
-            <li class="nav-item"><a href="cadastrar-pessoa">Cadastrar Pessoa</a></li>
-            <li class="nav-item"><a href="cadastrar-sala">Cadastrar Sala</a></li>
-            <li class="nav-item"><a href="cadastrar-equipamentos">Cadastrar Equipamentos</a></li>
-            <li class="nav-item"><a href="salas">Salas</a></li>
-            <li class="nav-item"><a href="equipamentos">Equipamentos</a></li>
-            <li class="nav-item"><a href="pessoas">Pessoas</a></li>
-        </ul>
-    </div>
-</header>
-
-<div>
-    <form method="post">
-        <br>
-        <div class=" container text-center">
-            <h2>Cadastro de Salas</h2>
+<section class="content" layout:fragment="content">
+    <div>
+        <form method="post">
             <br>
-            <div>
-                <label for="Nome">Nome da sala</label>
+            <div class=" container text-center">
+                <h2>Cadastro de Salas</h2>
                 <br>
-                <input type="text" value="" name="nomeSala">
+                <div>
+                    <label for="Nome">Nome da sala</label>
+                    <br>
+                    <input type="text" value="" name="nomeSala">
+                </div>
+                <br>
+                <button class=" btn bg-success bg-gradient opacity-75" type="submit">Cadastrar</button>
             </div>
             <br>
-            <button class=" btn bg-success bg-gradient opacity-75" type="submit">Cadastrar</button>
-        </div>
-            <br>
-    </form>
-</div>
+        </form>
+    </div>
+</section>
 
-
-
-
-
-<footer style="margin-top: 751px;" class="bg-secondary bg-gradient shadow p-3">
-
-    <p class="text-center">Fesudeperj ©<br>2023 Todos os direitos reservados.</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-</body>
 </html>

@@ -1,9 +1,8 @@
 package br.org.sistemafesu.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Pessoa {
@@ -17,6 +16,17 @@ public class Pessoa {
     private String sobrenome;
 
     private String telefone;
+
+    @OneToMany(mappedBy = "pessoa")
+    private List<Locacao> locacoes;
+
+    public List<Locacao> getLocacoes() {
+        return locacoes;
+    }
+
+    public void setLocacoes(List<Locacao> locacoes) {
+        this.locacoes = locacoes;
+    }
 
     public String getTelefone() {
         return telefone;

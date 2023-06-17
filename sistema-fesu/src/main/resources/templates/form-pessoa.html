@@ -1,162 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        body{
-            display: flex;
-            flex-direction: column;
-        }
-
-        header{
-            width: 100vw;
-            height: 80px;
-            background-color:#198754;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            font-size: 17px;
-        }
-
-        .header .header-logo{
-
-        }
-        .header .header-menu{
-
-        }
-
-        .header .header-menu .nav-menu{
-            list-style: none;
-            display: flex;
-        }
-
-        .header .header-menu .nav-menu .nav-item{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 20px;
-        }
-
-        .header .header-menu .nav-menu .nav-item:hover{
-            height:77px;
-            border-bottom: 3px solid #fff;
-        }
-
-        .header .header-menu .nav-menu .nav-item a{
-            text-decoration: none;
-            color: #fff;
-        }
-        .content{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            height: calc(100vh - 122px);
-        }
-
-        form{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content:center;
-        }
-        form h2{
-            margin-bottom: 15px;
-        }
-        form label{
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        form input{
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        
-        .btn{ 
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #7f7f7f;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background-color:#198754;
-            color: #fff;
-        }
-
-        #btn-reset:hover{
-            background-color: #ffc107;
-        }
-        footer{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #7f7f7f;
-            width: 100vw;
-            height: 41px;
-        }
-    </style>
 </head>
 
-<body>
-    <header class="header">
-        <div class="header-logo">
-            <a href="">
-                <img src="#" alt="Logo">
-            </a>
-        </div>
-        <div class="header-menu">
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="/">Inicio</a></li>
-                <li class="nav-item"><a href="cadastrar-pessoa">Cadastrar Pessoa</a></li>
-                <li class="nav-item"><a href="cadastrar-sala">Cadastrar Sala</a></li>
-                <li class="nav-item"><a href="cadastrar-equipamentos">Cadastrar Equipamentos</a></li>
-                <li class="nav-item"><a href="salas">Salas</a></li>
-                <li class="nav-item"><a href="equipamentos">Equipamentos</a></li>
-                <li class="nav-item"><a href="pessoas">Pessoas</a></li>
-            </ul>
-        </div>
-    </header>
+<section class="content" layout:fragment="content">
     <div class="content">
-        <form method="POST" >
+        <form method="POST">
             <h2>Cadastro de Usuário</h2>
 
-            <label for="nome">Nome:</label>  
-            <input type= "text" placeholder ="Nome" id="nome" name="nome" required>
+            <label for="nome">Nome:</label>
+            <input type="text" placeholder="Nome" id="nome" name="nome" required>
 
-            <label for="sobrenome">Sobrenome:</label>           
-            <input type= "text" placeholder ="Sobrenome" id="sobrenome" name="sobrenome" required>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome" required>
 
             <label for="telefone">Telefone:</label>
-            <input type="tel" placeholder ="Telefone" id="telefone" name="telefone" required>
-            
-            <label for="cpf">CPF:</label>     
-            <input type= "text" placeholder ="CPF" id="cpf" name="cpf" required>
-        
-            <input type= "submit" value="Cadastrar" class="btn" id="btn-input">
+            <input type="tel" placeholder="Telefone" id="telefone" name="telefone" required>
+
+            <label for="cpf">CPF:</label>
+            <input type="text" placeholder="CPF" id="cpf" name="cpf" required>
+
+            <input type="submit" value="Cadastrar" class="btn" id="btn-input">
             <input type="reset" value="Limpar" class="btn" id="btn-reset">
         </form>
     </div>
-    <footer class="footer">
-        <p>Fesudeperj ©</p> 
-        <p>Todos os direitos reservados.</p>
-    </footer>
-</body>
+</section>
+
 </html>

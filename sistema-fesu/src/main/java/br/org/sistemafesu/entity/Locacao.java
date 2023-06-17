@@ -3,29 +3,53 @@ package br.org.sistemafesu.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Entity
 public class Locacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idLocacao;
-
-    @OneToOne
-    private Sala sala;
+    private Long id;
 
     private String data;
 
     private String evento;
-     private String situacao;
 
-    public String getSituacao() {
-        return situacao;
+    @ManyToOne
+    @JoinColumn(name = "id_sala")
+    private Sala sala;
+
+    @ManyToOne
+    @JoinColumn(name = "id_pessoa")
+    private Pessoa pessoa;
+
+    @OneToMany(mappedBy = "locacao")
+    private List<Equipamento> equipamentos;
+
+    public List<Equipamento> getEquipamentos() {
+        return equipamentos;
     }
 
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
+    public void setEquipamentos(List<Equipamento> equipamentos) {
+        this.equipamentos = equipamentos;
     }
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getData() {
         return data;
@@ -43,14 +67,6 @@ public class Locacao {
         this.evento = evento;
     }
 
-    public long getIdLocacao() {
-        return idLocacao;
-    }
-
-    public void setIdLocacao(long idLocacao) {
-        this.idLocacao = idLocacao;
-    }
-
     public Sala getSala() {
         return sala;
     }
@@ -58,6 +74,5 @@ public class Locacao {
     public void setSala(Sala sala) {
         this.sala = sala;
     }
-
 
 }

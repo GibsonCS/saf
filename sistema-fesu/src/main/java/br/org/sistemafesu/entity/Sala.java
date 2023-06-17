@@ -2,25 +2,26 @@ package br.org.sistemafesu.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Sala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idSala;
+    private Long id;
+
     private String nomeSala;
 
-    @OneToOne
-    private Locacao locacao;
+    @OneToMany(mappedBy = "sala")
+    private List<Locacao> locacoes;
 
-
-
-    public long getIdSala() {
-        return idSala;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdSala(long idSala) {
-        this.idSala = idSala;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNomeSala() {
@@ -31,11 +32,11 @@ public class Sala {
         this.nomeSala = nomeSala;
     }
 
-    public Locacao getLocacao() {
-        return locacao;
+    public List<Locacao> getLocacoes() {
+        return locacoes;
     }
 
-    public void setLocacao(Locacao locacao) {
-        this.locacao = locacao;
+    public void setLocacoes(List<Locacao> locacoes) {
+        this.locacoes = locacoes;
     }
 }
