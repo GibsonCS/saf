@@ -14,6 +14,8 @@ public class Locacao {
 
     private String data;
 
+    private String hora;
+
     private String evento;
 
     @ManyToOne
@@ -75,4 +77,11 @@ public class Locacao {
         this.sala = sala;
     }
 
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
 }

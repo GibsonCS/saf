@@ -25,9 +25,9 @@
                     <th:block th:unless="${#lists.isEmpty(sala.locacoes)}">
                         <ul style="margin:0;padding-left:20px;">
                             <li th:each="locacao : ${sala.locacoes}">
-                                <span th:text="'Data: ' + ${locacao.data}"></span>,
-                                <span th:text="'Evento: ' + ${locacao.evento}"></span>,
-                                <span th:text="'Situação: ' + ${locacao.situacao}"></span>
+                                <span th:text="'Data: ' + ${locacao.data}"> </span>,
+                                <span th:text="'Evento: ' + ${locacao.evento}"></span>
+                                <span th:text="'Hora: ' + ${locacao.hora}"></span>
                             </li>
                         </ul>
                     </th:block>

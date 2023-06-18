@@ -6,6 +6,7 @@ import br.org.sistemafesu.entity.Pessoa;
 import br.org.sistemafesu.entity.Sala;
 import br.org.sistemafesu.repository.EquipamentoRepository;
 import br.org.sistemafesu.repository.LocacaoRepository;
+import br.org.sistemafesu.repository.PessoaRepository;
 import br.org.sistemafesu.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class LocacaoController {
     @Autowired
     private EquipamentoRepository equipamentoRepository;
 
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
     @RequestMapping(value = "/reservar", method = RequestMethod.POST)
     public String insertLocacao(@ModelAttribute("locacao") Locacao locacao, Long equipamentoId){
         locacaoRepository.save(locacao);
@@ -46,9 +50,10 @@ public class LocacaoController {
     }
 
     @RequestMapping(value = "/reservar", method = RequestMethod.GET)
-    public String listarSalas(Model model) {
+    public String listarItens(Model model) {
         model.addAttribute("listaSalas", salaRepository.findAll());
         model.addAttribute("listaEquipamentos", equipamentoRepository.findAll());
+        model.addAttribute("listaPessoas", pessoaRepository.findAll());
         model.addAttribute("locacao", new Locacao());
         return "alocacao";
     }
