@@ -17,7 +17,7 @@
             </select>
 
             <label for="equipamentoId">Nome Equipamento:</label>
-            <select id="equipamentoId" name="equipamentoId">
+            <select id="equipamentoId" name="equipamentoId" multiple>
                 <option th:each="equipamento : ${listaEquipamentos}" th:value="${equipamento.getId()}"
                     th:text="${equipamento.nomeEquipamento}"></option>
             </select>
