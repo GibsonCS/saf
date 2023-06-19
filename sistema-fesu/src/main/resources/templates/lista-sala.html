@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout.html}">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Salas</title>
@@ -32,10 +33,38 @@
                             </li>
                         </ul>
                     </th:block>
-                </td>
+
             </tr>
         </tbody>
     </table>
+
+    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal" data-bs-target="#modal-add">
+        <i class="bi bi-plus-lg"></i>
+    </button>
 </section>
+
+<div layout:fragment="modal-add">
+    <div class="modal-dialog modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Salas</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body py-0">
+                <form id="form-create" action="#" th:action="@{/cadastrar-sala}" th:object="${sala}" method="post">
+                    <div class="d-flex w-100">
+                        <div class="col-md-12">
+                            <label for="nome" class="col-form-label fw-semibold">Nome da sala:</label>
+                            <input id="nome" type="text" class="form-control" th:field="*{nomeSala}" value="" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>

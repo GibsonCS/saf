@@ -9,6 +9,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         * {
             padding: 0;
@@ -118,7 +119,7 @@
             width: 150px;
         }
 
-        .btn {
+        .btn:not(.def) {
             padding: 10px;
             border: none;
             border-radius: 5px;
@@ -130,7 +131,7 @@
             width: 100%;
         }
 
-        .btn:hover {
+        .btn:not(.def):hover {
             background-color: #198754;
             color: #fff;
         }
@@ -147,6 +148,15 @@
             width: 100vw;
             height: 41px;
         }
+
+        .btn#add {
+            bottom: 50px;
+            width: 32px;
+            height: 32px;
+            font-size: 20px;
+            padding: 0;
+            right: 12px;
+        }
     </style>
 </head>
 
@@ -155,7 +165,7 @@
         <div class="container">
             <nav class="nav navbar nav-underline navbar-expand-sm" aria-label="Menu principal">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img th:src="@{/images/fesu-marca.svg}" alt="Logo"></a>
+                    <a class="navbar-brand" href="/"><img height="50" th:src="@{/images/fesu-marca.svg}" alt="Logo"></a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbars-menu" aria-controls="navbars-menu" aria-expanded="false"
@@ -166,10 +176,9 @@
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
                             <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/cadastrar-pessoa">Cadastrar Pessoa</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/cadastrar-sala">Cadastrar Sala</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/cadastrar-equipamentos">Cadastrar
-                                    Equipamentos</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="/cadastrar-pessoa">Cadastrar Pessoa</a></li> -->
+                            <!-- <li class="nav-item"><a class="nav-link" href="/cadastrar-sala">Cadastrar Sala</a></li> -->
+                            <!-- <li class="nav-item"><a class="nav-link" href="/cadastrar-equipamentos">Cadastrar Equipamentos</a></li> -->
                             <li class="nav-item"><a class="nav-link" href="/salas">Salas</a></li>
                             <li class="nav-item"><a class="nav-link" href="/equipamentos">Equipamentos</a></li>
                             <li class="nav-item"><a class="nav-link" href="/pessoas">Pessoas</a></li>
@@ -185,9 +194,11 @@
         <p>O conteúdo da página vai aqui</p>
     </section>
 
-    <footer class="footer mt-auto bg-secondary bg-gradient ">
+    <footer class="footer mt-auto bg-secondary bg-gradient">
         <p class="m-0">Fesudeperj © — Todos os direitos reservados.</p>
     </footer>
+
+    <div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="modal-add-label" aria-hidden="true" layout:fragment="modal-add"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
@@ -196,6 +207,12 @@
         const page = window.location.pathname;
 
         document.querySelector(`.nav-item [href="${page}"]`).classList.add("active");
+
+        const modalAdd = document.querySelector("#modal-add");
+
+        modalAdd.addEventListener("hidden.bs.modal", () => {
+            document.querySelector("#form-create").reset();
+        });
     </script>
 </body>
 

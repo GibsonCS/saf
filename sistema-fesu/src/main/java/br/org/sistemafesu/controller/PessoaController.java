@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PessoaController {
@@ -20,11 +19,12 @@ public class PessoaController {
     @RequestMapping(value = "/cadastrar-pessoa", method = RequestMethod.POST)
     public String form(Pessoa pessoa){
         pessoaRepository.save(pessoa);
-        return "redirect:/cadastrar-pessoa";
+        return "redirect:/pessoas";
     }
     @RequestMapping("/pessoas")
     public String listar(Model model){
         model.addAttribute("listaPessoas", pessoaRepository.findAll());
+        model.addAttribute("pessoa", new Pessoa());
         return "lista-pessoa";
     }
 }

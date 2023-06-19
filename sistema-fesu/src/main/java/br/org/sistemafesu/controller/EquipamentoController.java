@@ -22,12 +22,13 @@ public class EquipamentoController {
     @RequestMapping(value = "cadastrar-equipamentos", method = RequestMethod.POST)
     public String Form(Equipamento equipamento){
         equipamentoRepository.save(equipamento);
-        return "redirect:/cadastrar-equipamentos";
+        return "redirect:/equipamentos";
     }
 
     @RequestMapping("/equipamentos")
     public String listarEquipamentos(Model model){
         model.addAttribute("listaEquipamentos", equipamentoRepository.findAll());
+        model.addAttribute("equipamento", new Equipamento());
         return "lista-equipamento";
     }
 

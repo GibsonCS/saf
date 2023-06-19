@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Fesudeperj</title>
@@ -28,5 +28,47 @@
             </tbody>
         </table>
     </div>
+
+    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal" data-bs-target="#modal-add">
+        <i class="bi bi-plus-lg"></i>
+    </button>
 </section>
+
+<div layout:fragment="modal-add">
+    <div class="modal-dialog modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Equipamento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body py-0">
+                <form id="form-create" action="#" th:action="@{/cadastrar-equipamentos}" th:object="${equipamento}" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="nome" class="col-form-label fw-semibold">Nome:</label>
+                            <input id="nome" type="text" class="form-control" th:field="*{nomeEquipamento}" value="" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="marca" class="col-form-label fw-semibold">Marca:</label>
+                            <input id="marca" type="text" class="form-control" th:field="*{marcaEquipamento}" value="" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="modelo" class="col-form-label fw-semibold">Modelo:</label>
+                            <input id="modelo" type="text" class="form-control" th:field="*{modeloEquipamento}" value="" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="tipo" class="col-form-label fw-semibold">Tipo:</label>
+                            <input id="tipo" type="text" class="form-control" th:field="*{tipoEquipamento}" value="" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary def" form="form-create">Limpar</button>
+                <button type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>

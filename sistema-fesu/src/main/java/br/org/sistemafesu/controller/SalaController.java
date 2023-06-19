@@ -1,11 +1,12 @@
 package br.org.sistemafesu.controller;
-import br.org.sistemafesu.entity.Sala;
-import br.org.sistemafesu.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import br.org.sistemafesu.entity.Sala;
+import br.org.sistemafesu.repository.SalaRepository;
 
 @Controller
 public class SalaController {
@@ -20,12 +21,13 @@ public class SalaController {
     @RequestMapping(value = "/cadastrar-sala", method = RequestMethod.POST)
     public String form(Sala sala){
         salaRepository.save(sala);
-        return "redirect:/cadastrar-sala";
+        return "redirect:/salas";
     }
 
     @RequestMapping("/salas")
     public String listarSala(Model model){
         model.addAttribute("listaSalas", salaRepository.findAll());
+        model.addAttribute("sala", new Sala());
         return "lista-sala";
     }
 
