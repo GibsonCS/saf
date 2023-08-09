@@ -3,14 +3,12 @@
     layout:decorate="~{layout.html}">
 
 <head>
-    <title>Reserva de Sala</title>
+    <title>Fesudeperj</title>
 </head>
 
 <body>
     <section class="content" layout:fragment="content">
         <form method="post" th:object="${locacao}">
-            <h2>Reserva de Sala <span th:text="${tmp}"></span></h2>
-
             <label for="sala.id">Sala:</label>
             <select th:field="*{sala.id}">
                 <option th:each="sala : ${listaSalas}" th:value="${sala.id}" th:text="${sala.nomeSala}"></option>

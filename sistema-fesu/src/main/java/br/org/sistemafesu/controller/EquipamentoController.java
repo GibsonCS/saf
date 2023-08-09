@@ -32,4 +32,10 @@ public class EquipamentoController {
         return "lista-equipamento";
     }
 
+    @Override
+    public String toString() {
+        return "EquipamentoController{" +
+                "equipamentoRepository=" + equipamentoRepository +
+                '}';
+    }
 }

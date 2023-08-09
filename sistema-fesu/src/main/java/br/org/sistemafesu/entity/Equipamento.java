@@ -64,4 +64,11 @@ public class Equipamento {
         this.tipoEquipamento = tipoEquipamento;
     }
 
+    @Override
+    public String toString() {
+        return  "Nome: " + nomeEquipamento +
+                " Modelo: " + modeloEquipamento +
+                " Marca: " + marcaEquipamento +
+                "Tipo: " + tipoEquipamento;
+    }
 }

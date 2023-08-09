@@ -4,7 +4,7 @@
     xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Salas</title>
+    <title>Fesudeperj</title>
 </head>
 <section layout:fragment="content">
     <table class="table">
@@ -26,12 +26,14 @@
                     <th:block th:unless="${#lists.isEmpty(sala.locacoes)}">
                         <ul style="margin:0;padding-left:20px;">
                             <li th:each="locacao : ${sala.locacoes}">
-                                <span th:text="'Data: ' + ${locacao.data}"> </span>,
-                                <span th:text="'Evento: ' + ${locacao.evento}"></span>
-                                <span th:text="'Hora: ' + ${locacao.hora}"></span>
+                                <span th:text="'Data: ' + ${locacao.data}"> </span> <br>
+                                <span th:text="'Evento: ' + ${locacao.evento}"></span> <br>
+                                <span th:text="'Hora: ' + ${locacao.hora}"></span> <br>
                                 <span th:text="'Equipamentos: ' + ${locacao.equipamentos}"></span>
+                                <hr>
                             </li>
                         </ul>
+
                     </th:block>
 
             </tr>
