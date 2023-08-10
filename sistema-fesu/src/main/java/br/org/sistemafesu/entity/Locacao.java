@@ -2,6 +2,7 @@ package br.org.sistemafesu.entity;
 
 import jakarta.persistence.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +15,7 @@ public class Locacao {
     private Long id;
 
     private String data;
-
+    
     private String hora;
 
     private String evento;
