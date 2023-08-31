@@ -11,14 +11,12 @@ import br.org.sistemafesu.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/reservar")
 public class LocacaoController {
 
 
@@ -34,7 +32,16 @@ public class LocacaoController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    @RequestMapping(value = "/reservar", method = RequestMethod.POST)
+    @GetMapping()
+    public String listarItens(Model model) {
+        model.addAttribute("listaSalas", salaRepository.findAll());
+        model.addAttribute("listaEquipamentos", equipamentoRepository.findAll());
+        model.addAttribute("listaPessoas", pessoaRepository.findAll());
+        model.addAttribute("locacao", new Locacao());
+        return "alocacao";
+    }
+
+    @PostMapping()
     public String insertLocacao(@ModelAttribute("locacao") Locacao locacao, Long equipamentoId){
         locacaoRepository.save(locacao);
 
@@ -47,14 +54,5 @@ public class LocacaoController {
         });
 
         return "redirect:/reservar";
-    }
-
-    @RequestMapping(value = "/reservar", method = RequestMethod.GET)
-    public String listarItens(Model model) {
-        model.addAttribute("listaSalas", salaRepository.findAll());
-        model.addAttribute("listaEquipamentos", equipamentoRepository.findAll());
-        model.addAttribute("listaPessoas", pessoaRepository.findAll());
-        model.addAttribute("locacao", new Locacao());
-        return "alocacao";
     }
 }
