@@ -1,60 +1,64 @@
 package br.org.sistemafesu.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private SecurityDatabaseService securityDatabaseService;
+
+    @Autowired
+    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(securityDatabaseService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests((requests) -> requests
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                .anyRequest().authenticated()
+                .authorizeHttpRequests(
+                        authorizeConfig -> {
+                            authorizeConfig
+                                    .requestMatchers(new AntPathRequestMatcher("/logout")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/assets/**")).permitAll()
+                                    .anyRequest().authenticated();
 
-            )
-            .formLogin((form) -> form
-                .loginPage("/login")
-                .permitAll()
-            )
-            .logout((logout) -> logout.permitAll())
-            .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
+
+                        })
+                .formLogin(form -> {
+                    form
+                            .loginPage("/login")
+                            .permitAll();
+                })
+                .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
                 .csrf(csrf -> csrf.disable());
-
-
         return http.build();
 
+
     }
+    /*@Bean
+    public UserDetailsService userDetailsService(){
+        UserDetails user = User
+                .withDefaultPasswordEncoder()
+                .username("Gibson")
+                .password("40028922")
+                .roles("USERS")
+                .build();
 
-    @Bean
-    public UserDetailsService users() {
-        // The builder will ensure the passwords are encoded before saving in memory
-        UserBuilder users = User.withDefaultPasswordEncoder();
-        UserDetails user = users
-            .username("user")
-            .password("123")
-            .roles("USER")
-            .build();
+        return new InMemoryUserDetailsManager(user);
+    }*/
 
-        UserDetails admin = users
-            .username("admin")
-            .password("123")
-            .roles("USER", "ADMIN")
-            .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
     }
-
 }

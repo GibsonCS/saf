@@ -1,11 +1,14 @@
 package br.org.sistemafesu.entity;
 
-import jakarta.persistence.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Locacao {
@@ -15,7 +18,7 @@ public class Locacao {
     private Long id;
 
     private String data;
-    
+
     private String hora;
 
     private String evento;
@@ -30,6 +33,8 @@ public class Locacao {
 
     @OneToMany(mappedBy = "locacao")
     private List<Equipamento> equipamentos;
+
+    private String descricao;
 
     public List<Equipamento> getEquipamentos() {
         return equipamentos;
@@ -87,4 +92,11 @@ public class Locacao {
         this.hora = hora;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }

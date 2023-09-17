@@ -4,7 +4,7 @@
     xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Fesudeperj</title>
+    <title>Equipamentos</title>
 </head>
 <section layout:fragment="content" >
     <div>
@@ -42,7 +42,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body py-0">
-                <form id="form-create" action="#" th:action="@{/equipamentos}" th:object="${equipamento}" method="post">
+                <form id="form-create" class="needs-validation" novalidate th:action="@{/equipamentos}" th:object="${equipamento}" method="post">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="nome" class="col-form-label fw-semibold">Nome:</label>

@@ -1,12 +1,10 @@
 package br.org.sistemafesu.controller;
 
-import br.org.sistemafesu.entity.Equipamento;
-import br.org.sistemafesu.entity.Sala;
-import br.org.sistemafesu.repository.EquipamentoRepository;
-import br.org.sistemafesu.repository.LocacaoRepository;
-import br.org.sistemafesu.repository.SalaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,7 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
     @GetMapping()
-    public String index() {
+    public String index(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) auth.getPrincipal();
+        String username = ((UserDetails) auth.getPrincipal()).getUsername();
+        String password = ((UserDetails) auth.getPrincipal()).getPassword();
+
+        //model.addAttribute("name", username);
+        model.addAttribute("name", user.getUsername() + user.getAuthorities().toString());
 
         return "index";
     }

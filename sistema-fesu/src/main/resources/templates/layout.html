@@ -1,171 +1,42 @@
 <!DOCTYPE html>
 <html class="h-100" lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Fundação Escola Superior da Defensoria Pública do Estado do Rio de Janeiro">
+    <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Fesudeperj</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        a.nav-link,
-        a.nav-link:hover,
-        a.nav-link:focus,
-        a.nav-link.active {
-            color: white !important;
-        }
-
-        a.nav-link.active {
-            font-weight: 600;
-        }
-
-        header {
-            width: 100vw;
-            height: 80px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            font-size: 17px;
-        }
-
-        .header .header-logo {}
-
-        .header .header-menu {}
-
-        .header .header-menu .nav-menu {
-            list-style: none;
-            display: flex;
-        }
-
-        .header .header-menu .nav-menu .nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 20px;
-        }
-
-        .header .header-menu .nav-menu .nav-item:hover {
-            height: 77px;
-            border-bottom: 3px solid #fff;
-        }
-
-        .header .header-menu .nav-menu .nav-item a {
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            height: calc(100vh - 122px);
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            max-width: 500px;
-        }
-
-        form h2 {
-            margin-bottom: 15px;
-        }
-
-        form label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        form input {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        form select {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        form .radios {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        form .radios label {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: center;
-            align-items: center;
-            margin-left: 10px;
-        }
-
-        form .radios label p {
-            width: 150px;
-        }
-
-        .btn:not(.def) {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #7f7f7f;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .btn:not(.def):hover {
-            background-color: #198754;
-            color: #fff;
-        }
-
-        #btn-reset:hover {
-            background-color: #ffc107;
-        }
-
-        footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 41px;
-        }
-
-        .btn#add {
-            bottom: 50px;
-            width: 32px;
-            height: 32px;
-            font-size: 20px;
-            padding: 0;
-            right: 12px;
-        }
-    </style>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/assets/favicon/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/assets/favicon/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/favicon/favicon-16x16.png}">
+    <link rel="manifest" th:href="@{/assets/favicon/site.webmanifest}">
+    <link rel="mask-icon" th:href="@{/assets/favicon/safari-pinned-tab.svg}" color="#04a583">
+    <meta name="apple-mobile-web-app-title" content="Fesudeperj">
+    <meta name="application-name" content="Fesudeperj">
+    <meta name="msapplication-TileColor" content="#04a583">
+    <meta name="theme-color" content="#04a583">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-light bg-gradient ">
-    <header class="border-0 bg-success bg-gradient shadow-lg p-3 fw-bold ">
+    <header class="border-0 bg-success bg-gradient shadow-lg p-3 fw-bold" th:if="${noHeaderFooter == null OR noHeaderFooter == false}">
         <div class="container">
             <nav class="nav navbar nav-underline navbar-expand-sm" aria-label="Menu principal">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><img height="50" th:src="@{/images/fesu-marca.svg}" alt="Logo"></a>
+                    <a class="navbar-brand p-0 d-flex align-items-center" th:href="@{/}">
+                        <img class="float-start me-2" th:src="@{/assets/images/logo-white.svg}" alt="Logo">
+                        <div class="d-flex flex-column position-relative">
+                            <h1 class="mb-0">Fesudeperj</h1>
+                            <span>Fundação Escola Superior da Defensoria</span>
+                            <span>Pública do Estado do Rio de Janeiro</span>
+                        </div>
+                    </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbars-menu" aria-controls="navbars-menu" aria-expanded="false"
@@ -174,15 +45,13 @@
                     </button>
 
                     <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+                        <ul class="navbar-nav ms-auto mb-2 mb-sm-0" sec:authorize="isAuthenticated()">
                             <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-                            <!-- <li class="nav-item"><a class="nav-link" href="/cadastrar-pessoa">Cadastrar Pessoa</a></li> -->
-                            <!-- <li class="nav-item"><a class="nav-link" href="/cadastrar-sala">Cadastrar Sala</a></li> -->
-                            <!-- <li class="nav-item"><a class="nav-link" href="/cadastrar-equipamentos">Cadastrar Equipamentos</a></li> -->
                             <li class="nav-item"><a class="nav-link" href="/salas">Salas</a></li>
                             <li class="nav-item"><a class="nav-link" href="/equipamentos">Equipamentos</a></li>
                             <li class="nav-item"><a class="nav-link" href="/pessoas">Pessoas</a></li>
                             <li class="nav-item"><a class="nav-link" href="/reservar">Reservar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">Sair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -194,7 +63,7 @@
 
     </section>
 
-    <footer class="footer mt-auto bg-secondary bg-gradient">
+    <footer class="footer mt-auto bg-secondary bg-gradient" th:if="${noHeaderFooter == null OR noHeaderFooter == false}">
         <p class="m-0">Fesudeperj © — Todos os direitos reservados.</p>
     </footer>
 
@@ -203,16 +72,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+    <script th:src="@{/assets/js/script.js}"></script>
     <script>
         const page = window.location.pathname;
 
-        document.querySelector(`.nav-item [href="${page}"]`).classList.add("active");
+        document.querySelector(`.nav-item [href="${page}"]`)?.classList.add("active");
 
         const modalAdd = document.querySelector("#modal-add");
 
         modalAdd.addEventListener("hidden.bs.modal", () => {
             document.querySelector("#form-create").reset();
         });
+
+        // adiciona um asterisco (*) ao label do input/select/textarea que tenham os atributos id/required
+        const required = () => {
+            const elements = [
+                "input[id]:required",
+                "select[id]:required",
+                "textarea[id]:required",
+            ];
+
+            document.querySelectorAll(elements.join(",")).forEach((element) => {
+                if (element.disabled || element.readOnly) return;
+
+                const label = document.querySelector(`[for="${element.id}"]`);
+
+                if (label.querySelector('span.text-danger')?.textContent === "*")
+                    return;
+
+                const span = document.createElement("span");
+
+                span.classList.add("text-danger");
+                span.textContent = "*";
+
+                label.innerHTML = `${span.outerHTML}${label.textContent}`;
+            });
+        };
+
+        required();
     </script>
 </body>
 

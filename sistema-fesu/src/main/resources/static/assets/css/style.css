@@ -1,0 +1,214 @@
+@font-face {
+  font-family: 'Fesudeperj';
+  src: url('../fonts/FesudeperjBT.woff2') format('woff2'),
+    url('../fonts/FesudeperjBT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fesudeperj';
+  src: url('../fonts/FesudeperjBT-Bold.woff2') format('woff2'),
+    url('../fonts/FesudeperjBT-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.navbar-brand {
+  font-family: 'Fesudeperj';
+}
+
+.navbar-brand,
+.navbar-brand:hover {
+  color: white;
+}
+
+.navbar-brand img {
+  height: 58px;
+}
+
+.navbar-brand div {
+  top: -3px;
+}
+
+.navbar-brand div h1 {
+  font-size: 35.5px;
+  line-height: 1.35;
+}
+
+.navbar-brand div h1::after {
+  content: '';
+  width: 0px;
+  height: 2px;
+  display: block;
+  background: white;
+  transition: width 150ms ease-in-out;
+}
+
+.navbar-brand:hover div h1::after {
+  width: 100%;
+}
+
+.navbar-brand div span {
+  font-size: 9.3px;
+  font-weight: normal;
+  margin-left: 4px;
+  opacity: .7;
+}
+
+a.nav-link,
+a.nav-link:hover,
+a.nav-link:focus,
+a.nav-link.active {
+  color: white !important;
+}
+
+a.nav-link.active {
+  font-weight: 600;
+}
+
+header {
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-size: 17px;
+}
+
+.header .header-logo {}
+
+.header .header-menu {}
+
+.header .header-menu .nav-menu {
+  list-style: none;
+  display: flex;
+}
+
+.header .header-menu .nav-menu .nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.header .header-menu .nav-menu .nav-item:hover {
+  height: 77px;
+  border-bottom: 3px solid #fff;
+}
+
+.header .header-menu .nav-menu .nav-item a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 500px;
+}
+
+form h2 {
+  margin-bottom: 15px;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form input {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+form select {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+form .radios {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+form .radios label {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+form .radios label p {
+  width: 150px;
+}
+
+.btn:not(.def) {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #7f7f7f;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.btn:not(.def):hover {
+  background-color: #198754;
+  color: #fff;
+}
+
+#btn-reset:hover {
+  background-color: #ffc107;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 41px;
+}
+
+.btn#add {
+  bottom: 50px;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  padding: 0;
+  right: 12px;
+}
+
+form.form-signin .form-floating:nth-child(1) input {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+form.form-signin .form-floating:nth-child(2) input {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
