@@ -16,8 +16,8 @@ public class IndexController {
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) auth.getPrincipal();
-        String username = ((UserDetails) auth.getPrincipal()).getUsername();
-        String password = ((UserDetails) auth.getPrincipal()).getPassword();
+        // String username = ((UserDetails) auth.getPrincipal()).getUsername();
+        // String password = ((UserDetails) auth.getPrincipal()).getPassword();
 
         //model.addAttribute("name", username);
         model.addAttribute("name", user.getUsername());
