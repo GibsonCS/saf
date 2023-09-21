@@ -20,7 +20,7 @@ public class IndexController {
         String password = ((UserDetails) auth.getPrincipal()).getPassword();
 
         //model.addAttribute("name", username);
-        model.addAttribute("name", user.getUsername() + user.getAuthorities().toString());
+        model.addAttribute("name", user.getUsername());
 
         return "index";
     }
