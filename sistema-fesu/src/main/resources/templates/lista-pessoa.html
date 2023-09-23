@@ -9,6 +9,10 @@
 
 <section layout:fragment="content">
     <div>
+        <div class="alert alert-danger" role="alert" th:if="${param.error}">
+            [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -39,15 +43,16 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Pessoas</h1>
+                <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Pessoa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body py-0">
-                <form id="form-create" class="needs-validation" novalidate th:action="@{/pessoas}" th:object="${pessoa}" method="post">
-                    <div class="row">
+                <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/pessoas}" th:object="${pessoa}" method="post">
+                    <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label for="nome" class="col-form-label fw-semibold">Nome:</label>
                             <input id="nome" type="text" class="form-control" th:field="*{nome}" value="" required>
+                            <small th:class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
                         </div>
                         <div class="col-md-6">
                             <label for="sobrenome" class="col-form-label fw-semibold">Sobrenome:</label>
@@ -56,12 +61,19 @@
                         <div class="col-md-6">
                             <label for="cpf" class="col-form-label fw-semibold">CPF:</label>
                             <input id="cpf" type="text" class="form-control" th:field="*{cpf}" value="" required>
+                            <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                <li th:class="text-danger" th:each="err : ${#fields.errors('cpf')}">
+                                    <small th:text="${err}"></small>
+                                </li>
+                            </ul>
                         </div>
                         <div class="col-md-6">
                             <label for="telefone" class="col-form-label fw-semibold">Telefone:</label>
                             <input id="telefone" type="text" class="form-control" th:field="*{telefone}" value="" required>
                         </div>
                     </div>
+
+                    <script th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
                 </form>
             </div>
             <div class="modal-footer">

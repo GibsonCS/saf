@@ -13,27 +13,29 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
-@Table(name = "tb_user")
+@Table(name = "usuarios")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
+    @Column(name = "id_usuario")
     private Integer id;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "nome", length = 50, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "login", length = 50, nullable = false)
     private String username;
 
-    @Column(length = 100, nullable = false)
+    @Column(name = "senha", length = 100, nullable = false)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "tab_user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column (name = "role_id")
+    @CollectionTable(name = "funcoes", joinColumns = @JoinColumn(name = "id_usuario"))
+    @Column (name = "id_funcao")
     private List<String> roles = new ArrayList<>();
 
     public User(){
@@ -44,43 +46,4 @@ public class User {
         this.username = login;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String login) {
-        this.username = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
 }

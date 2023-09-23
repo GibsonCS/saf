@@ -8,39 +8,43 @@
 
 <body>
     <section class="content" layout:fragment="content">
-        <form method="post" class="needs-validation" novalidate th:object="${locacao}">
-            <label class="form-label" for="sala.id">Sala:</label>
-            <select class="form-select" th:field="*{sala.id}">
-                <option th:each="sala : ${listaSalas}" th:value="${sala.id}" th:text="${sala.nomeSala}"></option>
-            </select>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate th:object="${locacao}">
+                    <label class="form-label" for="sala.id">Sala:</label>
+                    <select class="form-select" th:field="*{sala.id}">
+                        <option th:each="sala : ${listaSalas}" th:value="${sala.id}" th:text="${sala.nomeSala}"></option>
+                    </select>
 
-            <label class="form-label" for="equipamentoId">Nome Equipamento:</label>
-            <select class="form-select" id="equipamentoId" name="equipamentoId" multiple>
-                <option th:each="equipamento : ${listaEquipamentos}" th:value="${equipamento.getId()}"
-                    th:text="${equipamento.nomeEquipamento}"></option>
-            </select>
+                    <label class="form-label" for="equipamentoId">Nome Equipamento:</label>
+                    <select class="form-select" id="equipamentoId" name="equipamentoId" multiple>
+                        <option th:each="equipamento : ${listaEquipamentos}" th:value="${equipamento.getId()}"
+                            th:text="${equipamento.nomeEquipamento}"></option>
+                    </select>
 
-            <label class="form-label" for="pessoa.id">Responsável:</label>
-            <select class="form-select" th:field="*{pessoa.id}" required>
-                <option th:each="pessoa : ${listaPessoas}" th:value="${pessoa.id}" th:text="${pessoa.nome}"></option>
-            </select>
+                    <label class="form-label" for="pessoa.id">Responsável:</label>
+                    <select class="form-select" th:field="*{pessoa.id}" required>
+                        <option th:each="pessoa : ${listaPessoas}" th:value="${pessoa.id}" th:text="${pessoa.nome}"></option>
+                    </select>
 
-            <label class="form-label" for="evento">Nome do Evento:</label>
-            <input class="form-control" type="text" placeholder="Nome do Evento" id="evento" name="evento" required>
+                    <label class="form-label" for="evento">Nome do Evento:</label>
+                    <input class="form-control" type="text" placeholder="Nome do Evento" id="evento" name="evento" required>
 
-            <label class="form-label" for="descricao">Descrição:</label>
-            <input class="form-control" type="text" placeholder="Descrição" id="descricao" name="descricao" required>
-
-
-            <label class="form-label" for="data">Data do Evento:</label>
-            <input class="form-control" type="date" id="data" name="data" required>
-
-            <label class="form-label" for="hora">Hora do Evento:</label>
-            <input class="form-control" type="time" id="hora" name="hora" required>
+                    <label class="form-label" for="descricao">Descrição:</label>
+                    <input class="form-control" type="text" placeholder="Descrição" id="descricao" name="descricao" required>
 
 
-            <input type="submit" value="Reservar" class="btn" id="btn-input">
-            <input type="reset" value="Limpar" class="btn" id="btn-reset">
-        </form>
+                    <label class="form-label" for="data">Data do Evento:</label>
+                    <input class="form-control" type="date" id="data" name="data" required>
+
+                    <label class="form-label" for="hora">Hora do Evento:</label>
+                    <input class="form-control" type="time" id="hora" name="hora" required>
+
+
+                    <input type="submit" value="Reservar" class="btn" id="btn-input">
+                    <input type="reset" value="Limpar" class="btn" id="btn-reset">
+                </form>
+            </div>
+        </div>
     </section>
 </body>

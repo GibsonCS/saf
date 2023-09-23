@@ -78,11 +78,19 @@
 
         document.querySelector(`.nav-item [href="${page}"]`)?.classList.add("active");
 
-        const modalAdd = document.querySelector("#modal-add");
+        const resetForm = () => {
+            const form = document.getElementById("form-create");
 
-        modalAdd.addEventListener("hidden.bs.modal", () => {
-            document.querySelector("#form-create").reset();
-        });
+            form.querySelectorAll("input, select, textarea").forEach((e) => e.value = "");
+            form.querySelectorAll("ul.errors").forEach((e) => e.remove());
+        };
+
+        const modalAdd = document.getElementById("modal-add");
+        const resetBtn = document.querySelector("[type=reset]");
+
+        modalAdd.addEventListener("hidden.bs.modal", resetForm);
+
+        if (resetBtn) resetBtn.addEventListener("click", () => setTimeout(resetForm, 100));
 
         // adiciona um asterisco (*) ao label do input/select/textarea que tenham os atributos id/required
         const required = () => {
@@ -97,7 +105,7 @@
 
                 const label = document.querySelector(`[for="${element.id}"]`);
 
-                if (label.querySelector('span.text-danger')?.textContent === "*")
+                if (label.querySelector("span.text-danger")?.textContent === "*")
                     return;
 
                 const span = document.createElement("span");
