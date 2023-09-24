@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Usuarios</title>
+</head>
+
+<body>
+    <section layout:fragment="content" >
+
+        <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal" data-bs-target="#modal-add">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+    </section>
+
+    <div layout:fragment="modal-add">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Usuarios</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/usuarios}" th:object="${user}" method="post">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label for="name" class="col-form-label fw-semibold">Nome:</label>
+                                <input id="name" type="text" class="form-control" th:field="*{name}" value="" required>
+                                <small th:class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="username" class="col-form-label fw-semibold">Login:</label>
+                                <input id="username" type="text" class="form-control" th:field="*{username}" value="" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="senha" class="col-form-label fw-semibold">Senha:</label>
+                                <input id="senha" type="password" class="form-control" th:field="*{password}" value="" required>
+                                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                    <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
+                                        <small th:text="${err}"></small>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="roles" class="col-form-label fw-semibold">Roles:</label>
+                                <input id="roles" type="text" class="form-control" th:field="*{roles}" value="" required>
+                                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                    <li th:class="text-danger" th:each="err : ${#fields.errors('roles}">
+                                        <small th:text="${err}"></small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <script th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary def" form="form-create">Limpar</button>
+                    <button type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
