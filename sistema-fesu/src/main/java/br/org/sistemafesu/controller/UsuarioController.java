@@ -25,15 +25,16 @@ public class UsuarioController {
         model.addAttribute("listaUsuarios", userRepository.findAll());
         model.addAttribute("user", new User());
         return "usuario";
-
-
     }
 
     @PostMapping()
     public String cadastrarUsuario(User user){
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/usuarios";
     }
+
+
 
 
 
