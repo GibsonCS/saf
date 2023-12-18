@@ -22,10 +22,11 @@
     <meta name="msapplication-TileColor" content="#04a583">
     <meta name="theme-color" content="#04a583">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-light bg-gradient ">
-    <header class="border-0 bg-success bg-gradient shadow-lg p-3 fw-bold" th:if="${noHeaderFooter == null OR noHeaderFooter == false}">
+    <header class="border-0 bg-success bg-gradient shadow-lg p-3 fw-bold " th:if="${noHeaderFooter == null OR noHeaderFooter == false}">
         <div class="container">
             <nav class="nav navbar nav-underline navbar-expand-sm" aria-label="Menu principal">
                 <div class="container-fluid">
@@ -44,17 +45,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ms-auto mb-2 mb-sm-0" sec:authorize="isAuthenticated()">
-                            <li class="nav-item"><a class="nav-link" th:href="@{/}">Inicio</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/salas}">Salas</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/equipamentos}">Equipamentos</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/reservar}">Reservar</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/pessoas}">Pessoas</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/usuarios}">Usuários</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Sair</a></li>
-                        </ul>
-                    </div>
+                    <div th:replace="fragments/menu :: menu"></div>
                 </div>
             </nav>
         </div>
@@ -65,7 +56,8 @@
     </section>
 
     <footer class="footer mt-auto bg-secondary bg-gradient" th:if="${noHeaderFooter == null OR noHeaderFooter == false}">
-        <p class="m-0">Fesudeperj © — Todos os direitos reservados.</p>
+        <p class="m-0 text-white text-opacity-50">© 1997 - 2024 Fesudeperj - Todos os direitos reservados.</p>
+
     </footer>
 
     <div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="modal-add-label" aria-hidden="true" layout:fragment="modal-add"></div>
@@ -73,9 +65,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/inputmask.min.js" integrity="sha512-7MSrprC5qi3xYbOIZqbB59XEYQMILpy0tQhiHDOjX8v0+7zUJ54o5Xw2UB0GXvim3LKMPbHld9BPzV9euBjfug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script th:src="@{/assets/js/script.js}"></script>
-    <script>
-        const page = window.location.pathname;
+    <script>        const page = window.location.pathname;
 
         document.querySelector(`.nav-item [href="${page}"]`)?.classList.add("active");
 
@@ -106,6 +98,8 @@
 
                 const label = document.querySelector(`[for="${element.id}"]`);
 
+                if (!label) return;
+
                 if (label.querySelector("span.text-danger")?.textContent === "*")
                     return;
 
@@ -119,6 +113,8 @@
         };
 
         required();
+
+        Inputmask().mask(document.querySelectorAll("input[data-inputmask]"));
     </script>
 </body>
 

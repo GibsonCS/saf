@@ -21,6 +21,7 @@
                     <th scope="col">Sobrenome</th>
                     <th scope="col">CPF</th>
                     <th scope="col">Telefone</th>
+                    <th scope="col">Gerenciar</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,14 +30,75 @@
                     <td><span th:text="${pessoa.sobrenome}"></span></td>
                     <td><span th:text="${pessoa.cpf}"></span></td>
                     <td><span th:text="${pessoa.telefone}"></span></td>
+                    <td class="pessoaManager">
+                        <button style="width: 75px; height: 46px;" type="button" class="btn btn-danger btn-shadow"
+                            data-bs-toggle="modal" data-bs-target="#modal-pessoa"
+                            th:data-uid="${pessoa.id}">Editar</button>
+
+
+                        <form th:action="@{/pessoas/{id}(id=${pessoa.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar a pessoa \'[(${pessoa.nome})]\' permanentemente. Deseja realmente deletar?');">
+                            <input  class="btn btn-danger btn-shadow" type="submit" value="Deletar">
+                        </form>
+
+
+                    </td>
+                    <!-- <td th:text="${#strings.arrayJoin(pessoa.toArray(), ',')}"></td> -->
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal" data-bs-target="#modal-add">
+    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal"
+        data-bs-target="#modal-add">
         <i class="bi bi-plus-lg"></i>
     </button>
+
+    <div class="modal fade" id="modal-pessoa" tabindex="-1" aria-labelledby="modal-add-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-add-label">Atualizar Pessoa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body py-0">
+                    <form id="form-update" class="row g-3 needs-validation" novalidate th:object="${pessoa}"
+                        th:method="put">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label for="updateTel" class="col-form-label fw-semibold">Alterar telefone:</label>
+                                <input id="updateTel" type="tel" class="form-control" th:field="*{telefone}" value=""
+                                    autocomplete="off" data-inputmask="'mask': '(99) 99999-9999'"
+                                    pattern="\(\d{2}\) \d{5}-\d{4}" required>
+                                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                    <li th:class="text-danger" th:each="err : ${#fields.errors('telefone)}">
+                                        <small th:text="${err}"></small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <script
+                            th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary def" form="form-update">Limpar</button>
+                    <button type="submit" class="btn btn-primary def" form="form-update">Atualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll("button[data-uid]").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                const uid = this.dataset.uid;
+                const action = `${window.location.href}/${uid}`;
+
+                document.getElementById("form-update").setAttribute("action", action);
+            });
+        });
+    </script>
 </section>
 
 <div layout:fragment="modal-add">
@@ -47,16 +109,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body py-0">
-                <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/pessoas}" th:object="${pessoa}" method="post">
+                <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/pessoas}"
+                    th:object="${pessoa}" method="post">
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label for="nome" class="col-form-label fw-semibold">Nome:</label>
                             <input id="nome" type="text" class="form-control" th:field="*{nome}" value="" required>
-                            <small th:class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+                            <small th:class="text-danger" th:if="${#fields.hasErrors('nome')}"
+                                th:errors="*{nome}"></small>
                         </div>
                         <div class="col-md-6">
                             <label for="sobrenome" class="col-form-label fw-semibold">Sobrenome:</label>
-                            <input id="sobrenome" type="text" class="form-control" th:field="*{sobrenome}" value="" required>
+                            <input id="sobrenome" type="text" class="form-control" th:field="*{sobrenome}" value=""
+                                required>
                         </div>
                         <div class="col-md-6">
                             <label for="cpf" class="col-form-label fw-semibold">CPF:</label>
@@ -69,11 +134,14 @@
                         </div>
                         <div class="col-md-6">
                             <label for="telefone" class="col-form-label fw-semibold">Telefone:</label>
-                            <input id="telefone" type="text" class="form-control" th:field="*{telefone}" value="" required>
+                            <input id="telefone" type="tel" class="form-control" th:field="*{telefone}"
+                                autocomplete="off" data-inputmask="'mask': '(99) 99999-9999'"
+                                pattern="\(\d{2}\) \d{5}-\d{4}" required>
                         </div>
                     </div>
 
-                    <script th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
+                    <script
+                        th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
                 </form>
             </div>
             <div class="modal-footer">

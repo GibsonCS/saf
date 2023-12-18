@@ -1,8 +1,9 @@
 package br.org.sistemafesu.repository;
 
-import br.org.sistemafesu.entity.Locacao;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LocacaoRepository extends CrudRepository <Locacao, Long>{
+import br.org.sistemafesu.entity.Locacao;
+
+public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 
 }

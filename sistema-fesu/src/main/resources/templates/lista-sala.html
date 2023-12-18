@@ -8,39 +8,61 @@
 </head>
 <section layout:fragment="content">
     <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nome da Sala</th>
-                <th scope="col">Reservas</th>
+        <thead class="thead-reservas">
+            <tr class="tr">
+                <th class="th" scope="col">Nome da Sala</th>
+                <th class="th" scope="col">Reservas</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="sala : ${listaSalas}">
-                <td th:text="${sala.nomeSala}"></td>
-                <td>
+                <td class="td-reservas" th:text="${sala.nomeSala}"></td>
+                <td class="td-reservas">
                     <th:block th:if="${#lists.isEmpty(sala.locacoes)}">
                         <ul style="margin:0;padding-left:20px;">
                             <li>Não há reservas.</li>
                         </ul>
                     </th:block>
                     <th:block th:unless="${#lists.isEmpty(sala.locacoes)}">
-                        <ul style="margin:0;padding-left:20px;">
-                            <li th:each="locacao : ${sala.locacoes}">
-                                <span th:text="'Data: ' + ${locacao.data}"> </span> <br>
-                                <span th:text="'Evento: ' + ${locacao.evento}"></span> <br>
-                                <span th:text="'Hora: ' + ${locacao.hora}"></span> <br>
-                                <span th:text="'Equipamentos: ' + ${locacao.equipamentos}"></span><br>
-                                <span th:text="'Descrição: ' + ${locacao.descricao}"></span>
-                            </li>
-                        </ul>
+                        <li class="reservas" th:each="locacao : ${sala.locacoes}">
+                            <div>
+                                <p class="m-0" th:text="|Data: ${locacao.data}|"></p>
+                                <p class="m-0" th:text="|Evento: ${locacao.evento}|"></p>
+                                <p class="m-0" th:text="|Início: ${locacao.horaInicial}|"></p>
+                                <p class="m-0" th:text="|Término: ${locacao.horaFinal}|"></p>
+                                <p class="m-0" th:text="|Responsável: ${locacao.pessoa?.nome ?: 'Nenhum'}|"></p>
 
+                                <p class="m-0">
+                                    Equipamentos: <br> [
+                                    <th:block th:each="equipamento : ${locacao.equipamentos}">
+                                        <span th:text="|Nome: ${equipamento.nomeEquipamento}"></span>,
+                                        <span th:text="|Modelo: ${equipamento.modeloEquipamento}"></span>,
+                                        <span th:text="|Marca: ${equipamento.marcaEquipamento}"></span>,
+                                        <span th:text="|Tipo: ${equipamento.tipoEquipamento}"></span>
+                                    </th:block>
+                                ]
+                                    <hr>
+                                </p>
+
+                            </div>
+                            <div class="botaoDelete">
+                                <form th:action="@{/salas/{id}(id=${locacao.id})}"
+                                    th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
+                                    <input style="width: 75px;" class="btn btn-danger btn-shadow" type="submit"
+                                        value="Deletar">
+                                </form>
+                            </div>
+                        </li>
                     </th:block>
+                </td>
+
 
             </tr>
         </tbody>
     </table>
 
-    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal" data-bs-target="#modal-add">
+    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal"
+        data-bs-target="#modal-add">
         <i class="bi bi-plus-lg"></i>
     </button>
 </section>
@@ -53,7 +75,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body py-0">
-                <form id="form-create" class="needs-validation" novalidate th:action="@{/salas}" th:object="${sala}" method="post">
+                <form id="form-create" class="needs-validation" novalidate th:action="@{/salas}" th:object="${sala}"
+                    method="post">
                     <div class="d-flex w-100">
                         <div class="col-md-12">
                             <label for="nome" class="col-form-label fw-semibold">Nome da sala:</label>

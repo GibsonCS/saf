@@ -1,5 +1,10 @@
 package br.org.sistemafesu.entity;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +16,8 @@ import lombok.Data;
 
 @Data
 @Entity
+@SpringBootApplication
+@ComponentScan(basePackages = "br.org.sistemafesu")
 @Table(name = "equipamentos")
 public class Equipamento {
     @Id
@@ -23,5 +30,6 @@ public class Equipamento {
 
     @ManyToOne
     @JoinColumn(name = "id_locacao")
+    @JsonIgnoreProperties(value = "equipamentos")
     private Locacao locacao;
 }

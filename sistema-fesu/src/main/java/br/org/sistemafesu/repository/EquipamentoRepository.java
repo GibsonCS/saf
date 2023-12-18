@@ -1,8 +1,9 @@
 package br.org.sistemafesu.repository;
 
-import br.org.sistemafesu.entity.Equipamento;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EquipamentoRepository extends CrudRepository <Equipamento, Long> {
+import br.org.sistemafesu.entity.Equipamento;
+
+public interface EquipamentoRepository extends JpaRepository<Equipamento, Long> {
 
 }

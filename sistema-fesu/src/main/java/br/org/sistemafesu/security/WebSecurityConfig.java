@@ -15,18 +15,23 @@ import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 public class WebSecurityConfig {
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize -> authorize
+        http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/logout").permitAll()
                 .requestMatchers("/assets/**").permitAll()
+                .requestMatchers("/error").permitAll()
+                .requestMatchers("/usuarios/**", "/equipamentos/**").hasRole("ADMIN")
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/**", "/api/**", "/actuator**").permitAll()
                 .anyRequest().authenticated()).formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
+
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID"))
                 .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
                 .csrf(csrf -> csrf.disable());
+
 
         return http.build();
     }

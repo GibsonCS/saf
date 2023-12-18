@@ -1,6 +1,10 @@
 package br.org.sistemafesu.entity;
-
 import java.util.List;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +18,8 @@ import lombok.Data;
 
 @Data
 @Entity
+@SpringBootApplication
+@ComponentScan(basePackages = "br.org.sistemafesu")
 @Table(name = "locacoes")
 public class Locacao {
 
@@ -23,20 +29,25 @@ public class Locacao {
 
     private String data;
 
-    private String hora;
+    private String horaInicial;
+
+    private String horaFinal;
 
     private String evento;
 
+    private String descricao;
+
     @ManyToOne
     @JoinColumn(name = "id_sala")
+    @JsonIgnoreProperties(value = "locacoes")
     private Sala sala;
 
     @ManyToOne
     @JoinColumn(name = "id_pessoa")
+    @JsonIgnoreProperties(value = "locacoes")
     private Pessoa pessoa;
 
     @OneToMany(mappedBy = "locacao")
+    @JsonIgnoreProperties(value = "locacao")
     private List<Equipamento> equipamentos;
-
-    private String descricao;
 }

@@ -1,8 +1,9 @@
 package br.org.sistemafesu.repository;
 
-import br.org.sistemafesu.entity.Sala;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SalaRepository extends CrudRepository<Sala,Long> {
+import br.org.sistemafesu.entity.Sala;
+
+public interface SalaRepository extends JpaRepository<Sala, Long> {
 
 }

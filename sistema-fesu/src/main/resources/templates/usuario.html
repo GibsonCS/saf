@@ -20,16 +20,38 @@
                     <tr>
                         <th scope="col">Nome</th>
                         <th scope="col">Login</th>
-                        <th scope="col">Privilégios</th>
+                        <th scope="col">Privilégio</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr th:each="usuario : ${listaUsuarios}">
                         <td> <span th:text="${usuario.name}"></span> </td>
                         <td> <span th:text="${usuario.username}"></span></td>
-                        <td> <span th:text="${usuario.roles}"></span></td>
+                        <!-- <td> <span th:text="${usuario.roles}"></span></td> -->
+                        <td>
+                            <ul>
+                                <li th:each="funcao : ${usuario.roles}" th:text="${funcao.name}"></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <!-- <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow" data-bs-toggle="modal"
+                                data-bs-target="#modal-add2">Editar</button> -->
+                            <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow" th:attr="onclick=|openModal(${usuario.id})|">Editar</button>
+
+                        </td>
+                        <td>
+                            <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.name})]\' permanentemente. Deseja realmente deletar?');">
+                                <input style="width: 75px;" class="btn btn-danger btn-shadow" type="submit" value="Deletar">
+                            </form>
+                        </td>
+
 
                     </tr>
+
+
                 </tbody>
             </table>
         </div>
@@ -39,6 +61,147 @@
             <i class="bi bi-plus-lg"></i>
         </button>
 
+        <div class="modal fade" id="modal-add2" tabindex="-1" aria-labelledby="modal-add-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal-add-label">Atualizar Usuário</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body py-0">
+                        <form id="form-create2" class="row g-3 needs-validation" novalidate th:action="@{/usuarios}"
+                            th:object="${user}" th:method="put">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-12">
+                                    <label for="name" class="col-form-label fw-semibold">Nome:</label>
+                                    <input type="text" class="form-control" th:field="*{name}"
+                                        autocomplete="off" required>
+                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                        <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
+                                            <small th:text="${err}"></small>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="senha" class="col-form-label fw-semibold">Alterar senha:</label>
+                                    <input id="senha" type="password" class="form-control" th:field="*{password}"
+                                        autocomplete="off">
+                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                        <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
+                                            <small th:text="${err}"></small>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="privilegio" class="col-form-label fw-semibold">Privilégio:</label>
+                                    <select class="form-control" th:field="*{roles}" multiple required>
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <script
+                                th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary def" form="form-create2">Limpar</button>
+                        <button type="submit" class="btn btn-primary def" form="form-create2">Atualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let editModal = document.getElementById('modal-add2');
+            let modal;
+
+            window.onload = () => {
+                modal = new bootstrap.Modal(editModal);
+
+                document.getElementById("password").addEventListener("input", function(){
+                    const confirmarSenha = document.getElementById("confirm-password");
+                    const text = confirmarSenha.nextElementSibling.innerText;
+                    const length = this.value.length;
+
+                    if (length > 1) {
+                        this.classList.add("has-validation");
+                        confirmarSenha.classList.add("has-validation");
+                    }
+
+                    if (this.classList.contains("has-validation")) {
+                        this.classList.remove("is-valid", "is-invalid");
+
+                        if (length >= 3) {
+                            this.setCustomValidity('');
+                            this.classList.add("is-valid");
+                        } else {
+                            this.setCustomValidity(text);
+                            this.classList.add("is-invalid");
+                        }
+                    }
+                });
+
+                document.getElementById("confirm-password").addEventListener("input", function(){
+                    const senha = document.getElementById("password").value;
+                    const text = senha.nextElementSibling.innerText;
+                    const length = this.value.length;
+
+                    if (this.classList.contains("has-validation")) {
+                        this.classList.remove("is-valid", "is-invalid");
+
+                        if (this.value == senha) {
+                            this.classList.add("is-valid");
+                            this.setCustomValidity('');
+                        } else {
+                            this.classList.add("is-invalid");
+                            this.setCustomValidity(text);
+                        }
+                    }
+                });
+            };
+
+            function onCreateUser() {
+                const senha1 = document.getElementById('password');
+                const senha2 = document.getElementById('confirm-password');
+
+                if(senha1.nodeValue != senha2.nodeValue){
+                    window.alert('As senhas não conferem');
+
+                    return false;
+                }
+
+                return true;
+            };
+
+            function openModal(uid) {
+                if (modal) {
+                    fetch(`/api/usuario/${uid}`)
+                    .then((response) => response.json())
+                    .then((user) => {
+                        for (const [key, value] of Object.entries(user)) {
+                            const element = editModal.querySelector(`#${key}`);
+
+                            if (element) {
+                                if (key === "roles") {
+                                    value.forEach((role) => {
+                                        element.querySelector(`option[value="${role.id}"]`).selected = true;
+                                    });
+                                } else {
+                                    element.value = value;
+                                }
+                            }
+                        }
+
+                        modal.show();
+                    });
+                }
+            }
+        </script>
     </section>
 
     <div layout:fragment="modal-add">
@@ -50,7 +213,7 @@
                 </div>
                 <div class="modal-body py-0">
                     <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/usuarios}"
-                        th:object="${user}" method="post">
+                        th:object="${user}" method="post" onsubmit="return onCreateUser();">
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label for="name" class="col-form-label fw-semibold">Nome:</label>
@@ -64,25 +227,30 @@
                                     required>
                             </div>
                             <div class="col-md-6">
-                                <label for="senha" class="col-form-label fw-semibold">Senha:</label>
-                                <input id="senha" type="password" class="form-control" th:field="*{password}" value=""
-                                    required>
-                                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
-                                    <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
-                                        <small th:text="${err}"></small>
-                                    </li>
-                                </ul>
+                                <div class="mb-3">
+                                    <label for="password" class="col-form-label fw-semibold">Senha:</label>
+                                    <input  type="password" class="form-control" th:field="*{password}" value=""
+                                        required>
+                                    <div class="invalid-feedback">A senha deve conter 3 ou mais caracteres.</div>
+                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                        <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
+                                            <small th:text="${err}"></small>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirm-password" class="col-form-label fw-semibold">Confirmar Senha:</label>
+                                    <input id="confirm-password" name="confirm-password" type="password" class="form-control" required>
+                                    <div class="invalid-feedback">A senha e confirmação de senha não conferem.</div>
+                                </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label for="roles" class="col-form-label fw-semibold">Roles:</label>
-                                <input id="roles" type="text" class="form-control" th:field="*{roles}" value=""
-                                    required>
-                                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
-                                    <li th:class="text-danger" th:each="err : ${#fields.errors(roles)}">
-                                        <small th:text="${err}"></small>
-                                    </li>
-                                </ul>
+                                <label for="roles" class="col-form-label fw-semibold">Privilégio:</label>
+                                <select class="form-control" th:field="*{roles}" multiple required>
+                                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
 
@@ -92,7 +260,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary def" form="form-create">Limpar</button>
-                    <button type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
+                    <button id="btnCadastro"  type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
                 </div>
             </div>
         </div>

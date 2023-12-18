@@ -1,4 +1,4 @@
-package br.org.sistemafesu.controller;
+package br.org.sistemafesu.controller.web;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,19 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-public class IndexController {
+@RequestMapping("/login")
+public class WebLoginController {
 
     @GetMapping()
-    public String index(Model model) {
+    public String login(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails user = (UserDetails) auth.getPrincipal();
-        // String username = ((UserDetails) auth.getPrincipal()).getUsername();
-        // String password = ((UserDetails) auth.getPrincipal()).getPassword();
 
-        //model.addAttribute("name", username);
-        model.addAttribute("name", user.getUsername());
+        if (auth.getPrincipal() instanceof UserDetails) {
+            return "redirect:/";
+        }
 
-        return "index";
+        model.addAttribute("noHeaderFooter", true);
+
+        return "login";
     }
+
 }

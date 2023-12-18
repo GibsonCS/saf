@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,13 +20,14 @@ import lombok.Data;
 
 @Data
 @Entity
+@SpringBootApplication
+@ComponentScan(basePackages = "br.org.sistemafesu")
 @Table(name = "pessoas")
 public class Pessoa {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Length(min = 11, max = 14)
     @CPF(message = "CPF inválido.")
@@ -35,7 +39,8 @@ public class Pessoa {
 
     private String sobrenome;
 
-    @Length(min = 9, max = 9)
+    @Column(length = 15)
+    @Size(min = 14, max = 15)
     private String telefone;
 
     @OneToMany(mappedBy = "pessoa")

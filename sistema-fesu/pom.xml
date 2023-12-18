@@ -5,19 +5,26 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.3</version>
+		<version>3.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.org</groupId>
 	<artifactId>sistema-fesu</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>v1.0</version>
 	<packaging>war</packaging>
 	<name>sistema-fesu</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Sistem Administration Fesudeperj SAF</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
+	    <dependency>
+	        <groupId>org.springdoc</groupId>
+	        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

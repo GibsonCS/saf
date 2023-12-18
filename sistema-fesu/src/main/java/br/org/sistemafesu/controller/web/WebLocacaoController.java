@@ -1,4 +1,4 @@
-package br.org.sistemafesu.controller;
+package br.org.sistemafesu.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import br.org.sistemafesu.repository.SalaRepository;
 
 @Controller
 @RequestMapping("/reservar")
-public class LocacaoController {
+public class WebLocacaoController {
 
 
     @Autowired
