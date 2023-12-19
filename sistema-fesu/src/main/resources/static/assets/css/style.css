@@ -234,10 +234,21 @@
     width: 650px;
     border: 1px solid rgb(2, 128, 65);
   }
-  .reservas .botaoDelete{
-      display: flex;
-      justify-content:center;
+  .botaoDeleteSala{
+    max-width: min-content;
+
   }
+  .botaoDeleteReserva{
+    max-width: min-content;
+  }
+  .reservas {
+      display: flex;
+      justify-content:space-between;
+
+
+  }
+
+
 
   .pessoaManager{
     display: flex;

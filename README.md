@@ -1,3 +1,0 @@
-# SISTEMA ADMINISDTRATIVO  | FESUDEPERJ 
-
-Sistema de gestão administrava FESUDEPERJ

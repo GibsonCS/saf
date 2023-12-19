@@ -39,10 +39,16 @@ public class WebSalaController {
         return "redirect:/salas";
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/reserva/{id}")
     public String deletarReservaSala(@PathVariable("id") Long id) {
         locacaoService.deleteWithTreatment(id);
 
+        return "redirect:/salas";
+    }
+
+    @DeleteMapping("{id}")
+    public String deletarSaLa(@PathVariable("id") Long idSala){
+        salaService.deleteById(idSala);
         return "redirect:/salas";
     }
 }

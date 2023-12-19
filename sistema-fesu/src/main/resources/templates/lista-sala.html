@@ -12,6 +12,7 @@
             <tr class="tr">
                 <th class="th" scope="col">Nome da Sala</th>
                 <th class="th" scope="col">Reservas</th>
+                <th class="th" scope="col">Gerenciar</th>
             </tr>
         </thead>
         <tbody>
@@ -40,22 +41,29 @@
                                         <span th:text="|Marca: ${equipamento.marcaEquipamento}"></span>,
                                         <span th:text="|Tipo: ${equipamento.tipoEquipamento}"></span>
                                     </th:block>
-                                ]
+                                    ]
                                     <hr>
                                 </p>
-
                             </div>
-                            <div class="botaoDelete">
-                                <form th:action="@{/salas/{id}(id=${locacao.id})}"
-                                    th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
-                                    <input style="width: 75px;" class="btn btn-danger btn-shadow" type="submit"
-                                        value="Deletar">
+
+                            <div class="botaoDeleteReserva">
+                                <form th:action="@{/salas/reserva/{id}(id=${locacao.id})}" th:method="delete"
+                                    th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
+                                    <input class="btn btn-danger btn-shadow " type="submit" value="Deletar Reserva">
                                 </form>
                             </div>
                         </li>
                     </th:block>
                 </td>
 
+                <td>
+                    <div class="botaoDeleteSala">
+                        <form th:action="@{/salas/{id}(id=${sala.id})}" th:method="delete"
+                            th:onsubmit="return confirm('Essa operação irá deletar a sala \'[(${sala.nomeSala})]\' permanentemente. Deseja realmente deletar?');">
+                            <input class="btn btn-danger btn-shadow " type="submit" value="Deletar Sala">
+                        </form>
+                    </div>
+                </td>
 
             </tr>
         </tbody>
