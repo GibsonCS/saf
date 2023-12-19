@@ -15,7 +15,8 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Modelo</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Gerenciar</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,12 @@
                     <td><span th:text="${equipamento.marcaEquipamento}"></span></td>
                     <td><span th:text="${equipamento.modeloEquipamento}"></span></td>
                     <td><span th:text="${equipamento.tipoEquipamento}"></span></td>
+                    <td>
+                        <form th:action="@{/equipamentos/{id}(id=${equipamento.id})}" th:method="delete"
+                        th:onsubmit="return confirm('Essa operação irá deletar a sala \'[(${equipamento.nomeEquipamento})]\' permanentemente. Deseja realmente deletar?');">
+                        <input class="btn btn-danger btn-shadow botaoDelete " type="submit" value="Deletar">
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

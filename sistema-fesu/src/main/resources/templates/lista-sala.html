@@ -46,23 +46,24 @@
                                 </p>
                             </div>
 
-                            <div class="botaoDeleteReserva">
-                                <form th:action="@{/salas/reserva/{id}(id=${locacao.id})}" th:method="delete"
-                                    th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
-                                    <input class="btn btn-danger btn-shadow " type="submit" value="Deletar Reserva">
-                                </form>
-                            </div>
+
+                            <form th:action="@{/salas/reserva/{id}(id=${locacao.id})}" th:method="delete"
+                                th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
+                                <input class="btn btn-danger btn-shadow botaoDelete" type="submit"
+                                    value="Deletar Reserva">
+                            </form>
+
                         </li>
                     </th:block>
                 </td>
 
                 <td>
-                    <div class="botaoDeleteSala">
-                        <form th:action="@{/salas/{id}(id=${sala.id})}" th:method="delete"
-                            th:onsubmit="return confirm('Essa operação irá deletar a sala \'[(${sala.nomeSala})]\' permanentemente. Deseja realmente deletar?');">
-                            <input class="btn btn-danger btn-shadow " type="submit" value="Deletar Sala">
-                        </form>
-                    </div>
+
+                    <form th:action="@{/salas/{id}(id=${sala.id})}" th:method="delete"
+                        th:onsubmit="return confirm('Essa operação irá deletar a sala \'[(${sala.nomeSala})]\' permanentemente. Deseja realmente deletar?');">
+                        <input class="btn btn-danger btn-shadow botaoDelete" type="submit" value="Deletar Sala">
+                    </form>
+
                 </td>
 
             </tr>
