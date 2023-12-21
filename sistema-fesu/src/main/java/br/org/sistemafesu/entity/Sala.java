@@ -2,6 +2,7 @@ package br.org.sistemafesu.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -29,6 +30,7 @@ public class Sala {
     private String nomeSala;
 
     @OneToMany(mappedBy = "sala")
+    @SQLRestriction(value = "is_deleted = false")
     @JsonIgnoreProperties(value = "sala")
     private List<Locacao> locacoes;
 }

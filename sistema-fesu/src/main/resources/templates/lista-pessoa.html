@@ -31,18 +31,17 @@
                     <td><span th:text="${pessoa.cpf}"></span></td>
                     <td><span th:text="${pessoa.telefone}"></span></td>
                     <td class="pessoaManager">
-                        <button style="width: 75px; height: 46px;" type="button" class="btn btn-danger btn-shadow"
+                        <button style="width: 75px; height: 46px;" type="button" class="btn btn-success btn-shadow"
                             data-bs-toggle="modal" data-bs-target="#modal-pessoa"
                             th:data-uid="${pessoa.id}">Editar</button>
 
 
                         <form th:action="@{/pessoas/{id}(id=${pessoa.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar a pessoa \'[(${pessoa.nome})]\' permanentemente. Deseja realmente deletar?');">
-                            <input  class="btn btn-danger btn-shadow" type="submit" value="Deletar">
+                            <input  class=" def btn btn-danger btn-shadow" sec:authorize="hasRole('ADMIN')" type="submit" value="Deletar">
                         </form>
 
 
                     </td>
-                    <!-- <td th:text="${#strings.arrayJoin(pessoa.toArray(), ',')}"></td> -->
                 </tr>
             </tbody>
         </table>

@@ -1,11 +1,15 @@
 package br.org.sistemafesu.entity;
+import java.sql.Date;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,11 +31,16 @@ public class Locacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String data;
+    private Date data;
 
-    private String horaInicial;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime horaInicial;
 
-    private String horaFinal;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime horaFinal;
+
+    @Column(name = "is_deleted", columnDefinition = "BIT", nullable = false)
+    private boolean isDeleted = false;
 
     private String evento;
 
@@ -50,4 +59,9 @@ public class Locacao {
     @OneToMany(mappedBy = "locacao")
     @JsonIgnoreProperties(value = "locacao")
     private List<Equipamento> equipamentos;
+
+
+
+
+
 }

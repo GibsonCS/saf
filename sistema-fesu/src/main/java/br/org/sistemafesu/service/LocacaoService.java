@@ -2,7 +2,6 @@ package br.org.sistemafesu.service;
 
 import org.springframework.stereotype.Service;
 
-import br.org.sistemafesu.entity.Equipamento;
 import br.org.sistemafesu.entity.Locacao;
 import br.org.sistemafesu.repository.EquipamentoRepository;
 import br.org.sistemafesu.repository.LocacaoRepository;
@@ -30,16 +29,19 @@ public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> 
         Locacao locacao = repository.findById(id).orElse(null);
 
         if (locacao != null) {
-            // locacao.getEquipamentos().forEach(equip -> equip.setLocacao(null));
+            locacao.getEquipamentos().forEach(equip -> equip.setLocacao(null));
 
-            // equipamentoRepository.saveAll(locacao.getEquipamentos());
+            equipamentoRepository.saveAll(locacao.getEquipamentos());
 
-            for (Equipamento equipamento : locacao.getEquipamentos()) {
-                equipamento.setLocacao(null);
-                equipamentoRepository.save(equipamento); // Atualize o equipamento para refletir a remoção da referência
-                                                         // à locação
-            }
-            repository.deleteById(id);
+            // for (Equipamento equipamento : locacao.getEquipamentos()) {
+            //     equipamento.setLocacao(null);
+            //     equipamentoRepository.save(equipamento); // Atualize o equipamento para refletir a remoção da referência
+            //                                              // à locação
+            // }
+
+            locacao.setDeleted(true);
+
+            repository.save(locacao);
         }
     }
 }

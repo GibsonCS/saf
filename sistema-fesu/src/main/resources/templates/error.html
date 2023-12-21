@@ -3,19 +3,33 @@
     xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
     xmlns:layout="http://www.w3.org/1999/xhtml">
 
-<head>
-    <title>Login</title>
-</head>
-
 <body>
-
-<section class="flex-fill" layout:fragment="content">
-    <div class="container" style="max-width: 250px; margin: auto; margin-top: 150px;">
-        <p>[[${error}]]</p>
-        <small>[[${detail}]]</small>
-    </div>
-</section>
-
+    <section class="flex-fill" layout:fragment="content">
+        <table class="table table-striped table-danger m-0">
+            <tr>
+                <th>Error Message</th>
+                <td th:text="${message}"></td>
+            </tr>
+            <tr>
+                <th>Status Code</th>
+                <td th:text="${status}"></td>
+            </tr>
+            <tr>
+                <th>Exception</th>
+                <td th:text="${exception}"></td>
+            </tr>
+            <tr>
+                <th>Stacktrace</th>
+                <td>
+                    <pre th:text="${trace}"></pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Binding Errors</th>
+                <td th:text="${errors}"></td>
+            </tr>
+        </table>
+    </section>
 </body>
 
 </html>

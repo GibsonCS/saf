@@ -20,6 +20,10 @@
     box-sizing: border-box;
 }
 
+.shadow-sm {
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px!important;
+}
+
 .navbar-brand {
     font-family: 'Fesudeperj';
 }
@@ -59,7 +63,6 @@
     font-size: 9.3px;
     font-weight: normal;
     margin-left: 4px;
-    opacity: .7;
 }
 
 a.nav-link,
@@ -74,7 +77,7 @@ a.nav-link.active {
 }
 
 header {
-    width: 100vw;
+    /* width: 100vw; */
     height: 80px;
     display: flex;
     flex-direction: row;
@@ -163,23 +166,6 @@ form .radios label p {
     width: 150px;
 }
 
-.btn:not(.def) {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #7f7f7f;
-    color: #fff;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    width: 100%;
-}
-
-.btn:not(.def):hover {
-    background-color: #198754;
-    color: #fff;
-}
-
 #btn-reset:hover {
     background-color: #ffc107;
 }
@@ -225,14 +211,22 @@ form.form-signin .form-floating:nth-child(2) input {
 
 .reservas {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-right: 20px;
+    align-items: center;
+    border: 1px solid;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 7px -1px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: 0px 0px 7px -1px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 7px -1px rgba(0, 0, 0, 1);
+    width: 500px;
+    font-style: oblique;
+
+
 }
 
 .reservas hr {
-    width: 650px;
-    border: 1px solid rgb(2, 128, 65);
+    border: 1px solid rgb(2, 82, 42);
 }
 
 .botaoDelete {
@@ -246,11 +240,7 @@ form.form-signin .form-floating:nth-child(2) input {
 
 }
 
-
-
 .pessoaManager {
     display: flex;
     justify-content: space-around;
 }
-
-.thead-reservas .tr .th {}

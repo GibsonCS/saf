@@ -45,10 +45,10 @@
                     <input class="form-control" type="date" id="data" name="data" required>
 
                     <label class="form-label" for="horaInicial">Início:</label>
-                    <input class="form-control" type="time" id="horaInicial" name="horaInicial" required>
+                    <input class="form-control" type="time" th:field="${locacao.horaInicial}" required>
 
                     <label class="form-label" for="horaFinal">Término:</label>
-                    <input class="form-control" type="time" id="horaFinal" name="horaFinal" required>
+                    <input class="form-control" type="time" th:field="${locacao.horaFinal}" required>
 
 
                     <input type="submit" value="Reservar" class="btn" id="btn-input">
