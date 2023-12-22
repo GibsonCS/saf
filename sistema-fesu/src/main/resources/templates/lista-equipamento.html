@@ -15,8 +15,10 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Modelo</th>
+                    <th scope="col">Número de Série</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Gerenciar</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +26,7 @@
                     <td> <span th:text="${equipamento.nomeEquipamento}"></span></td>
                     <td><span th:text="${equipamento.marcaEquipamento}"></span></td>
                     <td><span th:text="${equipamento.modeloEquipamento}"></span></td>
+                    <td></td>
                     <td><span th:text="${equipamento.tipoEquipamento}"></span></td>
                     <td>
                         <form th:action="@{/equipamentos/{id}(id=${equipamento.id})}" th:method="delete"

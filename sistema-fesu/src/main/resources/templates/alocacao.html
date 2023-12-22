@@ -8,12 +8,12 @@
 
 <body>
     <div id="editor"></div>
-    <section class="content" layout:fragment="content">
+    <section class="container-sm " layout:fragment="content">
 
         <div id="editor"></div>
 
-        <div class="card">
-            <div class="card-body">
+        <div class="card flex-row align-items-center margin">
+            <div class="card-body ">
                 <form method="post" class="needs-validation" novalidate th:object="${locacao}">
                     <label class="form-label" for="sala.id">Sala:</label>
                     <select class="form-select" th:field="*{sala.id}">
@@ -51,8 +51,8 @@
                     <input class="form-control" type="time" th:field="${locacao.horaFinal}" required>
 
 
-                    <input type="submit" value="Reservar" class="btn" id="btn-input">
-                    <input type="reset" value="Limpar" class="btn" id="btn-reset">
+                    <input type="submit" value="Reservar" class="btn btn-success bg-gradient" id="btn-input">
+                    <input type="reset" value="Limpar" class="btn bg-warning bg-gradient" id="btn-reset">
                 </form>
             </div>
         </div>

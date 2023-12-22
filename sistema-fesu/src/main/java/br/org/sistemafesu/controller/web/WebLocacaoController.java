@@ -43,16 +43,16 @@ public class WebLocacaoController {
 
     @PostMapping()
     public String insertLocacao(@ModelAttribute("locacao") Locacao locacao, @RequestParam(required = false) Long equipamentoId) {
-        locacaoRepository.save(locacao);
 
         if (equipamentoId != null) {
             equipamentoRepository
-                    .findById(equipamentoId)
-                    .ifPresent(equipamento -> {
-                        equipamento.setLocacao(locacao);
+            .findById(equipamentoId)
+            .ifPresent(equipamento -> {
+                equipamento.setLocacao(locacao);
 
-                        equipamentoRepository.save(equipamento);
-                    });
+                equipamentoRepository.save(equipamento);
+                locacaoRepository.save(locacao);
+            });
         }
         return "redirect:/salas";
     }
