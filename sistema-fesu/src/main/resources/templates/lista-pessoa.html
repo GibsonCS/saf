@@ -58,7 +58,7 @@
                     <h1 class="modal-title fs-5" id="modal-add-label">Atualizar Pessoa</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
-                <div class="modal-body py-0">
+                <div class="modal-body py-0 pb-3">
                     <form id="form-update" class="row g-3 needs-validation" novalidate th:object="${pessoa}"
                         th:method="put">
                         <div class="row g-3 mb-3">
@@ -106,7 +106,7 @@
                 <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Pessoa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div class="modal-body py-0">
+            <div class="modal-body py-0 pb-3">
                 <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/pessoas}"
                     th:object="${pessoa}" method="post">
                     <div class="row g-3 mb-3">
