@@ -1,8 +1,11 @@
 package br.org.sistemafesu.entity;
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -60,8 +63,9 @@ public class Locacao {
     @JsonIgnoreProperties(value = "locacao")
     private List<Equipamento> equipamentos;
 
+    @CreationTimestamp
+    private Instant createdAt;
 
-
-
-
+    @UpdateTimestamp
+    private Instant updatedAt;
 }

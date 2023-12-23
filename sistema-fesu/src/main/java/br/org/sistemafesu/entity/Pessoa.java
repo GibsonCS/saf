@@ -1,7 +1,10 @@
 package br.org.sistemafesu.entity;
 
+import java.time.Instant;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,4 +48,10 @@ public class Pessoa {
 
     @OneToMany(mappedBy = "pessoa")
     private List<Locacao> locacoes;
+
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 }

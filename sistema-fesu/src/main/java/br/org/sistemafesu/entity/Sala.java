@@ -1,8 +1,11 @@
 package br.org.sistemafesu.entity;
 
+import java.time.Instant;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -33,4 +36,10 @@ public class Sala {
     @SQLRestriction(value = "is_deleted = false")
     @JsonIgnoreProperties(value = "sala")
     private List<Locacao> locacoes;
+
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 }

@@ -1,8 +1,11 @@
 package br.org.sistemafesu.entity;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -41,10 +44,6 @@ public class User {
     @Column(name = "senha", length = 100, nullable = false)
     private String password;
 
-    // @ElementCollection(fetch = FetchType.EAGER)
-    // @CollectionTable(name = "funcoes", joinColumns = @JoinColumn(name = "id_usuario"))
-    // @Column(name = "id_funcao", unique = true)
-    // private List<String> roles = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "funcoes_usuarios",
@@ -52,7 +51,6 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "id_funcao")
     )
     private Set<Role> roles = new HashSet<>();
-    // private List<Role> roles = new ArrayList<>();
 
     public User() {
 
@@ -62,4 +60,9 @@ public class User {
         this.username = login;
     }
 
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 }

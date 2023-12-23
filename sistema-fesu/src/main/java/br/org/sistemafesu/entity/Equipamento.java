@@ -1,5 +1,9 @@
 package br.org.sistemafesu.entity;
 
+import java.time.Instant;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -32,4 +36,10 @@ public class Equipamento {
     @JoinColumn(name = "id_locacao")
     @JsonIgnoreProperties(value = "equipamentos")
     private Locacao locacao;
+
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 }
