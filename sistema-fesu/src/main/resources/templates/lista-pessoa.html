@@ -13,15 +13,14 @@
             [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
         </div>
 
-        <table class="table">
+        <table class="table table-light table-striped table-responsive">
             <thead>
                 <tr>
-
-                    <th scope="col">Nome</th>
-                    <th scope="col">Sobrenome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Gerenciar</th>
+                    <th class="th fw-semibold" scope="col">Nome</th>
+                    <th class="th fw-semibold" scope="col">Sobrenome</th>
+                    <th class="th fw-semibold" scope="col">CPF</th>
+                    <th class="th fw-semibold" scope="col">Telefone</th>
+                    <th class="th fw-semibold" scope="col">Gerenciar</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +36,7 @@
 
 
                         <form th:action="@{/pessoas/{id}(id=${pessoa.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar a pessoa \'[(${pessoa.nome})]\' permanentemente. Deseja realmente deletar?');">
-                            <input  class=" def btn btn-danger btn-shadow" sec:authorize="hasRole('ADMIN')" type="submit" value="Deletar">
+                            <input  class="btn btn-danger shadow-sm" sec:authorize="hasRole('ADMIN')" type="submit" value="Deletar">
                         </form>
 
 

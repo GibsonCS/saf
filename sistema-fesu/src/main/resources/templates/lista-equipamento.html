@@ -8,17 +8,15 @@
 </head>
 <section layout:fragment="content" >
     <div>
-        <table class="table">
+        <table class="table table-light table-striped table-responsive">
             <thead>
                 <tr>
-
-                    <th scope="col">Nome</th>
-                    <th scope="col">Marca</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Número de Série</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Gerenciar</th>
-
+                    <th class="th fw-semibold" scope="col">Nome</th>
+                    <th class="th fw-semibold" scope="col">Marca</th>
+                    <th class="th fw-semibold" scope="col">Modelo</th>
+                    <th class="th fw-semibold" scope="col">Número de Série</th>
+                    <th class="th fw-semibold" scope="col">Categoria</th>
+                    <th class="th fw-semibold" scope="col">Gerenciar</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +29,7 @@
                     <td>
                         <form th:action="@{/equipamentos/{id}(id=${equipamento.id})}" th:method="delete"
                         th:onsubmit="return confirm('Essa operação irá deletar o equipamento \'[(|${equipamento.nomeEquipamento} Modelo: ${equipamento.modeloEquipamento})]\' permanentemente. Deseja realmente deletar?');">
-                        <input class="  btn btn-danger btn-shadow botaoDelete " type="submit" value="Deletar">
+                        <input class="btn btn-danger shadow-sm botaoDelete " type="submit" value="Deletar">
                         </form>
                     </td>
                 </tr>

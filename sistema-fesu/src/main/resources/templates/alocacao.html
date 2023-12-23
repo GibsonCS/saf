@@ -8,53 +8,73 @@
 
 <body>
     <div id="editor"></div>
-    <section class="container-sm " layout:fragment="content">
+    <section class="container-sm my-4" layout:fragment="content">
 
         <div id="editor"></div>
 
-        <div class="card flex-row align-items-center margin">
-            <div class="card-body ">
-                <form method="post" class="needs-validation" novalidate th:object="${locacao}">
-                    <label class="form-label" for="sala.id">Sala:</label>
-                    <select class="form-select" th:field="*{sala.id}">
-                        <option th:each="sala : ${listaSalas}" th:value="${sala.id}" th:text="${sala.nomeSala}">
-                        </option>
-                    </select>
+        <div class="card shadow-sm border-0 p-3">
+            <h4 class="mb-3">Reservar Sala</h4>
+            <form th:method="post" class="needs-validation" novalidate th:object="${locacao}">
+                <div class="row g-3 mx-0">
+                    <div class="col-md-12">
+                        <label class="form-label" for="sala.id">Sala</label>
+                        <select class="form-select" th:field="*{sala.id}">
+                            <option th:each="sala : ${listaSalas}" th:value="${sala.id}" th:text="${sala.nomeSala}">
+                            </option>
+                        </select>
+                    </div>
 
-                    <label class="form-label" for="equipamentoId">Nome Equipamento:</label>
-                    <select class="form-select" id="equipamentoId" name="equipamentoId" multiple>
-                        <option th:each="equipamento : ${listaEquipamentos}" th:value="${equipamento.getId()}"
-                            th:text="|${equipamento.nomeEquipamento} - ${equipamento.modeloEquipamento}"></option>
-                    </select>
+                    <div class="col-md-12">
+                        <label class="form-label" for="equipamentoId">Nome Equipamento</label>
+                        <select class="form-select" id="equipamentoId" name="equipamentoId" multiple>
+                            <option th:each="equipamento : ${listaEquipamentos}" th:value="${equipamento.getId()}"
+                                th:text="|${equipamento.nomeEquipamento} - ${equipamento.modeloEquipamento}"></option>
+                        </select>
+                    </div>
 
-                    <label class="form-label" for="pessoa.id">Responsável:</label>
-                    <select class="form-select" th:field="*{pessoa.id}" required>
-                        <option th:each="pessoa : ${listaPessoas}" th:value="${pessoa.id}" th:text="${pessoa.nome}">
-                        </option>
-                    </select>
+                    <div class="col-md-12">
+                        <label class="form-label" for="pessoa.id">Responsável</label>
+                        <select class="form-select" th:field="*{pessoa.id}" required>
+                            <option th:each="pessoa : ${listaPessoas}" th:value="${pessoa.id}" th:text="${pessoa.nome}">
+                            </option>
+                        </select>
+                    </div>
 
-                    <label class="form-label" for="evento">Nome do Evento:</label>
-                    <input class="form-control" type="text" placeholder="Nome do Evento" id="evento" name="evento"
+                    <div class="col-md-12">
+                        <label class="form-label" for="evento">Nome do Evento</label>
+                        <input class="form-control" type="text" placeholder="Nome do Evento" th:field="${locacao.evento}"
                         required>
+                    </div>
 
-                    <label class="form-label" for="descricao">Descrição:</label>
-                    <textarea  id="descricao" name="descricao" cols="30" rows="10" required
-                        placeholder="descricao"></textarea>
+                    <div class="col-md-12">
+                        <label class="form-label" for="descricao">Descrição</label>
+                        <textarea class="form-control" th:field="${locacao.descricao}" required
+                            placeholder="descricao"></textarea>
+                    </div>
 
-                    <label class="form-label" for="data">Data do Evento:</label>
-                    <input class="form-control" type="date" id="data" name="data" required>
+                    <div class="col-md-12">
+                        <label class="form-label" for="data">Data do Evento</label>
+                        <input class="form-control" type="date" th:field="${locacao.data}" required>
+                    </div>
 
-                    <label class="form-label" for="horaInicial">Início:</label>
-                    <input class="form-control" type="time" th:field="${locacao.horaInicial}" required>
+                    <div class="col-md-12">
+                        <label class="form-label" for="horaInicial">Início</label>
+                        <input class="form-control" type="time" th:field="${locacao.horaInicial}" required>
+                    </div>
 
-                    <label class="form-label" for="horaFinal">Término:</label>
-                    <input class="form-control" type="time" th:field="${locacao.horaFinal}" required>
+                    <div class="col-md-12">
+                        <label class="form-label" for="horaFinal">Término</label>
+                        <input class="form-control" type="time" th:field="${locacao.horaFinal}" required>
+                    </div>
+                </div>
 
+                <hr class="mt-4">
 
+                <div class="d-grid gap-2 d-sm-flex">
                     <input type="submit" value="Reservar" class="btn btn-success bg-gradient" id="btn-input">
                     <input type="reset" value="Limpar" class="btn bg-warning bg-gradient" id="btn-reset">
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </section>
 

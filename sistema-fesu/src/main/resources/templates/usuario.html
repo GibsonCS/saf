@@ -15,14 +15,14 @@
                 [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
             </div>
 
-            <table class="table">
+            <table class="table table-light table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Login</th>
-                        <th scope="col">Privilégio</th>
-                        <th scope="col">Editar</th>
-                        <th scope="col">Deletar</th>
+                        <th class="th fw-semibold" scope="col">Nome</th>
+                        <th class="th fw-semibold" scope="col">Login</th>
+                        <th class="th fw-semibold" scope="col">Privilégio</th>
+                        <th class="th fw-semibold" scope="col">Editar</th>
+                        <th class="th fw-semibold" scope="col">Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.name})]\' permanentemente. Deseja realmente deletar?');">
-                                <input style="width: 75px;" class="btn btn-danger btn-shadow" type="submit" value="Deletar">
+                                <input style="width: 75px;" class="btn btn-danger shadow-sm" type="submit" value="Deletar">
                             </form>
                         </td>
 
