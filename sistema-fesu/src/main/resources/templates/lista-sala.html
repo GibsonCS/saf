@@ -17,10 +17,10 @@
         </thead>
         <tbody>
             <tr th:each="sala : ${listaSalas}">
-                <td class="td-reservas fw-semibold" th:text="${sala.nomeSala}"></td>
-                <td class="td-reservas">
+                <td class="td-reservas fw-semibold pt-3" th:text="${sala.nomeSala}"></td>
+                <td class="td-reservas align-middle">
                     <th:block th:if="${#lists.isEmpty(sala.locacoes)}">
-                        <ul>
+                        <ul class="m-0">
                             <li>Não há reservas.</li>
                         </ul>
                     </th:block>
@@ -37,7 +37,7 @@
                                         <p class="m-0" th:text="|Término: ${locacao.horaFinal}|"></p>
                                         <p class="m-0" th:text="|Responsável: ${locacao.pessoa?.nome ?: 'Nenhum'}|"></p>
 
-                                        <p class="m-0">
+                                        <p class="m-0" th:if="${!#lists.isEmpty(locacao.equipamentos)}">
                                             Equipamentos: <br>
                                             <th:block th:each="equipamento : ${locacao.equipamentos}">
                                                 <span th:text="|Nome: ${equipamento.nomeEquipamento}"></span>.<br>
