@@ -65,6 +65,14 @@
     margin-left: 4px;
 }
 
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.nav-item.dropdown .nav-link:hover {
+    border-bottom: none;
+}
+
 a.nav-link,
 a.nav-link:hover,
 a.nav-link:focus,
@@ -86,10 +94,6 @@ header {
     padding: 20px;
     font-size: 17px;
 }
-
-.header .header-logo {}
-
-.header .header-menu {}
 
 .header .header-menu .nav-menu {
     list-style: none;
@@ -145,10 +149,6 @@ form .radios label {
 
 form .radios label p {
     width: 150px;
-}
-
-#btn-reset:hover {
-    background-color: #ffc107;
 }
 
 footer {
