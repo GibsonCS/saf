@@ -29,6 +29,7 @@ public class Equipamento {
     private Long id;
     private String nomeEquipamento;
     private String modeloEquipamento;
+    private String numeroSerie;
     private String marcaEquipamento;
     private String tipoEquipamento;
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+</head>
+
+<body>
+
+    <section class="content" layout:fragment="content">
+
+        <table class="table table-light table-striped table-responsive">
+            <thead>
+              <tr>
+                <th class="th fw-semibold" scope="col">Evento</th>
+                <th class="th fw-semibold" scope="col">Sala</th>
+                <th class="th fw-semibold" scope="col">Data</th>
+                <th class="th fw-semibold" scope="col">Hora Inicial</th>
+                <th class="th fw-semibold" scope="col">Hora Final</th>
+                <th class="th fw-semibold" scope="col">Responsável</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="locacao : ${locacoes}">
+                <td scope="row"><span th:text="${locacao.evento}"></span></td>
+                <td scope="row"><span th:text="${locacao.sala.nomeSala}"></span></td>
+                <td scope="row"><span th:text="|Data: ${#dates.format(locacao.data, 'dd/MM/yyyy')}"></span></td>
+                <td scope="row"><span th:text="${locacao.horaInicial}"></span></td>
+                <td scope="row"><span th:text="${locacao.horaFinal}"></span></td>
+                <td scope="row"><span th:text="${locacao.pessoa?.nome ?: 'Nenhum'}"></span></td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+
+    </section>
+
+</body>
+
+</html>

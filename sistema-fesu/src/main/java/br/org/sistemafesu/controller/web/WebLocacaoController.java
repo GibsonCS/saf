@@ -38,11 +38,13 @@ public class WebLocacaoController {
         model.addAttribute("listaEquipamentos", equipamentoRepository.findAllByLocacaoIsNull());
         model.addAttribute("listaPessoas", pessoaRepository.findAll());
         model.addAttribute("locacao", new Locacao());
+
         return "alocacao";
     }
 
     @PostMapping()
     public String insertLocacao(@ModelAttribute("locacao") Locacao locacao, @RequestParam(required = false) Long equipamentoId) {
+        locacaoRepository.save(locacao);
 
         if (equipamentoId != null) {
             equipamentoRepository
@@ -51,9 +53,9 @@ public class WebLocacaoController {
                 equipamento.setLocacao(locacao);
 
                 equipamentoRepository.save(equipamento);
-                locacaoRepository.save(locacao);
             });
         }
+
         return "redirect:/salas";
     }
 }

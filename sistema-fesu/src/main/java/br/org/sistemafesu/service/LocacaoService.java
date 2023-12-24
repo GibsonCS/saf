@@ -10,7 +10,8 @@ import br.org.sistemafesu.repository.LocacaoRepository;
 public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> {
     private final EquipamentoRepository equipamentoRepository;
 
-    public LocacaoService(Locacao locacao, LocacaoRepository locacaoRepository, EquipamentoRepository equipamentoRepository) {
+    public LocacaoService(Locacao locacao, LocacaoRepository locacaoRepository,
+            EquipamentoRepository equipamentoRepository) {
         super(locacao, locacaoRepository);
 
         this.equipamentoRepository = equipamentoRepository;
@@ -33,15 +34,13 @@ public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> 
 
             equipamentoRepository.saveAll(locacao.getEquipamentos());
 
-            // for (Equipamento equipamento : locacao.getEquipamentos()) {
-            //     equipamento.setLocacao(null);
-            //     equipamentoRepository.save(equipamento); // Atualize o equipamento para refletir a remoção da referência
-            //                                              // à locação
-            // }
-
             locacao.setDeleted(true);
 
             repository.save(locacao);
         }
+    }
+
+    public Iterable<Locacao> findAllLocacaoDeleted() {
+        return repository.findAllByIsDeletedTrue();
     }
 }
