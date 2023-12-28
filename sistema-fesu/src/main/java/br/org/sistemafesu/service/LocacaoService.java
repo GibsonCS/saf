@@ -31,6 +31,7 @@ public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> 
 
         if (locacao != null) {
             locacao.getEquipamentos().forEach(equip -> equip.setLocacao(null));
+            locacao.getEquipamentos().forEach(equip -> equip.setLocated(false));
 
             equipamentoRepository.saveAll(locacao.getEquipamentos());
 

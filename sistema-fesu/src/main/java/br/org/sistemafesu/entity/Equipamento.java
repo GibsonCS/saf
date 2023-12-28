@@ -32,6 +32,7 @@ public class Equipamento {
     private String numeroSerie;
     private String marcaEquipamento;
     private String tipoEquipamento;
+    private boolean isLocated = false;
 
     @ManyToOne
     @JoinColumn(name = "id_locacao")

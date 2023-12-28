@@ -50,6 +50,7 @@ public class WebLocacaoController {
             equipamentoRepository
             .findById(equipamentoId)
             .ifPresent(equipamento -> {
+                equipamento.setLocated(true);
                 equipamento.setLocacao(locacao);
 
                 equipamentoRepository.save(equipamento);
