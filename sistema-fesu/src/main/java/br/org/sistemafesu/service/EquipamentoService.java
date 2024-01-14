@@ -7,19 +7,20 @@ import br.org.sistemafesu.entity.Locacao;
 import br.org.sistemafesu.repository.EquipamentoRepository;
 import br.org.sistemafesu.repository.LocacaoRepository;
 import jakarta.transaction.Transactional;
+import lombok.NonNull;
 
 @Service
 public class EquipamentoService extends AbstractService<Equipamento, EquipamentoRepository> {
     private final LocacaoRepository locacaoRepository;
 
-    public EquipamentoService(Equipamento equipamento, EquipamentoRepository equipamentoRepository, LocacaoRepository locacaoRepository) {
-        super(equipamento, equipamentoRepository);
+    public EquipamentoService(EquipamentoRepository equipamentoRepository, LocacaoRepository locacaoRepository) {
+        super(equipamentoRepository);
 
         this.locacaoRepository = locacaoRepository;
     }
 
     @Override
-    public Equipamento update(Long id, Equipamento model) {
+    public Equipamento update(@NonNull Long id, @NonNull Equipamento model) {
         if (model.getId() == null || !repository.existsById(id)) {
             throw new IllegalArgumentException("Sala não encontrada!");
         }
@@ -28,7 +29,7 @@ public class EquipamentoService extends AbstractService<Equipamento, Equipamento
     }
 
     @Transactional
-    public void deleteLocacao(Long id) {
+    public void deleteLocacao(@NonNull Long id) {
         Locacao locacao = locacaoRepository.findById(id).orElse(null);
 
         if (locacao != null) {

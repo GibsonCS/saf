@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import br.org.sistemafesu.entity.Pessoa;
 import br.org.sistemafesu.service.PessoaService;
@@ -17,11 +18,6 @@ import br.org.sistemafesu.service.PessoaService;
 @RequestMapping("/pessoas")
 
 public class WebPessoaController {
-    // private final PessoaService pessoaService;
-
-    // public WebPessoaController(PessoaService pessoaService) {
-    //     this.pessoaService = pessoaService;
-    // }
 
     @Autowired
     PessoaService pessoaService;
@@ -42,17 +38,16 @@ public class WebPessoaController {
     }
 
     @DeleteMapping("{id}")
-    public String deletarPessoa(@PathVariable("id") Long id){
+    public RedirectView deletarPessoa(@PathVariable("id") Long id) {
         pessoaService.deleteWithTreatment(id);
 
-        return "redirect:/pessoas";
-
+        return new RedirectView("/pessoas");
     }
 
     @PutMapping("{id}")
-    public String editarPessoa(@PathVariable("id") Long id, Pessoa pessoa) {
+    public RedirectView editarPessoa(@PathVariable("id") Long id, Pessoa pessoa) {
         pessoaService.updateTelefone(id, pessoa.getTelefone());
 
-        return "redirect:/pessoas";
+        return new RedirectView("/pessoas");
     }
 }

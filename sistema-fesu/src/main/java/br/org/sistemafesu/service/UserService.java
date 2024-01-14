@@ -5,16 +5,17 @@ import org.springframework.stereotype.Service;
 
 import br.org.sistemafesu.entity.User;
 import br.org.sistemafesu.repository.UserRepository;
+import lombok.NonNull;
 
 @Service
 public class UserService extends AbstractService<User, UserRepository> {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public UserService(User user, UserRepository userRepository) {
-        super(user, userRepository);
+    public UserService(UserRepository userRepository) {
+        super(userRepository);
     }
 
-    public void setPassword(Long id, String password) {
+    public void setPassword(@NonNull Long id, @NonNull String password) {
         User user = repository.findById(id).orElse(null);
 
         if (user != null) {
@@ -28,7 +29,7 @@ public class UserService extends AbstractService<User, UserRepository> {
     }
 
     @Override
-    public User update(Long id, User model) {
+    public User update(@NonNull Long id, @NonNull User model) {
         if (model.getId() == null || !repository.existsById(id)) {
             throw new IllegalArgumentException("Usuário não encontrado!");
         }
@@ -37,7 +38,7 @@ public class UserService extends AbstractService<User, UserRepository> {
     }
 
     @Override
-    public User save(User model) {
+    public User save(@NonNull User model) {
         model.setPassword(encoder.encode(model.getPassword()));
 
         return super.save(model);

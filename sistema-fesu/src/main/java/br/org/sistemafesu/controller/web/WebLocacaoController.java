@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import br.org.sistemafesu.entity.Locacao;
 import br.org.sistemafesu.repository.EquipamentoRepository;
@@ -18,7 +19,6 @@ import br.org.sistemafesu.repository.SalaRepository;
 @Controller
 @RequestMapping("/reservar")
 public class WebLocacaoController {
-
 
     @Autowired
     private LocacaoRepository locacaoRepository;
@@ -43,20 +43,20 @@ public class WebLocacaoController {
     }
 
     @PostMapping()
-    public String insertLocacao(@ModelAttribute("locacao") Locacao locacao, @RequestParam(required = false) Long equipamentoId) {
-        locacaoRepository.save(locacao);
+    public RedirectView insertLocacao(@ModelAttribute("locacao") Locacao locacao,
+            @RequestParam(required = false) Long equipamentoId) {
+        if (locacao != null) {
+            locacaoRepository.save(locacao);
+        }
 
         if (equipamentoId != null) {
-            equipamentoRepository
-            .findById(equipamentoId)
-            .ifPresent(equipamento -> {
+            equipamentoRepository.findById(equipamentoId).ifPresent(equipamento -> {
                 equipamento.setLocated(true);
                 equipamento.setLocacao(locacao);
-
                 equipamentoRepository.save(equipamento);
             });
         }
 
-        return "redirect:/salas";
+        return new RedirectView("/salas");
     }
 }

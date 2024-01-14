@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import br.org.sistemafesu.entity.Sala;
 import br.org.sistemafesu.service.LocacaoService;
@@ -26,29 +27,29 @@ public class WebSalaController {
     @GetMapping()
     public String listarSala(Model model) {
         model.addAttribute("listaSalas", salaService.getAll());
-        // model.addAttribute("equipamentos", )
         model.addAttribute("sala", new Sala());
 
         return "lista-sala";
     }
 
     @PostMapping()
-    public String postSala(Sala sala) {
+    public RedirectView postSala(Sala sala) {
         salaService.save(sala);
 
-        return "redirect:/salas";
+        return new RedirectView("/salas");
     }
 
     @DeleteMapping("/reserva/{id}")
-    public String deletarReservaSala(@PathVariable("id") Long id) {
+    public RedirectView deletarReservaSala(@PathVariable Long id) {
         locacaoService.deleteWithTreatment(id);
 
-        return "redirect:/salas";
+        return new RedirectView("/salas");
     }
 
     @DeleteMapping("{id}")
-    public String deletarSaLa(@PathVariable("id") Long idSala){
+    public RedirectView deletarSaLa(@PathVariable Long idSala) {
         salaService.deleteById(idSala);
-        return "redirect:/salas";
+
+        return new RedirectView("/salas");
     }
 }
