@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.org</groupId>
 	<artifactId>sistema-fesu</artifactId>
-	<version>v1.0</version>
+	<version>v1.1</version>
 	<packaging>war</packaging>
 	<name>sistema-fesu</name>
 	<description>Sistem Administration Fesudeperj SAF</description>
