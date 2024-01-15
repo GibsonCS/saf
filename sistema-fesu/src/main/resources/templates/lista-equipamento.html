@@ -17,7 +17,7 @@
                     <th class="th fw-semibold" scope="col">Número de Série</th>
                     <th class="th fw-semibold" scope="col">Categoria</th>
                     <th class="th fw-semibold" scope="col">Status</th>
-                    <th class="th fw-semibold" scope="col">Gerenciar</th>
+                    <th class="th fw-semibold" scope="col" sec:authorize="hasRole('ADMIN')">Gerenciar</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,13 +25,13 @@
                     <td> <span th:text="${equipamento.nomeEquipamento}"></span></td>
                     <td><span th:text="${equipamento.marcaEquipamento}"></span></td>
                     <td><span th:text="${equipamento.modeloEquipamento}"></span></td>
-                    <td> <span th:text="${equipamento.numeroSerie}"></span></td>
+                    <td><span th:text="${equipamento.numeroSerie}"></span></td>
                     <td><span th:text="${equipamento.tipoEquipamento}"></span></td>
-                    <td><span th:text="${equipamento.isLocated?'Indisponível': 'Disponível'}"></span></td>
+                    <td><span th:text="${equipamento.isLocated ? 'Indisponível' : 'Disponível'}"></span></td>
                     <td>
                         <form th:action="@{/equipamentos/{id}(id=${equipamento.id})}" th:method="delete"
                         th:onsubmit="return confirm('Essa operação irá deletar o equipamento \'[(|${equipamento.nomeEquipamento} Modelo: ${equipamento.modeloEquipamento})]\' permanentemente. Deseja realmente deletar?');">
-                        <input class="btn btn-danger shadow-sm botaoDelete " type="submit" value="Deletar">
+                        <input sec:authorize="hasRole('ADMIN')" class="btn btn-danger shadow-sm  bg-gradient "  type="submit"  value="Deletar">
                         </form>
                     </td>
                 </tr>
@@ -77,9 +77,9 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary " form="form-create">Limpar</button>
-                <button type="submit" class="btn btn-primary " form="form-create">Cadastrar</button>
+            <div class="modal-footer justify-content-evenly">
+                <button type="reset" class="btn btn-warning bg-gradient  btn-shadow" form="form-create">Limpar</button>
+                <button type="submit" class="btn btn-success bg-gradient btn-shadow" form="form-create">Cadastrar</button>
             </div>
         </div>
     </div>
