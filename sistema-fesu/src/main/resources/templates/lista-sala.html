@@ -11,8 +11,8 @@
         <thead class="thead-reservas">
             <tr class="tr">
                 <th class="th fw-semibold" scope="col">Nome da Sala</th>
-                <th class="th fw-semibold" scope="col">Status</th>
-                <th class="th fw-semibold" scope="col" sec:authorize="hasRole('ADMIN')" >Gerenciar</th>
+                <th class="th fw-semibold" scope="col">Reservas</th>
+                <th class="th fw-semibold" scope="col">Gerenciar</th>
             </tr>
         </thead>
         <tbody>
@@ -21,23 +21,56 @@
                 <td class="td-reservas align-middle">
                     <th:block th:if="${#lists.isEmpty(sala.locacoes)}">
                         <ul class="m-0">
-                            <li style="list-style: none;">Não há reservas.</li>
+                            <li>Não há reservas.</li>
                         </ul>
                     </th:block>
                     <th:block th:unless="${#lists.isEmpty(sala.locacoes)}">
-                        <ul class="m-0">
-                            <li>Possui reservas.</li>
-                        </ul>
+                        <div class="row py-1 g-3">
+                            <div class="col-auto" th:each="locacao : ${sala.locacoes}">
+                                <div class="card flex-row align-items-start  shadow-sm border-0 h-100 ">
+                                    <div class="card-body font-monospace  ">
+                                        <strong>
+                                            <p class="m-0" th:text="|Data: ${#dates.format(locacao.data, 'dd/MM/yyyy')}"></p>
+                                        </strong>
+                                        <p class="m-0" th:text="|Evento: ${locacao.evento}|"></p>
+                                        <p class="m-0" th:text="|Início: ${locacao.horaInicial}|"></p>
+                                        <p class="m-0" th:text="|Término: ${locacao.horaFinal}|"></p>
+                                        <p class="m-0" th:text="|Responsável: ${locacao.pessoa?.nome ?: 'Nenhum'}|"></p>
+
+                                        <p class="m-0" th:if="${!#lists.isEmpty(locacao.equipamentos)}">
+                                            Equipamentos: <br>
+                                            <th:block th:each="equipamento : ${locacao.equipamentos}">
+                                                <span th:text="|Nome: ${equipamento.nomeEquipamento}"></span>.<br>
+                                                <span th:text="|Modelo: ${equipamento.modeloEquipamento}"></span>.<br>
+                                                <span th:text="|Marca: ${equipamento.marcaEquipamento}"></span>.<br>
+                                                <span th:text="|Categoria: ${equipamento.tipoEquipamento}"></span>.
+                                            </th:block>
+                                        </p>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <form th:action="@{/salas/reserva/{id}(id=${locacao.id})}" th:method="delete"
+                                            th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
+                                            <button type="submit" class="btn  btn-danger" data-bs-toggle="tooltip" th:title="|Excluir <b>${locacao.evento}</b>|"><i
+                                                    class="bi bi-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </th:block>
 
                 </td>
 
+
                 <td>
+
                     <form th:action="@{/salas/{id}(id=${sala.id})}" th:method="delete"
                         th:onsubmit="return confirm('Essa operação irá deletar a sala \'[(${sala.nomeSala})]\' permanentemente. Deseja realmente deletar?');">
-                        <input class="btn btn-danger btn-shadow botaoDelete bg-gradient " sec:authorize="hasRole('ADMIN')"
+                        <input class="btn btn-danger btn-shadow botaoDelete " sec:authorize="hasRole('ADMIN')"
                             type="submit" value="Deletar Sala">
                     </form>
+
                 </td>
 
             </tr>
@@ -69,9 +102,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success bg-gradient def" form="form-create">Cadastrar</button>
+                <button type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
             </div>
         </div>
     </div>
 </div>
+
 </html>

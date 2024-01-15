@@ -19,8 +19,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/logout").permitAll()
                 .requestMatchers("/assets/**").permitAll()
                 .requestMatchers("/error").permitAll()
-                .requestMatchers("/usuarios/**").hasRole("ADMIN")
-                .requestMatchers("/equipamentos/**").hasAnyRole("ADMIN", "USER")
+                .requestMatchers("/usuarios/**", "/equipamentos/**").hasRole("ADMIN")
                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/**", "/api/**", "/actuator**").permitAll()
                 .anyRequest().authenticated()).formLogin(form -> form
                         .loginPage("/login")

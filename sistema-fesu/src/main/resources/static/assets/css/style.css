@@ -220,3 +220,8 @@ form.form-signin .form-floating:nth-child(2) input {
     display: flex;
     justify-content: space-between;
 }
+
+.pessoaManager {
+    display: flex;
+    justify-content: space-around;
+}

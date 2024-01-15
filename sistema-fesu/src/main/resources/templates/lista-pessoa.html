@@ -29,15 +29,17 @@
                     <td><span th:text="${pessoa.sobrenome}"></span></td>
                     <td><span th:text="${pessoa.cpf}"></span></td>
                     <td><span th:text="${pessoa.telefone}"></span></td>
-                    <td class="d-flex justify-content-evenly" >
-                        <button type="button" class="btn btn-success btn-shadow bg-gradient" data-bs-toggle="modal"
-                            data-bs-target="#modal-pessoa" th:data-uid="${pessoa.id}">Editar</button>
+                    <td class="pessoaManager">
+                        <button type="button" class="btn btn-success btn-shadow"
+                            data-bs-toggle="modal" data-bs-target="#modal-pessoa"
+                            th:data-uid="${pessoa.id}">Editar</button>
 
-                        <form th:action="@{/pessoas/{id}(id=${pessoa.id})}" th:method="delete"
-                            th:onsubmit="return confirm('Essa operação irá deletar a pessoa \'[(${pessoa.nome})]\' permanentemente. Deseja realmente deletar?');">
-                            <input class="btn btn-danger btn-shadow bg-gradient" sec:authorize="hasRole('ADMIN')"
-                                type="submit" value="Deletar">
+
+                        <form th:action="@{/pessoas/{id}(id=${pessoa.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar a pessoa \'[(${pessoa.nome})]\' permanentemente. Deseja realmente deletar?');">
+                            <input  class="btn btn-danger btn-shadow" sec:authorize="hasRole('ADMIN')" type="submit" value="Deletar">
                         </form>
+
+
                     </td>
                 </tr>
             </tbody>
@@ -77,11 +79,9 @@
                             th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
                     </form>
                 </div>
-                <div class="modal-footer justify-content-evenly">
-                    <button type="reset" class="btn btn-warning btn-shadow bg-gradient def"
-                        form="form-update">Limpar</button>
-                    <button type="submit" class="btn btn-success btn-shadow bg-gradient def"
-                        form="form-update">Atualizar</button>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary def" form="form-update">Limpar</button>
+                    <button type="submit" class="btn btn-primary def" form="form-update">Atualizar</button>
                 </div>
             </div>
         </div>
@@ -142,13 +142,12 @@
                         th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
                 </form>
             </div>
-            <div class="modal-footer justify-content-evenly">
-                <button type="reset" class="btn btn-warning btn-shadow bg-gradient def"
-                    form="form-create">Limpar</button>
-                <button type="submit" class="btn btn-success btn-shadow bg-gradient def"
-                    form="form-create">Cadastrar</button>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary def" form="form-create">Limpar</button>
+                <button type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
             </div>
         </div>
     </div>
 </div>
+
 </html>

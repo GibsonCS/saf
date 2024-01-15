@@ -44,19 +44,10 @@
                     </svg>
                 </button>
 
-                <div th:replace="~{fragments/menu :: menu}"></div>
+                <div th:replace="fragments/menu :: menu"></div>
             </nav>
         </div>
     </header>
-
-    <th:block th:if="${messageError}">
-        <div class="container w-50 pt-4">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <span th:text="${messageError}"></span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-            </div>
-        </div>
-    </th:block>
 
     <section class="flex-fill" layout:fragment="content">
 
