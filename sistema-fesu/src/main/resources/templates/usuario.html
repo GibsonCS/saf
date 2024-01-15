@@ -39,12 +39,12 @@
                         <td>
                             <!-- <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow" data-bs-toggle="modal"
                                 data-bs-target="#modal-add2">Editar</button> -->
-                            <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow" th:attr="onclick=|openModal(${usuario.id})|">Editar</button>
+                            <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow bg-gradient" th:attr="onclick=|openModal(${usuario.id})|">Editar</button>
 
                         </td>
                         <td>
                             <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.name})]\' permanentemente. Deseja realmente deletar?');">
-                                <input style="width: 75px;" class="btn btn-danger btn-shadow" type="submit" value="Deletar">
+                                <input style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit" value="Deletar">
                             </form>
                         </td>
 
@@ -84,12 +84,23 @@
                                     </ul>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label for="senha" class="col-form-label fw-semibold">Alterar senha:</label>
-                                    <input id="senha" type="password" class="form-control" th:field="*{password}"
-                                        autocomplete="off">
+                                <div class="col-md-12">
+                                    <label for="password" class="col-form-label fw-semibold">Senha:</label>
+                                    <input type="password" class="form-control" th:field="*{password}"
+                                        autocomplete="off" required>
                                     <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
                                         <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
+                                            <small th:text="${err}"></small>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="login" class="col-form-label fw-semibold">Login:</label>
+                                    <input id="login" type="text" class="form-control" th:field="*{username}"
+                                        autocomplete="off">
+                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                        <li th:class="text-danger" th:each="err : ${#fields.errors('username)}">
                                             <small th:text="${err}"></small>
                                         </li>
                                     </ul>
@@ -108,9 +119,9 @@
                                 th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary def" form="form-create2">Limpar</button>
-                        <button type="submit" class="btn btn-primary def" form="form-create2">Atualizar</button>
+                    <div class="modal-footer justify-content-evenly">
+                        <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create2">Limpar</button>
+                        <button type="submit" class="btn btn-success btn-shadow bg-gradient def" form="form-create2">Atualizar</button>
                     </div>
                 </div>
             </div>
@@ -258,9 +269,9 @@
                             th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary def" form="form-create">Limpar</button>
-                    <button id="btnCadastro"  type="submit" class="btn btn-primary def" form="form-create">Cadastrar</button>
+                <div class="modal-footer justify-content-evenly">
+                    <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create">Limpar</button>
+                    <button id="btnCadastro"  type="submit" class="btn btn-success btn-shadow bg-gradient def" form="form-create">Cadastrar</button>
                 </div>
             </div>
         </div>

@@ -33,8 +33,6 @@ public class SecurityDatabaseService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority( role.getName() ));
         });
 
-
-
         UserDetails user = new org.springframework.security.core.userdetails.User(
                 userEntity.getUsername(),
                 userEntity.getPassword(),

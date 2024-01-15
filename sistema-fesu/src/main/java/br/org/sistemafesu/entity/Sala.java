@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -32,6 +33,7 @@ public class Sala {
 
     private String nomeSala;
 
+    @OrderBy("data")
     @OneToMany(mappedBy = "sala")
     @SQLRestriction(value = "is_deleted = false")
     @JsonIgnoreProperties(value = "sala")

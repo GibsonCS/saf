@@ -2,18 +2,19 @@
     <ul class="navbar-nav ms-auto mb-2 mb-sm-0" sec:authorize="isAuthenticated()">
         <li class="nav-item"><a class="nav-link" th:href="@{/}">Início</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/salas}">Salas</a></li>
-        <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/equipamentos}">Equipamentos</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/reservas}">Reservas</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/equipamentos}">Equipamentos</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/pessoas}">Pessoas</a></li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/usuarios}">Usuários</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/reservar}">Reservar</a></li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Relatório</a>
+        <li class="nav-item dropdown dropdown-menu-end">
+            <a class="nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">Relatório</a>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-              <li><a class="dropdown-item" th:href="@{/relatorio/reservas}">Reservas</a></li>
-              <li><a class="dropdown-item" href="#">test</a></li>
-              <li><a class="dropdown-item" href="#">tesdt</a></li>
+              <li><a class="dropdown-item " th:href="@{/relatorio/reservas}">Reservas</a></li>
+              <!-- <li><a class="dropdown-item" href="#">Breve</a></li>
+              <li><a class="dropdown-item" href="#">Breve</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Ssss</a></li>
+              <li><a class="dropdown-item" href="#">Ssss</a></li> -->
             </ul>
           </li>
         <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Sair</a></li>
