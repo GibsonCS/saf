@@ -26,7 +26,9 @@ public class SalaService extends AbstractService<Sala, SalaRepository> {
     }
 
     public List<Sala> getSortedSalas() {
-        return repository.findAll().stream()
+        List<Sala> salas = repository.findAll();
+
+        return salas.stream()
                 .sorted(Comparator.comparing(Sala::getNomeSala))
                 .collect(Collectors.toList());
     }

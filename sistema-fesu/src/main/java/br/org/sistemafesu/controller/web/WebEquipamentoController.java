@@ -30,6 +30,7 @@ public class WebEquipamentoController {
 
     @PostMapping()
     public String cadastrarEquipamento(Equipamento equipamento) {
+        equipamento.setPessoa(null);
         equipamentoService.save(equipamento);
 
         return "redirect:/equipamentos";
@@ -42,5 +43,4 @@ public class WebEquipamentoController {
 
         return new RedirectView("/equipamentos");
     }
-
 }

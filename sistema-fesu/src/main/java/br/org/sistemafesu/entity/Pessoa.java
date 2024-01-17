@@ -49,9 +49,16 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoa")
     private List<Locacao> locacoes;
 
+    @OneToMany(mappedBy = "pessoa")
+    private List<Equipamento> equipamentos;
+
     @CreationTimestamp
     private Instant createdAt;
 
     @UpdateTimestamp
     private Instant updatedAt;
+
+    public void ifPresent(Object object) {
+        throw new UnsupportedOperationException("Unimplemented method 'ifPresent'");
+    }
 }

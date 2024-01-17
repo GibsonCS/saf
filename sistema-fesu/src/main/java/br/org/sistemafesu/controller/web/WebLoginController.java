@@ -24,5 +24,4 @@ public class WebLoginController {
 
         return "login";
     }
-
 }

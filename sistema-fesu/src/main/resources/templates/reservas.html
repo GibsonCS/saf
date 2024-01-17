@@ -6,10 +6,6 @@
 <head>
     <title>Reservas</title>
     <style>
-        .card, .w-500 {
-            width: 500px;
-        }
-
         hr[data-content] {
             line-height: 1em;
             position: relative;
@@ -45,48 +41,39 @@
 <section layout:fragment="content">
     <div class="container">
         <div class="row g-3 my-3 justify-content-center">
-            <th:block th:each="sala : ${listaSalas}">
-                <th:block th:unless="${#lists.isEmpty(sala.locacoes)}">
-                    <div class="col-md-12 mt-0">
-                        <hr class="mt-4 mb-2" th:data-content="${sala.nomeSala}"/>
+            <th:block th:each="locacao : ${listaLocacoes}">
+                <div class="col-xxl-4 col-lg-6">
+                    <div class="card flex-row align-items-start justify-content-between shadow-sm border-0 h-100 p-3">
+                        <div class="font-monospace me-3">
+                            <strong>
+                                <p class="m-0" th:text="|Data: ${#dates.format(locacao.data, 'dd/MM/yyyy')}"></p>
+                            </strong>
+                            <p class="m-0" th:text="|Evento: ${locacao.evento}|"></p>
+                            <p class="m-0" th:text="|Local: ${locacao.sala.nomeSala}|"></p>
+                            <p class="m-0" th:text="|Início: ${locacao.horaInicial}|"></p>
+                            <p class="m-0" th:text="|Término: ${locacao.horaFinal}|"></p>
+                            <p class="m-0" th:text="|Descrição: ${locacao.descricao}|"></p>
+                            <p class="m-0" th:text="|Responsável: ${locacao.pessoa?.nome ?: 'Nenhum'}|"></p>
 
-                        <div class="row g-3 mb-3 justify-content-start">
-                            <div class="col-auto" th:each="locacao : ${sala.locacoes}">
-                                <div class="card flex-row align-items-start shadow-sm border-0 h-100">
-                                    <div class="card-body font-monospace  ">
-                                        <strong>
-                                            <p class="m-0" th:text="|Data: ${#dates.format(locacao.data, 'dd/MM/yyyy')}"></p>
-                                        </strong>
-                                        <p class="m-0" th:text="|Evento: ${locacao.evento}|"></p>
-                                        <p class="m-0" th:text="|Início: ${locacao.horaInicial}|"></p>
-                                        <p class="m-0" th:text="|Término: ${locacao.horaFinal}|"></p>
-                                        <p class="m-0" th:text="|Descrição: ${locacao.descricao}|"></p>
-                                        <p class="m-0" th:text="|Responsável: ${locacao.pessoa?.nome ?: 'Nenhum'}|"></p>
-
-                                        <p class="m-0" th:if="${!#lists.isEmpty(locacao.equipamentos)}">
-                                            Equipamentos: <br>
-                                            <th:block th:each="equipamento : ${locacao.equipamentos}">
-                                                <span th:text="|Nome: ${equipamento.nomeEquipamento}"></span>.<br>
-                                                <span th:text="|Modelo: ${equipamento.modeloEquipamento}"></span>.<br>
-                                                <span th:text="|Marca: ${equipamento.marcaEquipamento}"></span>.<br>
-                                                <span th:text="|Categoria: ${equipamento.tipoEquipamento}"></span>.
-                                            </th:block>
-                                        </p>
-                                    </div>
-
-                                    <div class="card-body d-flex justify-content-end">
-                                        <form th:action="@{/reservas/{id}(id=${locacao.id})}" th:method="delete"
-                                            th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
-                                            <button sec:authorize="hasRole('ADMIN')" type="submit" class="btn  btn-danger bg-gradient" data-bs-toggle="tooltip"
-                                                th:title="|Excluir <b>${locacao.evento}</b>|"><i
-                                                    class="bi bi-trash"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                                <p class="m-0" th:if="${!#lists.isEmpty(locacao.equipamentos)}">
+                                Equipamentos: <br>
+                                <th:block th:each="equipamento : ${locacao.equipamentos}">
+                                    <span th:text="|Nome: ${equipamento.nomeEquipamento}"></span>.<br>
+                                    <span th:text="|Modelo: ${equipamento.modeloEquipamento}"></span>.<br>
+                                    <span th:text="|Marca: ${equipamento.marcaEquipamento}"></span>.<br>
+                                    <span th:text="|Categoria: ${equipamento.tipoEquipamento}"></span>.
+                                </th:block>
+                            </p>
                         </div>
+
+                        <form th:action="@{/reservas/{id}(id=${locacao.id})}" th:method="delete"
+                            th:onsubmit="return confirm('Essa operação irá deletar a reserva \'[(${locacao.evento})]\' permanentemente. Deseja realmente deletar?');">
+                            <button sec:authorize="hasRole('ADMIN')" type="submit" class="btn  btn-danger bg-gradient" data-bs-toggle="tooltip"
+                                th:title="|Excluir <b>${locacao.evento}</b>|"><i
+                                    class="bi bi-trash"></i></button>
+                        </form>
                     </div>
-                </th:block>
+                </div>
             </th:block>
         </div>
     </div>

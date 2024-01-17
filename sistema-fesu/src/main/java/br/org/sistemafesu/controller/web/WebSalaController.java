@@ -26,7 +26,7 @@ public class WebSalaController {
 
     @GetMapping()
     public String listarSala(Model model) {
-        model.addAttribute("listaSalas", salaService.getAll());
+        model.addAttribute("listaSalas", salaService.getSortedSalas());
         model.addAttribute("sala", new Sala());
 
         return "lista-sala";

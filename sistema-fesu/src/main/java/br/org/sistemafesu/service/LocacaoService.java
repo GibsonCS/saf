@@ -1,5 +1,6 @@
 package br.org.sistemafesu.service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,8 @@ public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> 
         if (locacao != null) {
             locacao.getEquipamentos().forEach(equip -> equip.setLocacao(null));
             locacao.getEquipamentos().forEach(equip -> equip.setLocated(false));
+            locacao.getEquipamentos().forEach(equip -> equip.setPessoa(null));
+            locacao.getPessoa().setLocacoes(null);
 
             List<Equipamento> equipamentos = locacao.getEquipamentos();
 
@@ -49,7 +52,13 @@ public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> 
         }
     }
 
-    public Iterable<Locacao> findAllLocacaoDeleted() {
+    public List<Locacao> findAllLocacaoDeleted() {
         return repository.findAllByIsDeletedTrue();
+    }
+
+    public List<Locacao> findAllLocacaoNotDeleted() {
+        List<Locacao> locacoes = (List<Locacao>) repository.findAllByIsDeletedFalse();
+
+       return locacoes.stream().sorted(Comparator.comparing(Locacao::getData)).toList();
     }
 }

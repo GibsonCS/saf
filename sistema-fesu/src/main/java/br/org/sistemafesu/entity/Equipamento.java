@@ -39,6 +39,11 @@ public class Equipamento {
     @JsonIgnoreProperties(value = "equipamentos")
     private Locacao locacao;
 
+    @ManyToOne
+    @JoinColumn(name = "id_pessoa")
+    @JsonIgnoreProperties(value = "equipamentos")
+    private Pessoa pessoa;
+
     @CreationTimestamp
     private Instant createdAt;
 

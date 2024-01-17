@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.name})]\' permanentemente. Deseja realmente deletar?');">
-                                <input style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit" value="Deletar">
+                                <input  style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit" value="Deletar">
                             </form>
                         </td>
 

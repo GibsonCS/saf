@@ -24,7 +24,7 @@ public class WebRelatorioController {
         return new RedirectView("/");
     }
 
-    @GetMapping({ "/reservas" })
+    @GetMapping({ "/historico-reservas" })
     public String reservas(Model model) {
         model.addAttribute("locacoes", locacaoService.findAllLocacaoDeleted());
 

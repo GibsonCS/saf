@@ -8,43 +8,44 @@
 </head>
 
 <body>
+    <section class="flex-fill" layout:fragment="content">
+        <div class="container" style="max-width: 250px; margin: auto; margin-top: 150px;">
+            <img class="my-5" th:src="@{/assets/images/fesu-marca.svg}" alt="Fesudeperj">
 
-<section class="flex-fill" layout:fragment="content">
-    <div class="container" style="max-width: 250px; margin: auto; margin-top: 150px;">
-        <img class="my-5" th:src="@{/assets/images/fesu-marca.svg}" alt="Fesudeperj">
-
-        <div class="alert alert-danger" role="alert" th:if="${param.error}">
-            [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
-        </div>
-
-        <div class="alert alert-success" role="alert" th:if="${param.logout}">
-            You have been logged out.
-        </div>
-
-        <form class="form-signin container needs-validation" novalidate method="post" th:action="@{/login}">
-            <div class="form-floating">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
-                <label for="username">Login</label>
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
             </div>
 
-            <div class="form-floating">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                <label for="password">Senha</label>
+            <div class="alert alert-success" role="alert" th:if="${param.logout}">
+                You have been logged out.
             </div>
 
-            <button  class="btn btn-lg btn-success w-100 btn-block mt-3 bg-gradient" type="submit">Entrar</button>
-        </form>
-    </div>
+            <form class="form-signin container needs-validation" novalidate method="post" th:action="@{/login}">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                        required autofocus>
+                    <label for="username">Login</label>
+                </div>
 
-    <script>
-        // document.forms[0].submit();
-        document.forms[0].onsubmit = () => {
-            setTimeout(() => {
-                document.querySelectorAll('input, button').forEach((e) => e.disabled = true);
-            }, 250);
-        }
-    </script>
-</section>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                        required>
+                    <label for="password">Senha</label>
+                </div>
+
+                <button class="btn btn-lg btn-success w-100 btn-block mt-3 bg-gradient" type="submit">Entrar</button>
+            </form>
+        </div>
+
+        <script>
+            // document.forms[0].submit();
+            document.forms[0].onsubmit = () => {
+                setTimeout(() => {
+                    document.querySelectorAll('input, button').forEach((e) => e.disabled = true);
+                }, 250);
+            }
+        </script>
+    </section>
 
 </body>
 
