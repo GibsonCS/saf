@@ -29,7 +29,7 @@
                     <td valign="middle"><span th:text="${equipamento.numeroSerie}"></span></td>
                     <td valign="middle"><span th:text="${equipamento.tipoEquipamento}"></span></td>
                     <td valign="middle"><span th:text="${equipamento.pessoa} != null ? ${equipamento.pessoa.nome} : 'Nenhum'"></span></td>
-                    <td valign="middle"><span th:text="${equipamento.isLocated ? 'Indisponível' : 'Disponível'}"></span>
+                    <td valign="middle"><span th:text="${equipamento.isLocated} != false ? 'Indisponível em: ' + ${#dates.format(equipamento.locacao.data, 'dd/MM/yyyy')} : 'Disponível'"></span>
                     </td>
                     <td valign="middle">
                         <form th:action="@{/equipamentos/{id}(id=${equipamento.id})}" th:method="delete"

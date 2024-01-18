@@ -1,5 +1,7 @@
 package br.org.sistemafesu.controller.web;
 
+import java.util.Comparator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,9 @@ public class WebEquipamentoController {
 
     @GetMapping()
     public String listarEquipamentos(Model model) {
-        model.addAttribute("listaEquipamentos", equipamentoService.getAll());
+        model.addAttribute("listaEquipamentos", equipamentoService.getAll()
+            .stream()
+            .sorted(Comparator .comparing(Equipamento::getNomeEquipamento)));
         model.addAttribute("equipamento", new Equipamento());
 
         return "lista-equipamento";
