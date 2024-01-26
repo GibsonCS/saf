@@ -40,7 +40,6 @@ public class WebLocacaoController {
 
     @GetMapping()
     public String listarItens(Model model) {
-
         model.addAttribute("listaSalas", salaRepository.findAll()
             .stream()
             .sorted(Comparator .comparing(Sala::getNomeSala)));
