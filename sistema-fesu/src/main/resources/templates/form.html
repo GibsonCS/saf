@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Cadastro</title>
+</head>
+<body>
+
+<div id="editor"></div>
+<section class="container container-sm my-4" layout:fragment="content">
+
+    <div class="card shadow-sm border-1 p-5">
+        <h4 class="mb-3">Cadastro</h4>
+        <form th:method="post" class="needs-validation" novalidate th:object="${user}">
+            <div class="row g-3 mx-0 ">
+                <div class="col-md-3">
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <label class="form-label" for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" placeholder="NOME">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="sobreNome">Sobrenome</label>
+                    <input type="text" name="sobreNome" id="sobreNome" placeholder="SOBRENOME">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="email">E-mail</label>
+                    <input type="text" name="email" id="email" placeholder="E-MAIL">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label w-25 " for="cpf">CPF</label>
+                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label w-25" for="rg">RG</label>
+                    <input type="text" name="rg" id="rg" placeholder="RG">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label" for="orgaoEmissor">Orgão Emissor</label>
+                    <input type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label mb-1 " for="orgaoEmissor">Estado Civil</label>
+                    <select class="form-select w-75 p-1">
+                        <option selected>Estado Civil</option>
+                        <option value="casado">Casado</option>
+                        <option value="solteiro">Solteiro(a)</option>
+                        <option value="divorciado">Divorciado(a)</option>
+                    </select>
+                </div>
+
+
+                <hr class="mt-4">
+
+                <div class="d-grid gap-2 d-sm-flex  justify-content-evenly">
+                    <input type="reset" value="Limpar" class="btn btn-warning  btn-shadow bg-gradient"
+                           id="btn-reset">
+                    <input type="submit" value="Cadastrar" class="btn btn-success  btn-shadow bg-gradient"
+                           id="btn-input">
+                </div>
+        </form>
+    </div>
+
+</section>
+
+
+</body>
+</html>
