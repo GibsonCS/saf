@@ -16,13 +16,14 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/logout").permitAll()
-                .requestMatchers("/assets/**").permitAll()
-                .requestMatchers("/error").permitAll()
-                .requestMatchers("/usuarios/**").hasRole("ADMIN")
-                .requestMatchers("/equipamentos/**").hasAnyRole("ADMIN", "USER")
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/**", "/api/**", "/actuator**").permitAll()
-                .anyRequest().authenticated()).formLogin(form -> form
+                        .requestMatchers("/cadastro").permitAll()
+                        .requestMatchers("/logout").permitAll()
+                        .requestMatchers("/assets/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/usuarios/**").hasRole("ADMIN")
+                        .requestMatchers("/equipamentos/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/**", "/api/**", "/actuator**").permitAll()
+                        .anyRequest().authenticated()).formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
