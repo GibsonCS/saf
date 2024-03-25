@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Patrimonios</title>
+</head>
+<section layout:fragment="content">
+    <div>
+        <table class="table table-light table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th class="th fw-semibold" scope="col">Nome</th>
+                    <th class="th fw-semibold" scope="col">Marca</th>
+                    <th class="th fw-semibold" scope="col">Modelo</th>
+                    <th class="th fw-semibold" scope="col">Número de Série</th>
+                    <th class="th fw-semibold" scope="col">Categoria</th>
+                    <th class="th fw-semibold" scope="col">Número de Patrimonio</th>
+                    <th class="th fw-semibold" scope="col">Localização</th>
+                    <th class="th fw-semibold" scope="col" sec:authorize="hasRole('ADMIN')">Gerenciar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="patrimonio : ${listaPatrimonios}">
+                    <td valign="middle"><span th:text="${patrimonio.nome}"></span></td>
+                    <td valign="middle"><span th:text="${patrimonio.marca}"></span></td>
+                    <td valign="middle"><span th:text="${patrimonio.modelo}"></span></td>
+                    <td valign="middle"><span th:text="${patrimonio.numeroSerie}"></span></td>
+                    <td valign="middle"><span th:text="${patrimonio.categoria}"></span></td>
+                    <td valign="middle"><span th:text="${patrimonio.numeroPatrimonio}"></span></td>
+                    <td valign="middle"><span th:text="${patrimonio.localizacao}"></span></td>
+                    <!-- <td valign="middle"><span th:text="${patrimonio.status} != false ? 'Indisponível em: ' + ${#dates.format(equipamento.locacao.data, 'dd/MM/yyyy')} : 'Disponível'"></span> -->
+                    </td>
+                    <td valign="middle">
+                        <form th:action="@{/patrimonios/{id}(id=${equipamento.id})}" th:method="delete"
+                            th:onsubmit="return confirm('Essa operação irá deletar o patrimonio\'[(|${patrimonio.nome} Modelo: ${patrimonio.modelo})]\' permanentemente. Deseja realmente deletar?');">
+                            <input sec:authorize="hasRole('ADMIN')" class="btn btn-danger shadow-sm  bg-gradient "
+                                type="submit" value="Deletar">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button id="add" class="  btn btn-success position-fixed rounded-circle " data-bs-toggle="modal"
+        data-bs-target="#modal-add">
+        <i class="bi bi-plus-lg"></i>
+    </button>
+</section>
+
+<div layout:fragment="modal-add">
+    <div class="modal-dialog modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Patrimônio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body py-0 pb-3">
+                <form id="form-create" class="needs-validation" novalidate th:action="@{/patrimonios}"
+                    th:object="${patrimonio}" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="nome" class="col-form-label fw-semibold">Nome:</label>
+                            <input id="nome" type="text" class="form-control" th:field="*{nome}" value="" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="marca" class="col-form-label fw-semibold">Marca:</label>
+                            <input id="marca" type="text" class="form-control" th:field="*{marca}" value="" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="modelo" class="col-form-label fw-semibold">Modelo:</label>
+                            <input id="modelo" type="text" class="form-control" th:field="*{modelo}" value="" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="numeroSerie" class="col-form-label fw-semibold">Número de Série:</label>
+                            <input id="numeroSerie" type="text" class="form-control" th:field="*{numeroSerie}" value=""
+                                required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="tipo" class="col-form-label fw-semibold">Categoria:</label>
+                            <input id="tipo" type="text" class="form-control" th:field="*{categoria}" value="" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="tipo" class="col-form-label fw-semibold">Número do Patrimônio:</label>
+                            <input id="tipo" type="text" class="form-control" th:field="*{numeroPatrimonio}" value="" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="tipo" class="col-form-label fw-semibold">Localização:</label>
+                            <input id="tipo" type="text" class="form-control" th:field="*{localizacao}" value="" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-evenly">
+                <button type="reset" class="btn btn-warning bg-gradient  btn-shadow" form="form-create">Limpar</button>
+                <button type="submit" class="btn btn-success bg-gradient btn-shadow"
+                    form="form-create">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
