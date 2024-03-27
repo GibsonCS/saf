@@ -1,30 +1,33 @@
 <!doctype html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>Cadastro</title>
 </head>
+
 <body>
 
 <div id="editor"></div>
 <section class="container container-sm my-4" layout:fragment="content">
 
-    <div class="card shadow-sm border-1 p-5">
-        <h4 class="mb-3">Cadastro</h4>
+    <h4 class="mb-3">Cadastro</h4>
+    <div class="w-auto p-3">
         <form th:method="post" class="needs-validation" novalidate th:object="${user}">
             <div class="row g-3 mx-0 ">
                 <div class="col-md-3">
-                    <input type="hidden" name="id" th:field="*{id}">
-                    <label class="form-label" for="nome">Nome</label>
+                    <!--            <input type="hidden" name="id" th:field="*{id}">-->
+                    <label class="form-label w-25" for="nome">Nome</label>
                     <input type="text" name="nome" id="nome" placeholder="NOME">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label" for="sobreNome">Sobrenome</label>
+                    <label class="form-label w-50" for="sobreNome">Sobrenome</label>
                     <input type="text" name="sobreNome" id="sobreNome" placeholder="SOBRENOME">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label" for="email">E-mail</label>
-                    <input type="text" name="email" id="email" placeholder="E-MAIL">
+                    <label class="form-label w-25" for="email">E-mail</label>
+                    <input type="email" name="email" id="email" placeholder="E-MAIL">
                 </div>
 
                 <div class="col-md-3">
@@ -38,13 +41,13 @@
                 </div>
 
                 <div class="col-md-3">
-                    <label class="form-label" for="orgaoEmissor">Orgão Emissor</label>
+                    <label class="form-label w-50" for="orgaoEmissor">Orgão Emissor</label>
                     <input type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">
                 </div>
 
                 <div class="col-md-3">
-                    <label class="form-label mb-1 " for="orgaoEmissor">Estado Civil</label>
-                    <select class="form-select w-75 p-1">
+                    <label class="form-label mb-1 w-50" for="estadoCivil">Estado Civil</label>
+                    <select name="estadoCivil" id="estadoCivil" class="form-select w-75 p-1">
                         <option selected>Estado Civil</option>
                         <option value="casado">Casado</option>
                         <option value="solteiro">Solteiro(a)</option>
@@ -52,6 +55,74 @@
                     </select>
                 </div>
 
+                <div class="col-md-3">
+                    <label class="form-label mb-1 w-25" for="genero">Gênero</label>
+                    <select class="form-select w-75 p-1" id="genero" name="genero">
+                        <option selected>Gênero</option>
+                        <option value="homem">Homem</option>
+                        <option value="mulher">Mulher</option>
+                        <option value="nao-binario">Não-binário</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label w-25 mb-1" for="cepId">Cep</label>
+                    <input type="text" name="cep" maxlength="9" placeholder="99999-999" autofocus id="cepId">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="uf" class="w-25">UF</label>
+                    <input name="uf" type="text" id="uf">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="cidade" class="w-25">Cidade:</label>
+                    <input name="cidade" type="text" id="cidade">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="bairro" class="w-50">Bairro:</label>
+                    <input name="bairro" type="text" id="bairro">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="w-50" for="endereco">Endereço:</label>
+                    <input name="endereco" type="text" id="endereco">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="w-50" for="numero">Número:</label>
+                    <input type="number" name="numero" id="numero">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="w-50" for="complemento">Complemento:</label>
+                    <input type="text" name="complemento" id="complemento">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label mb-1 w-25" for="categoria">Categoria</label>
+                    <select class="form-select w-75 p-1" id="categoria" name="categoria">
+                        <option selected>Categoria</option>
+                        <option value="residente">Residente Jurídico/a</option>
+                        <option value="servidorDpg">Servidor DPGE</option>
+                        <option value="servidor">Servidor</option>
+                        <option value="pan">Pan</option>
+                        <option value="acoesAfirmativas">Ações afirmativas</option>
+                        <option value="nsa">Não se aplica</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label mb-1 w-25" for="autodeclaracao">Autodeclaração</label>
+                    <select class="form-select w-75 p-1" id="autodeclaracao" name="autodeclaracao">
+                        <option selected>Autodeclaração</option>
+                        <option value="pcd">PCD</option>
+                        <option value="pessoaPreta">Pessoa Preta</option>
+                        <option value="pessoaParda">Pessoa Parda</option>
+                        <option value="pessoaTrans">Pessoa Trans</option>
+                    </select>
+                </div>
 
                 <hr class="mt-4">
 
@@ -61,11 +132,11 @@
                     <input type="submit" value="Cadastrar" class="btn btn-success  btn-shadow bg-gradient"
                            id="btn-input">
                 </div>
+            </div>
         </form>
     </div>
-
 </section>
 
-
 </body>
+
 </html>
