@@ -12,6 +12,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -46,6 +47,8 @@ public class User {
 
     @Length(min = 11, max = 14)
     @CPF(message = "CPF inválido.")
+    @NotBlank
+    @UniqueElements
     private String cpf;
 
     @Length(min = 9, max = 10)
