@@ -21,7 +21,7 @@ public class WebIndexController {
     public String index(Authentication auth, Model model) {
         User user = userService.getUserUsername(auth.getName());
 
-        model.addAttribute("name", user.getName());
+        model.addAttribute("name", user.getNomeCompleto());
 
         return "index";
     }

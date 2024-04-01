@@ -129,6 +129,24 @@
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl, tooltipOptions))
     </script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script>
+        $('#cepId').blur(function (){
+            var cep = this.value.replace(/[^0-9]/, "");
+
+            if (cep.length != 8){
+                return false;
+            }
+            var url = "https://viacep.com.br/ws/"+cep+"/json/";
+
+            $.getJSON(url,function (dadosRetorno) {
+                $("#endereco").val(dadosRetorno.logradouro);
+                $("#bairro").val(dadosRetorno.bairro);
+                $("#cidade").val(dadosRetorno.localidade);
+                $("#uf").val(dadosRetorno.uf);
+            })
+        })
+    </script>
 </body>
 
 </html>

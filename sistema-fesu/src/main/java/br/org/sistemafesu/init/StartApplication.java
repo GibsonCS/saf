@@ -45,7 +45,7 @@ public class StartApplication implements CommandLineRunner {
 
         if (user == null) {
             user = new User();
-            user.setName(name);
+            user.setNomeCompleto(name);
             user.setUsername(username);
             user.setPassword(encoder.encode(password));
 

@@ -1,26 +1,23 @@
 package br.org.sistemafesu.entity;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
@@ -34,8 +31,8 @@ public class User {
     @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "nome", length = 50, nullable = false)
-    private String name;
+    @Column(name = "nome completo", length = 50, nullable = false)
+    private String nomeCompleto;
 
     @Column(name = "login", length = 50, nullable = false)
     private String username;
@@ -44,13 +41,39 @@ public class User {
     @Column(name = "senha", length = 100, nullable = false)
     private String password;
 
+    @Email
+    private String email;
+
+    @Length(min = 11, max = 14)
+    @CPF(message = "CPF inválido.")
+    private String cpf;
+
+    @Length(min = 9, max = 10)
+    private String rg;
+
+    private Date dataExpedicao;
+
+    private String orgaoEmissor;
+
+    private String estadoCivil;
+
+    private String genero;
+
+    @Column(length = 15)
+    @Size(min = 14, max = 15)
+    private String telefone;
+
+    @OneToMany
+    private Set<Endereco> enderecos = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "funcoes_usuarios",
-        joinColumns = @JoinColumn(name = "id_usuario"),
-        inverseJoinColumns = @JoinColumn(name = "id_funcao")
+            name = "funcoes_usuarios",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_funcao")
     )
     private Set<Role> roles = new HashSet<>();
+
 
     public User() {
 
@@ -59,6 +82,7 @@ public class User {
     public User(String login) {
         this.username = login;
     }
+
 
     @CreationTimestamp
     private Instant createdAt;

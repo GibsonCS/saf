@@ -12,42 +12,39 @@
 <div id="editor"></div>
 <section class="container container-sm my-4" layout:fragment="content">
 
-    <h4 class="mb-3">Cadastro</h4>
-    <div class="w-auto p-3">
-        <form th:method="post" class="needs-validation" novalidate th:object="${user}">
-            <div class="row g-3 mx-0 ">
-                <div class="col-md-3">
-                    <!--            <input type="hidden" name="id" th:field="*{id}">-->
-                    <label class="form-label w-25" for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome" placeholder="NOME">
+
+    <div class="p-3">
+        <h4 class="mb-3">Cadastro</h4>
+        <form th:method="post" class="needs-validation " novalidate th:object="${user}">
+            <div class="row g-5 mx-0 d-flex text-start align-items-center">
+                <div class="col-md-2">
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <label class="form-label " for="nome">Nome Completo</label>
+                    <input type="text" name="nomeCompleto" id="nome" placeholder="NOME COMPLETO">
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label w-50" for="sobreNome">Sobrenome</label>
-                    <input type="text" name="sobreNome" id="sobreNome" placeholder="SOBRENOME">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label w-25" for="email">E-mail</label>
+                <div class="col-md-2">
+                    <label class="form-label" for="email">E-mail</label>
                     <input type="email" name="email" id="email" placeholder="E-MAIL">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label w-25 " for="cpf">CPF</label>
+                <div class="col-md-2">
+                    <label class="form-label" for="cpf">CPF</label>
                     <input type="text" name="cpf" id="cpf" placeholder="CPF">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label w-25" for="rg">RG</label>
+                <div class="col-md-2">
+                    <label class="form-label " for="rg">RG</label>
                     <input type="text" name="rg" id="rg" placeholder="RG">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label w-50" for="orgaoEmissor">Orgão Emissor</label>
+                <div class="col-md-2">
+                    <label class="form-label" for="orgaoEmissor">Orgão Emissor</label>
                     <input type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label mb-1 w-50" for="estadoCivil">Estado Civil</label>
-                    <select name="estadoCivil" id="estadoCivil" class="form-select w-75 p-1">
+                <div class="col-md-2">
+                    <label class="form-label mb-1" for="estadoCivil">Estado Civil</label>
+                    <select name="estadoCivil" id="estadoCivil" class="form-select  p-1">
                         <option selected>Estado Civil</option>
                         <option value="casado">Casado</option>
                         <option value="solteiro">Solteiro(a)</option>
@@ -55,54 +52,55 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label mb-1 w-25" for="genero">Gênero</label>
-                    <select class="form-select w-75 p-1" id="genero" name="genero">
+                <div class="col-md-2">
+                    <label class="form-label mb-1" for="genero">Gênero</label>
+                    <select class="form-select p-1" id="genero" name="genero">
                         <option selected>Gênero</option>
                         <option value="homem">Homem</option>
                         <option value="mulher">Mulher</option>
                         <option value="nao-binario">Não-binário</option>
+                        <option value="nenhum">Prefiro não declarar</option>
                     </select>
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label w-25 mb-1" for="cepId">Cep</label>
+                <div class="col-md-2">
+                    <label class="form-label mb-1" for="cepId">Cep</label>
                     <input type="text" name="cep" maxlength="9" placeholder="99999-999" autofocus id="cepId">
                 </div>
 
-                <div class="col-md-3">
-                    <label for="uf" class="w-25">UF</label>
+                <div class="col-md-2">
+                    <label for="uf">UF</label>
                     <input name="uf" type="text" id="uf">
                 </div>
 
-                <div class="col-md-3">
-                    <label for="cidade" class="w-25">Cidade:</label>
+                <div class="col-md-2">
+                    <label for="cidade">Cidade:</label>
                     <input name="cidade" type="text" id="cidade">
                 </div>
 
-                <div class="col-md-3">
-                    <label for="bairro" class="w-50">Bairro:</label>
+                <div class="col-md-2">
+                    <label for="bairro">Bairro:</label>
                     <input name="bairro" type="text" id="bairro">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="w-50" for="endereco">Endereço:</label>
+                <div class="col-md-2">
+                    <label for="endereco">Endereço:</label>
                     <input name="endereco" type="text" id="endereco">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="w-50" for="numero">Número:</label>
+                <div class="col-md-2">
+                    <label for="numero">Número:</label>
                     <input type="number" name="numero" id="numero">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="w-50" for="complemento">Complemento:</label>
+                <div class="col-md-2">
+                    <label for="complemento">Complemento:</label>
                     <input type="text" name="complemento" id="complemento">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label mb-1 w-25" for="categoria">Categoria</label>
-                    <select class="form-select w-75 p-1" id="categoria" name="categoria">
+                <div class="col-md-2">
+                    <label class="form-label mb-1" for="categoria">Categoria</label>
+                    <select class="form-select p-1" id="categoria" name="categoria">
                         <option selected>Categoria</option>
                         <option value="residente">Residente Jurídico/a</option>
                         <option value="servidorDpg">Servidor DPGE</option>
@@ -113,9 +111,9 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-label mb-1 w-25" for="autodeclaracao">Autodeclaração</label>
-                    <select class="form-select w-75 p-1" id="autodeclaracao" name="autodeclaracao">
+                <div class="col-md-2">
+                    <label class="form-label mb-1" for="autodeclaracao">Autodeclaração</label>
+                    <select class="form-select  p-1" id="autodeclaracao" name="autodeclaracao">
                         <option selected>Autodeclaração</option>
                         <option value="pcd">PCD</option>
                         <option value="pessoaPreta">Pessoa Preta</option>
@@ -136,7 +134,6 @@
         </form>
     </div>
 </section>
-
 </body>
 
 </html>
