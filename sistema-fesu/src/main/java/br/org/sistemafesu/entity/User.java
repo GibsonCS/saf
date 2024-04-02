@@ -26,20 +26,22 @@ import lombok.Data;
 @SpringBootApplication
 @ComponentScan(basePackages = "br.org.sistemafesu")
 @Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "nome completo", length = 50, nullable = false)
+    @Column(name = "nome_completo", length = 50, nullable = false)
     private String nomeCompleto;
 
-    @Column(name = "login", length = 50, nullable = false)
+    @Column(name = "login", length = 50, nullable = true)
     private String username;
 
     @JsonIgnore
-    @Column(name = "senha", length = 100, nullable = false)
+    @Column(name = "senha", length = 100, nullable = true)
     private String password;
 
     @Email
@@ -47,8 +49,6 @@ public class User {
 
     @Length(min = 11, max = 14)
     @CPF(message = "CPF inválido.")
-    @NotBlank
-    @UniqueElements
     private String cpf;
 
     @Length(min = 9, max = 10)

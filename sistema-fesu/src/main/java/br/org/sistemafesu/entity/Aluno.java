@@ -15,9 +15,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
 @Data
-@Table(name = "aluno")
+@Entity
+@Table(name = "alunos")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Aluno extends User {
 
     @Column(length = 10)
