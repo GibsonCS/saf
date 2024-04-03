@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebCadastroController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 //    private UserService userService;
     @GetMapping()
     public String callForm(Model model) {
@@ -27,7 +27,7 @@ public class WebCadastroController {
 
     @PostMapping()
     public String cadastrarUsuario(User user) {
-        userRepository.save(user);
+        userService.saveUser(user);
 
         return "redirect:/login";
     }

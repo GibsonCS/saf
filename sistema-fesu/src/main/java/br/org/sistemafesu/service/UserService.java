@@ -37,8 +37,13 @@ public class UserService extends AbstractService<User, UserRepository> {
         return repository.save(model);
     }
 
+    public void saveUser(User user){
+        user.setPassword(encoder.encode(user.getPassword()));
+        repository.save(user);
+    }
+
     @Override
-    public User save(@NonNull User model) {
+    public User save(User model) {
         model.setPassword(encoder.encode(model.getPassword()));
 
         return super.save(model);
