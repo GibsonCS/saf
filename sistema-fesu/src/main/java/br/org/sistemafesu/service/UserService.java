@@ -61,6 +61,7 @@ public class UserService extends AbstractService<User, UserRepository> {
         }
     }
 
+
     @Override
     public User save(User model) {
         model.setPassword(encoder.encode(model.getPassword()));
