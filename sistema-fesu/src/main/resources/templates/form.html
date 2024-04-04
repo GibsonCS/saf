@@ -15,38 +15,38 @@
 
     <div class="p-3">
         <h4 class="mb-3">Cadastro</h4>
-        <form method="post" class="needs-validation" th:action="@{/cadastro}" novalidate th:object="${user}">
+        <form method="post" onsubmit="return validarSenha();" class="needs-validation" th:action="@{/cadastro}" novalidate th:object="${user}">
             <div class="row g-5 mx-0 d-flex text-start align-items-center">
                 <div class="col-md-2">
                     <input type="hidden" name="id" th:field="*{id}">
                     <label class="form-label " for="nome">Nome Completo</label>
-                    <input type="text" name="nomeCompleto" id="nome" placeholder="NOME COMPLETO">
+                    <input type="text"  required name="nomeCompleto" id="nome" placeholder="NOME COMPLETO">
                 </div>
                 <div class="col-md-2">
                     <label class="form-label" for="email">E-mail</label>
-                    <input type="email" name="email" id="email" placeholder="E-MAIL">
+                    <input type="email" required name="email" id="email" placeholder="E-MAIL">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label" for="cpf">CPF</label>
-                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                    <input type="text" required name="cpf" id="cpf" placeholder="CPF">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label " for="rg">RG</label>
-                    <input type="text" name="rg" id="rg" placeholder="RG">
+                    <input type="text" required name="rg" id="rg" placeholder="RG">
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label" for="orgaoEmissor">Orgão Emissor</label>
-                    <input type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">
+                    <input type="text" required name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">
                 </div>
 
 
 
                 <div class="col-md-2">
                     <label class="form-label mb-1" for="cepId">Cep</label>
-                    <input type="text" name="cep" maxlength="9" placeholder="99999-999" autofocus id="cepId">
+                    <input type="text" required name="cep" maxlength="9" placeholder="99999-999" autofocus id="cepId">
                 </div>
 
                 <div class="col-md-2">
@@ -81,15 +81,15 @@
 
                 <div class="col-md-2">
                     <label for="userName">Login:</label>
-                    <input type="text" name="username" id="userName">
+                    <input type="text" required name="username" id="userName">
                 </div>
                 <div class="col-md-2">
                     <label for="password1">Senha:</label>
-                    <input type="password" name="password" id="password1">
+                    <input type="password" required name="password" id="password1">
                 </div>
                 <div class="col-md-2">
                     <label for="password2">Confirmar senha:</label>
-                    <input type="password" name="password" id="password2">
+                    <input type="password" required name="password2" id="password2">
                 </div>
 
                 <div class="col-md-2">

@@ -1,5 +1,10 @@
 package br.org.sistemafesu.service;
 
+import br.org.sistemafesu.entity.Role;
+import br.org.sistemafesu.repository.RoleRepository;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -7,8 +12,14 @@ import br.org.sistemafesu.entity.User;
 import br.org.sistemafesu.repository.UserRepository;
 import lombok.NonNull;
 
+import javax.swing.*;
+import java.util.*;
+
 @Service
 public class UserService extends AbstractService<User, UserRepository> {
+
+    @Autowired
+    private RoleRepository roleRepository;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public UserService(UserRepository userRepository) {
@@ -24,8 +35,8 @@ public class UserService extends AbstractService<User, UserRepository> {
         }
     }
 
-    public User getUserUsername(String username){
-       return repository.findByUsername(username);
+    public User getUserUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     @Override
@@ -37,9 +48,17 @@ public class UserService extends AbstractService<User, UserRepository> {
         return repository.save(model);
     }
 
-    public void saveUser(User user){
-        user.setPassword(encoder.encode(user.getPassword()));
-        repository.save(user);
+    public void saveUser(User user) {
+        if (!repository.existsById(user.getId())) {
+            user.setPassword(encoder.encode(user.getPassword()));
+            List<Role> roles = new ArrayList<>();
+            roles = roleRepository.findAll();
+
+            Set<Role> roleSet = new HashSet<>();
+            roleSet.add(roles.get(1));
+            user.setRoles(roleSet);
+            repository.save(user);
+        }
     }
 
     @Override
