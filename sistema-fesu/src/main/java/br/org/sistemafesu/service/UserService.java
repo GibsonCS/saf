@@ -53,7 +53,7 @@ public class UserService {
     }
 
     public void update(Long id, User user) {
-        if (!userRepository.existsById(id)){
+        if (!userRepository.existsById(id)) {
             throw new IllegalArgumentException("Usuário não encontrado!");
         }
         User userFound = userRepository.findById(user.getId()).orElse(null);
@@ -75,18 +75,22 @@ public class UserService {
 
     public void saveUser(User user) {
 
-            user.setPassword(encoder.encode(user.getPassword()));
-            List<Role> roles = new ArrayList<>();
-            roles = roleRepository.findAll();
+        user.setPassword(encoder.encode(user.getPassword()));
+        List<Role> roles = new ArrayList<>();
+        roles = roleRepository.findAll();
 
-            Set<Role> roleSet = new HashSet<>();
-            roleSet.add(roles.get(1));
-            user.setRoles(roleSet);
-            userRepository.save(user);
+        Set<Role> roleSet = new HashSet<>();
+        roles.forEach(role -> {
+            if (role.getName().equalsIgnoreCase("ROLE_STUDENT")){
+                roleSet.add(role);
+            }
+        });
 
+        user.setRoles(roleSet);
+        userRepository.save(user);
     }
 
-    public User findUserById (Long id){
+    public User findUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
