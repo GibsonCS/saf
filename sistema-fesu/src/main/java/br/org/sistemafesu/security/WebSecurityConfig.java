@@ -22,6 +22,12 @@ public class WebSecurityConfig {
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/usuarios/**").hasRole("ADMIN")
+                        .requestMatchers("/salas/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/reservar/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/reservas/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/patrimonios/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/pessoas/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/relatorio/**").hasAnyRole("ADMIN","USER")
                         .requestMatchers("/equipamentos/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/**", "/api/**", "/actuator**").permitAll()
                         .anyRequest().authenticated()).formLogin(form -> form
