@@ -3,6 +3,7 @@ package br.org.sistemafesu.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.org.sistemafesu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,22 +24,29 @@ public class StartApplication implements CommandLineRunner {
     private RoleService roleService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+    private UserService userService;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        List<String> admin_roles = new ArrayList<String>(){{
+        List<String> admin_roles = new ArrayList<String>() {{
             add("ADMIN");
             add("USER");
         }};
 
-        List<String> user_role = new ArrayList<String>(){{
+        List<String> user_role = new ArrayList<String>() {{
             add("USER");
         }};
+
+        String role = "STUDENT";
+
+        roleService.createRoleIfNotExistsRole(role);
 
         createUserIfNotExists("admin", "ADMIN", "master123", admin_roles);
         createUserIfNotExists("user", "USER", "user123", user_role);
     }
+
 
     private void createUserIfNotExists(String username, String name, String password, Iterable<String> user_roles) {
         User user = userRepository.findByUsername(username);
@@ -49,7 +57,7 @@ public class StartApplication implements CommandLineRunner {
             user.setUsername(username);
             user.setPassword(encoder.encode(password));
 
-            for (String role_name: user_roles) {
+            for (String role_name : user_roles) {
                 Role role = roleService.createRoleIfNotExistsRole(role_name);
 
                 user.getRoles().add(role);
