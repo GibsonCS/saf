@@ -24,7 +24,7 @@ public class WebEquipamentoController {
 
     @GetMapping()
     public String listarEquipamentos(Model model) {
-        model.addAttribute("listaEquipamentos", equipamentoService.getAll()
+        model.addAttribute("listaEquipamentos", equipamentoService.getlAll()
             .stream()
             .sorted(Comparator .comparing(Equipamento::getNomeEquipamento)));
         model.addAttribute("equipamento", new Equipamento());
@@ -34,7 +34,6 @@ public class WebEquipamentoController {
 
     @PostMapping()
     public String cadastrarEquipamento(Equipamento equipamento) {
-        equipamento.setPessoa(null);
         equipamentoService.save(equipamento);
 
         return "redirect:/equipamentos";

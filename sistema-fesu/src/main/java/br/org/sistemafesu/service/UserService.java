@@ -11,45 +11,70 @@ import org.springframework.stereotype.Service;
 import br.org.sistemafesu.entity.User;
 import br.org.sistemafesu.repository.UserRepository;
 import lombok.NonNull;
+import org.springframework.ui.Model;
 
 import javax.swing.*;
 import java.util.*;
 
 @Service
-public class UserService extends AbstractService<User, UserRepository> {
+public class UserService {
 
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private RoleRepository roleRepository;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public UserService(UserRepository userRepository) {
-        super(userRepository);
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+    private User user;
+
+    public List<User> getAll() {
+
+        return userRepository.findAll();
+    }
+
+    public void save(User user) {
+        if (!userRepository.existsById(user.getId())) {
+            userRepository.save(user);
+        }
     }
 
     public void setPassword(@NonNull Long id, @NonNull String password) {
-        User user = repository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
             user.setPassword(encoder.encode(password));
-            repository.save(user);
+            userRepository.save(user);
         }
     }
 
     public User getUserUsername(String username) {
-        return repository.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
-    @Override
-    public User update(@NonNull Long id, @NonNull User model) {
-        if (model.getId() == null || !repository.existsById(id)) {
+    public void update(Long id, User user) {
+        if (!userRepository.existsById(id)){
             throw new IllegalArgumentException("Usuário não encontrado!");
         }
+        User userFound = userRepository.findById(user.getId()).orElse(null);
 
-        return repository.save(model);
+        userFound.setNomeCompleto(user.getNomeCompleto());
+        userFound.setUsername(user.getUsername());
+        userFound.setEmail(user.getEmail());
+        userFound.setPassword(encoder.encode(user.getPassword()));
+        userRepository.save(userFound);
+
+//        User userUpdated = userRepository.findById(id).orElse(null);
+//
+//        userUpdated.setRoles(user.getRoles());
+//        userUpdated.setPassword(user.getPassword());
+//        userUpdated.setNomeCompleto(user.getNomeCompleto());
+//        userUpdated.setUsername(user.getUsername());
+//        userRepository.save(userUpdated);
     }
 
     public void saveUser(User user) {
-        if (!repository.existsById(user.getId())) {
+
             user.setPassword(encoder.encode(user.getPassword()));
             List<Role> roles = new ArrayList<>();
             roles = roleRepository.findAll();
@@ -57,13 +82,17 @@ public class UserService extends AbstractService<User, UserRepository> {
             Set<Role> roleSet = new HashSet<>();
             roleSet.add(roles.get(1));
             user.setRoles(roleSet);
-            repository.save(user);
-        }
-    }
-    @Override
-    public User save(User model) {
-        model.setPassword(encoder.encode(model.getPassword()));
+            userRepository.save(user);
 
-        return super.save(model);
+    }
+
+    public User findUserById (Long id){
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void deleteById(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        }
     }
 }

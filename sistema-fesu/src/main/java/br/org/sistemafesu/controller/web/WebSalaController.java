@@ -1,5 +1,6 @@
 package br.org.sistemafesu.controller.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,13 +17,12 @@ import br.org.sistemafesu.service.SalaService;
 @Controller
 @RequestMapping("/salas")
 public class WebSalaController {
-    private final SalaService salaService;
-    private final LocacaoService locacaoService;
 
-    public WebSalaController(SalaService salaService, LocacaoService locacaoService) {
-        this.salaService = salaService;
-        this.locacaoService = locacaoService;
-    }
+    @Autowired
+    private  SalaService salaService;
+//    private  LocacaoService locacaoService;
+
+
 
     @GetMapping()
     public String listarSala(Model model) {
@@ -39,15 +39,15 @@ public class WebSalaController {
         return new RedirectView("/salas");
     }
 
-    @DeleteMapping("/reserva/{id}")
-    public RedirectView deletarReservaSala(@PathVariable Long id) {
-        locacaoService.deleteWithTreatment(id);
-
-        return new RedirectView("/salas");
-    }
+//    @DeleteMapping("/reserva/{id}")
+//    public RedirectView deletarReservaSala(@PathVariable Long id) {
+//        locacaoService.deleteWithTreatment(id);
+//
+//        return new RedirectView("/salas");
+//    }
 
     @DeleteMapping("{id}")
-    public RedirectView deletarSaLa(@PathVariable Long idSala) {
+    public RedirectView deletarSaLa(@PathVariable("id") Long idSala) {
         salaService.deleteById(idSala);
 
         return new RedirectView("/salas");

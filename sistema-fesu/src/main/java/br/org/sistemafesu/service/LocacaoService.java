@@ -3,6 +3,7 @@ package br.org.sistemafesu.service;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.sistemafesu.entity.Equipamento;
@@ -12,27 +13,32 @@ import br.org.sistemafesu.repository.LocacaoRepository;
 import lombok.NonNull;
 
 @Service
-public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> {
-    private final EquipamentoRepository equipamentoRepository;
+public class LocacaoService {
 
-    public LocacaoService(LocacaoRepository locacaoRepository,
-            EquipamentoRepository equipamentoRepository) {
-        super(locacaoRepository);
+    @Autowired
+    private EquipamentoRepository equipamentoRepository;
+    @Autowired
+    private LocacaoRepository locacaoRepository;
 
-        this.equipamentoRepository = equipamentoRepository;
-    }
-
-    @Override
-    public Locacao update(@NonNull Long id, @NonNull Locacao model) {
-        if (model.getId() == null || !repository.existsById(id)) {
-            throw new IllegalArgumentException("Locação não encontrada!");
-        }
-
-        return super.save(model);
-    }
-
+    //
+//    public LocacaoService(LocacaoRepository locacaoRepository,
+//            EquipamentoRepository equipamentoRepository) {
+//        super(locacaoRepository);
+//
+//        this.equipamentoRepository = equipamentoRepository;
+//    }
+//
+//    @Override
+//    public Locacao update(@NonNull Long id, @NonNull Locacao model) {
+//        if (model.getId() == null || !repository.existsById(id)) {
+//            throw new IllegalArgumentException("Locação não encontrada!");
+//        }
+//
+//        return super.save(model);
+//    }
+//
     public void deleteWithTreatment(@NonNull Long id) {
-        Locacao locacao = repository.findById(id).orElse(null);
+        Locacao locacao = locacaoRepository.findById(id).orElse(null);
 
         if (locacao != null) {
             locacao.getEquipamentos().forEach(equip -> equip.setLocacao(null));
@@ -48,17 +54,17 @@ public class LocacaoService extends AbstractService<Locacao, LocacaoRepository> 
 
             locacao.setDeleted(true);
 
-            repository.save(locacao);
+            locacaoRepository.save(locacao);
         }
     }
-
+//
     public List<Locacao> findAllLocacaoDeleted() {
-        return repository.findAllByIsDeletedTrue();
+        return locacaoRepository.findAllByIsDeletedTrue();
     }
-
+//
     public List<Locacao> findAllLocacaoNotDeleted() {
-        List<Locacao> locacoes = (List<Locacao>) repository.findAllByIsDeletedFalse();
+        List<Locacao> locacoes = (List<Locacao>) locacaoRepository.findAllByIsDeletedFalse();
 
-       return locacoes.stream().sorted(Comparator.comparing(Locacao::getData)).toList();
+        return locacoes.stream().sorted(Comparator.comparing(Locacao::getData)).toList();
     }
 }

@@ -42,7 +42,7 @@ public class Equipamento {
     @ManyToOne
     @JoinColumn(name = "id_pessoa")
     @JsonIgnoreProperties(value = "equipamentos")
-    private Pessoa pessoa;
+    private Pessoa pessoa = null;
 
     @CreationTimestamp
     private Instant createdAt;

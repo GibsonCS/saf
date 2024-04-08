@@ -5,12 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import br.org.sistemafesu.entity.Role;
 import br.org.sistemafesu.entity.User;
@@ -20,14 +15,11 @@ import br.org.sistemafesu.service.UserService;
 @Controller
 @RequestMapping("/usuarios")
 public class WebUsuarioController {
-    private final UserService userService;
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private RoleService roleService;
-
-    public WebUsuarioController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping()
     public String listarUsuarios(Model model) {
@@ -40,6 +32,7 @@ public class WebUsuarioController {
     }
 
 
+
     @PostMapping()
     public String cadastrarUsuario(User user) {
         userService.save(user);
@@ -47,21 +40,24 @@ public class WebUsuarioController {
     }
 
     @DeleteMapping("{id}")
-    public String deletarUsuario (@PathVariable("id")Long id) {
+    public String deletarUsuario(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/usuarios";
     }
 
-    @PutMapping()
-    public String atualizarSenha(User user){
-        // System.out.println('-'*30 + user.getName());
-        userService.save(user);
-        // if (userRepository.findById(user.getId()).isPresent()){
-        //     user.setPassword(encoder.encode(user.getPassword()));
-        //     userRepository.save(user);
-        // }
+
+    @GetMapping("{id}")
+    public String getFormUpdateUser(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", userService.findUserById(id));
+
+        return "editar-usuario.html";
+    }
+
+    @PutMapping("/editar/{id}")
+    public String updateUser(@PathVariable("id") Long id, User user) {
+        userService.update(id, user);
 
         return "redirect:/usuarios";
     }
-
 }
+

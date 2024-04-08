@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+
+</head>
+<body>
+
+<section class="content" layout:fragment="content">
+
+    <form th:method="put" onsubmit="return validarSenha();" class="needs-validation" novalidate
+          th:action="@{/usuarios/editar/{id}(id=${user.id})}" th:object="${user}">
+        <div class="row g-5 mx-0 d-flex text-start align-items-center">
+            <div class="col-md-2">
+                <!--                <input type="hidden" name="id" th:field="*{id}">-->
+                <label class="form-label " for="nome">Nome Completo</label>
+                <input type="text" name="nomeCompleto" id="nome" placeholder="NOME COMPLETO">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="email">E-mail</label>
+                <input type="email" th:field="*{email}" name="email" id="email" placeholder="E-MAIL">
+            </div>
+
+            <!--            <div class="col-md-2">-->
+            <!--                <label class="form-label" for="cpf">CPF</label>-->
+            <!--                <input type="text" th:field="*{cpf}"required name="cpf" id="cpf" placeholder="CPF">-->
+            <!--            </div>-->
+
+            <!--            <div class="col-md-2">-->
+            <!--                <label class="form-label " for="rg">RG</label>-->
+            <!--                <input type="text" required name="rg" id="rg" placeholder="RG">-->
+            <!--            </div>-->
+
+            <!--            <div class="col-md-2">-->
+            <!--                <label class="form-label" for="orgaoEmissor">Orgão Emissor</label>-->
+            <!--                <input type="text" required name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">-->
+            <!--            </div>-->
+
+            <div class="col-md-2">
+                <label for="userName">Login:</label>
+                <input type="text"  placeholder="LOGIN" required name="username" id="userName">
+            </div>
+            <div class="col-md-2">
+                <label for="password1">Senha:</label>
+                <input type="password" required name="password" placeholder="SENHA" id="password1">
+            </div>
+            <div class="col-md-2">
+                <label for="password2">Confirmar senha:</label>
+                <input type="password" required name="password2" placeholder="CONFIRM SENHA" id="password2">
+            </div>
+
+            <hr class="mt-4">
+
+            <div class="d-grid gap-2 d-sm-flex  justify-content-evenly">
+                <input type="reset" value="Limpar" class="btn btn-warning  btn-shadow bg-gradient"
+                       id="btn-reset">
+                <input type="submit" value="Atualizar" class="btn btn-success  btn-shadow bg-gradient"
+                       id="btn-input">
+            </div>
+        </div>
+    </form>
+
+
+    <!--    <form id="form-create2" class="row g-3 needs-validation" novalidate-->
+    <!--          th:action="@{/usuarios/{id}(id=${user.id})}"-->
+    <!--          th:object="${user}" th:method="put">-->
+    <!--        <div class="row g-3 mb-3">-->
+    <!--            <div class="col-md-12">-->
+    <!--                <label for="nome" class="col-form-label fw-semibold">Nome:</label>-->
+    <!--                <input type="text" class="form-control" id="nome" th:field="*{nomeCompleto}">-->
+    <!--                autocomplete="off" required>-->
+    <!--                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">-->
+    <!--                    <li th:class="text-danger"-->
+    <!--                        th:each="err : ${#fields.errors('password)}">-->
+    <!--                        <small th:text="${err}"></small>-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+
+    <!--                <label for="password" class="col-form-label fw-semibold">Senha:</label>-->
+    <!--                <input type="password" class="form-control" id="password" th:field="*{password}"-->
+    <!--                       autocomplete="off" required>-->
+    <!--                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">-->
+    <!--                    <li th:class="text-danger"-->
+    <!--                        th:each="err : ${#fields.errors('password)}">-->
+    <!--                        <small th:text="${err}"></small>-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+
+    <!--            <div class="col-md-6">-->
+    <!--                <label for="login" class="col-form-label fw-semibold">Login:</label>-->
+    <!--                <input id="login" type="text" class="form-control"-->
+    <!--                       th:field="*{username}"-->
+    <!--                       autocomplete="off">-->
+    <!--                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">-->
+    <!--                    <li th:class="text-danger"-->
+    <!--                        th:each="err : ${#fields.errors('username)}">-->
+    <!--                        <small th:text="${err}"></small>-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+
+    <!--            <div class="col-md-6">-->
+    <!--                <label for="funcao"-->
+    <!--                       class="col-form-label fw-semibold">Privilégio:</label>-->
+    <!--                <select class="form-control" id="funcao" th:field="*{roles}" multiple required>-->
+    <!--                    <option th:each="role : ${roles}" th:value="${role.id}"-->
+    <!--                            th:text="${role.name}">-->
+    <!--                    </option>-->
+    <!--                </select>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+    <!--        <script-->
+    <!--                th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>-->
+    <!--    </form>-->
+
+</section>
+
+</body>
+</html>

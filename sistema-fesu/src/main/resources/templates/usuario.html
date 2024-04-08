@@ -1,197 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
-    xmlns:layout="http://www.w3.org/1999/xhtml">
+      xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Usuarios</title>
 </head>
 
 <body>
-    <section layout:fragment="content">
+<section layout:fragment="content">
 
-        <div>
-            <div class="alert alert-danger" role="alert" th:if="${param.error}">
-                [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
-            </div>
-
-            <table class="table table-light table-striped table-responsive">
-                <thead>
-                    <tr>
-                        <th class="th fw-semibold" scope="col">Nome</th>
-                        <th class="th fw-semibold" scope="col">Login</th>
-                        <th class="th fw-semibold" scope="col">Privilégio</th>
-                        <th class="th fw-semibold" scope="col">Editar</th>
-                        <th class="th fw-semibold" scope="col">Deletar</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr th:each="usuario : ${listaUsuarios}">
-                        <td> <span th:text="${usuario.nomeCompleto}"></span> </td>
-                        <td> <span th:text="${usuario.username}"></span></td>
-                        <!-- <td> <span th:text="${usuario.roles}"></span></td> -->
-                        <td>
-                            <ul>
-                                <li th:each="funcao : ${usuario.roles}" th:text="${funcao.name}"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <!-- <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow" data-bs-toggle="modal"
-                                data-bs-target="#modal-add2">Editar</button> -->
-                            <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow bg-gradient" th:attr="onclick=|openModal(${usuario.id})|">Editar</button>
-
-                        </td>
-                        <td>
-                            <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.nomeCompleto})]\' permanentemente. Deseja realmente deletar?');">
-                                <input  style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit" value="Deletar">
-                            </form>
-                        </td>
-
-
-                    </tr>
-
-
-                </tbody>
-            </table>
+    <div>
+        <div class="alert alert-danger" role="alert" th:if="${param.error}">
+            [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
         </div>
 
-        <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal"
+        <table class="table table-light table-striped table-responsive">
+            <thead>
+            <tr>
+                <th class="th fw-semibold" scope="col">Nome</th>
+                <th class="th fw-semibold" scope="col">Login</th>
+                <th class="th fw-semibold" scope="col">Privilégio</th>
+                <th class="th fw-semibold" scope="col">Editar</th>
+                <th class="th fw-semibold" scope="col">Deletar</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="usuario : ${listaUsuarios}">
+                <td><span th:text="${usuario.nomeCompleto}"></span></td>
+                <td><span th:text="${usuario.username}"></span></td>
+                <td>
+                    <ul>
+                        <li th:each="funcao : ${usuario.roles}" th:text="${funcao.name}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <a th:href="@{/usuarios/{id}(id=${usuario.id})}">
+                        <button style="width: 75px;" type="button" class="btn btn-success btn-shadow"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal-add2">Editar
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete"
+                          th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.nomeCompleto})]\' permanentemente. Deseja realmente deletar?');">
+                        <input style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit"
+                               value="Deletar">
+                    </form>
+                </td>
+
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <button id="add" class="btn btn-success position-fixed rounded-circle def" data-bs-toggle="modal"
             data-bs-target="#modal-add">
-            <i class="bi bi-plus-lg"></i>
-        </button>
+        <i class="bi bi-plus-lg"></i>
+    </button>
 
-        <div class="modal fade" id="modal-add2" tabindex="-1" aria-labelledby="modal-add-label" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modal-add-label">Atualizar Usuário</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body py-0 pb-3">
-                        <form id="form-create2" class="row g-3 needs-validation" novalidate th:action="@{/usuarios}"
-                            th:object="${user}" th:method="put">
-                            <input type="hidden" th:field="*{id}">
-                            <div class="row g-3 mb-3">
-                                <div class="col-md-12">
-                                    <label for="name" class="col-form-label fw-semibold">Nome:</label>
-                                    <input type="text" class="form-control" th:field="*{name}"
-                                        autocomplete="off" required>
-                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
-                                        <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
-                                            <small th:text="${err}"></small>
-                                        </li>
-                                    </ul>
-                                </div>
 
-                                <div class="col-md-12">
-                                    <label for="password" class="col-form-label fw-semibold">Senha:</label>
-                                    <input type="password" class="form-control" th:field="*{password}"
-                                        autocomplete="off" required>
-                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
-                                        <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
-                                            <small th:text="${err}"></small>
-                                        </li>
-                                    </ul>
-                                </div>
+    <script>
+        let editModal = document.getElementById('modal-add2');
+        let modal;
 
-                                <div class="col-md-6">
-                                    <label for="login" class="col-form-label fw-semibold">Login:</label>
-                                    <input id="login" type="text" class="form-control" th:field="*{username}"
-                                        autocomplete="off">
-                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
-                                        <li th:class="text-danger" th:each="err : ${#fields.errors('username)}">
-                                            <small th:text="${err}"></small>
-                                        </li>
-                                    </ul>
-                                </div>
+        window.onload = () => {
+            modal = new bootstrap.Modal(editModal);
 
-                                <div class="col-md-6">
-                                    <label for="privilegio" class="col-form-label fw-semibold">Privilégio:</label>
-                                    <select class="form-control" th:field="*{roles}" multiple required>
-                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+            document.getElementById("password").addEventListener("input", function () {
+                const confirmarSenha = document.getElementById("confirm-password");
+                const text = confirmarSenha.nextElementSibling.innerText;
+                const length = this.value.length;
 
-                            <script
-                                th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
-                        </form>
-                    </div>
-                    <div class="modal-footer justify-content-evenly">
-                        <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create2">Limpar</button>
-                        <button type="submit" class="btn btn-success btn-shadow bg-gradient def" form="form-create2">Atualizar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            let editModal = document.getElementById('modal-add2');
-            let modal;
-
-            window.onload = () => {
-                modal = new bootstrap.Modal(editModal);
-
-                document.getElementById("password").addEventListener("input", function(){
-                    const confirmarSenha = document.getElementById("confirm-password");
-                    const text = confirmarSenha.nextElementSibling.innerText;
-                    const length = this.value.length;
-
-                    if (length > 1) {
-                        this.classList.add("has-validation");
-                        confirmarSenha.classList.add("has-validation");
-                    }
-
-                    if (this.classList.contains("has-validation")) {
-                        this.classList.remove("is-valid", "is-invalid");
-
-                        if (length >= 3) {
-                            this.setCustomValidity('');
-                            this.classList.add("is-valid");
-                        } else {
-                            this.setCustomValidity(text);
-                            this.classList.add("is-invalid");
-                        }
-                    }
-                });
-
-                document.getElementById("confirm-password").addEventListener("input", function(){
-                    const senha = document.getElementById("password").value;
-                    const text = senha.nextElementSibling.innerText;
-                    const length = this.value.length;
-
-                    if (this.classList.contains("has-validation")) {
-                        this.classList.remove("is-valid", "is-invalid");
-
-                        if (this.value == senha) {
-                            this.classList.add("is-valid");
-                            this.setCustomValidity('');
-                        } else {
-                            this.classList.add("is-invalid");
-                            this.setCustomValidity(text);
-                        }
-                    }
-                });
-            };
-
-            function onCreateUser() {
-                const senha1 = document.getElementById('password');
-                const senha2 = document.getElementById('confirm-password');
-
-                if(senha1.nodeValue != senha2.nodeValue){
-                    window.alert('As senhas não conferem');
-
-                    return false;
+                if (length > 1) {
+                    this.classList.add("has-validation");
+                    confirmarSenha.classList.add("has-validation");
                 }
 
-                return true;
-            };
+                if (this.classList.contains("has-validation")) {
+                    this.classList.remove("is-valid", "is-invalid");
 
-            function openModal(uid) {
-                if (modal) {
-                    fetch(`/api/usuario/${uid}`)
+                    if (length >= 3) {
+                        this.setCustomValidity('');
+                        this.classList.add("is-valid");
+                    } else {
+                        this.setCustomValidity(text);
+                        this.classList.add("is-invalid");
+                    }
+                }
+            });
+
+            document.getElementById("confirm-password").addEventListener("input", function () {
+                const senha = document.getElementById("password").value;
+                const text = senha.nextElementSibling.innerText;
+                const length = this.value.length;
+
+                if (this.classList.contains("has-validation")) {
+                    this.classList.remove("is-valid", "is-invalid");
+
+                    if (this.value == senha) {
+                        this.classList.add("is-valid");
+                        this.setCustomValidity('');
+                    } else {
+                        this.classList.add("is-invalid");
+                        this.setCustomValidity(text);
+                    }
+                }
+            });
+        };
+
+        function onCreateUser() {
+            const senha1 = document.getElementById('password');
+            const senha2 = document.getElementById('confirm-password');
+
+            if (senha1.nodeValue != senha2.nodeValue) {
+                window.alert('As senhas não conferem');
+
+                return false;
+            }
+
+            return true;
+        };
+
+        function openModal(uid) {
+            if (modal) {
+                fetch(`/api/usuario/${uid}`)
                     .then((response) => response.json())
                     .then((user) => {
                         for (const [key, value] of Object.entries(user)) {
@@ -210,72 +148,78 @@
 
                         modal.show();
                     });
-                }
             }
-        </script>
-    </section>
+        }
+    </script>
+</section>
 
-    <div layout:fragment="modal-add">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Usuarios</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body py-0 pb-3">
-                    <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/usuarios}"
-                        th:object="${user}" method="post" onsubmit="return onCreateUser();">
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <label for="name" class="col-form-label fw-semibold">Nome:</label>
-                                <input id="name" type="text" class="form-control" th:field="*{name}" value="" required>
-                                <small th:class="text-danger" th:if="${#fields.hasErrors('name')}"
-                                    th:errors="*{name}"></small>
+<div layout:fragment="modal-add">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-add-label">Cadastro de Usuarios</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body py-0 pb-3">
+                <form id="form-create" class="row g-3 needs-validation" novalidate th:action="@{/usuarios}"
+                      th:object="${user}" method="post" onsubmit="return onCreateUser();">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="name" class="col-form-label fw-semibold">Nome:</label>
+                            <input id="name" type="text" class="form-control" th:field="*{nomeCompleto}" value=""
+                                   required>
+                            <small th:class="text-danger" th:if="${#fields.hasErrors('nomeCompleto')}"
+                                   th:errors="*{nomeCompleto}"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="username" class="col-form-label fw-semibold">Login:</label>
+                            <input id="username" type="text" class="form-control" th:field="*{username}" value=""
+                                   required>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="password" class="col-form-label fw-semibold">Senha:</label>
+                                <input type="password" class="form-control" th:field="*{password}" value=""
+                                       required>
+                                <div class="invalid-feedback">A senha deve conter 3 ou mais caracteres.</div>
+                                <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
+                                    <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
+                                        <small th:text="${err}"></small>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="col-md-6">
-                                <label for="username" class="col-form-label fw-semibold">Login:</label>
-                                <input id="username" type="text" class="form-control" th:field="*{username}" value=""
-                                    required>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="password" class="col-form-label fw-semibold">Senha:</label>
-                                    <input  type="password" class="form-control" th:field="*{password}" value=""
-                                        required>
-                                    <div class="invalid-feedback">A senha deve conter 3 ou mais caracteres.</div>
-                                    <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
-                                        <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
-                                            <small th:text="${err}"></small>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirm-password" class="col-form-label fw-semibold">Confirmar Senha:</label>
-                                    <input id="confirm-password" name="confirm-password" type="password" class="form-control" required>
-                                    <div class="invalid-feedback">A senha e confirmação de senha não conferem.</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="roles" class="col-form-label fw-semibold">Privilégio:</label>
-                                <select class="form-control" th:field="*{roles}" multiple required>
-                                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
-                                    </option>
-                                </select>
+                            <div class="mb-3">
+                                <label for="confirm-password" class="col-form-label fw-semibold">Confirmar
+                                    Senha:</label>
+                                <input id="confirm-password" name="confirm-password" type="password"
+                                       class="form-control" required>
+                                <div class="invalid-feedback">A senha e confirmação de senha não conferem.</div>
                             </div>
                         </div>
 
-                        <script
+                        <div class="col-md-6">
+                            <label for="roles" class="col-form-label fw-semibold">Privilégio:</label>
+                            <select class="form-control" th:field="*{roles}" multiple required>
+                                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <script
                             th:if="${#fields.hasErrors()}">window.onload = () => new bootstrap.Modal('#modal-add', {}).show();</script>
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-evenly">
-                    <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create">Limpar</button>
-                    <button id="btnCadastro"  type="submit" class="btn btn-success btn-shadow bg-gradient def" form="form-create">Cadastrar</button>
-                </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-evenly">
+                <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create">Limpar
+                </button>
+                <button id="btnCadastro" type="submit" class="btn btn-success btn-shadow bg-gradient def"
+                        form="form-create">Cadastrar
+                </button>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
