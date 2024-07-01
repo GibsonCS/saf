@@ -28,7 +28,7 @@
                 <tbody>
 
                     <tr th:each="usuario : ${listaUsuarios}">
-                        <td> <span th:text="${usuario.name}"></span> </td>
+                        <td> <span th:text="${usuario.nomeCompleto}"></span> </td>
                         <td> <span th:text="${usuario.username}"></span></td>
                         <!-- <td> <span th:text="${usuario.roles}"></span></td> -->
                         <td>
@@ -43,7 +43,7 @@
 
                         </td>
                         <td>
-                            <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.name})]\' permanentemente. Deseja realmente deletar?');">
+                            <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.nomeCompleto})]\' permanentemente. Deseja realmente deletar?');">
                                 <input  style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit" value="Deletar">
                             </form>
                         </td>

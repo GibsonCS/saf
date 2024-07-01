@@ -39,16 +39,9 @@ public class WebSalaController {
         return new RedirectView("/salas");
     }
 
-    @DeleteMapping("/reserva/{id}")
-    public RedirectView deletarReservaSala(@PathVariable Long id) {
-        locacaoService.deleteWithTreatment(id);
-
-        return new RedirectView("/salas");
-    }
-
     @DeleteMapping("{id}")
-    public RedirectView deletarSaLa(@PathVariable Long idSala) {
-        salaService.deleteById(idSala);
+    public RedirectView deletarSaLa(@PathVariable("id") Long id) {
+        salaService.deleteById(id);
 
         return new RedirectView("/salas");
     }
