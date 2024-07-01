@@ -72,9 +72,6 @@ public class WebLocacaoController {
 
         model.addAttribute("message", "Reserva efetuada com sucesso!");
 
-
-
-
         return new RedirectView("/salas");
     }
 }
