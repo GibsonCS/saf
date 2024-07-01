@@ -55,7 +55,7 @@ public class WebLocacaoController {
     }
 
     @PostMapping()
-    public RedirectView insertLocacao(@ModelAttribute("locacao") Locacao locacao,
+    public RedirectView insertLocacao(@ModelAttribute("locacao") Model model, Locacao locacao,
             @RequestParam(required = false) Long equipamentoId) {
         if (locacao != null) {
             locacaoRepository.save(locacao);
@@ -69,6 +69,11 @@ public class WebLocacaoController {
                 equipamentoRepository.save(equipamento);
             });
         }
+
+        model.addAttribute("message", "Reserva efetuada com sucesso!");
+
+
+
 
         return new RedirectView("/salas");
     }
