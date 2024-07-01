@@ -54,10 +54,10 @@ public class Locacao {
     @JsonIgnoreProperties(value = "locacoes")
     private Sala sala;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pessoa")
-    @JsonIgnoreProperties(value = "locacoes")
-    private Pessoa pessoa;
+    // @ManyToOne
+    // @JoinColumn(name = "id_pessoa")
+    // @JsonIgnoreProperties(value = "locacoes")
+    // private Pessoa pessoa;
 
     @OneToMany(mappedBy = "locacao")
     @JsonIgnoreProperties(value = "locacao")
