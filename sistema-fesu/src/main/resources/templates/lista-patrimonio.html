@@ -33,7 +33,8 @@
                     <!-- <td valign="middle"><span th:text="${patrimonio.status} != false ? 'Indisponível em: ' + ${#dates.format(equipamento.locacao.data, 'dd/MM/yyyy')} : 'Disponível'"></span> -->
                     </td>
                     <td valign="middle">
-                        <form th:action="@{/patrimonios/{id}(id=${equipamento.id})}" th:method="delete"
+                        <!-- Envia uma requisição para deletar um patrimonio passando o id dele-->
+                        <form th:action="@{/patrimonios/{id}(id=${patrimonio.id})}" th:method="delete"
                             th:onsubmit="return confirm('Essa operação irá deletar o patrimonio\'[(|${patrimonio.nome} Modelo: ${patrimonio.modelo})]\' permanentemente. Deseja realmente deletar?');">
                             <input sec:authorize="hasRole('ADMIN')" class="btn btn-danger shadow-sm  bg-gradient "
                                 type="submit" value="Deletar">
@@ -59,7 +60,7 @@
             </div>
             <div class="modal-body py-0 pb-3">
                 <form id="form-create" class="needs-validation" novalidate th:action="@{/patrimonios}"
-                    th:object="${patrimonio}" method="post">
+                th:object="${patrimonio}" method="post">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="nome" class="col-form-label fw-semibold">Nome:</label>

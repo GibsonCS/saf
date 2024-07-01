@@ -11,14 +11,15 @@
     <section class="container container-sm my-4" layout:fragment="content">
 
         <div id="editor"></div>
-
         <div class="card shadow-sm border-0 p-3">
             <h4 class="mb-3">Reservar Sala</h4>
-            <form th:method="post" class="needs-validation" novalidate th:object="${locacao}">
+            <form th:method="post" class="needs-validation" th:action="@{/reservar}" novalidate th:object="${locacao}">
                 <div class="row g-3 mx-0">
                     <div class="col-md-12">
                         <label class="form-label" for="sala.id">Sala</label>
+                        <!-- th:field="*{sala.id}" Define o atributo id do objeto sala dentro do objeto locacao-->
                         <select class="form-select" th:field="*{sala.id}">
+                            <!-- th:value="${sala.id}" pega o atributo id do objeto sala-->
                             <option th:each="sala : ${listaSalas}" th:value="${sala.id}" th:text="${sala.nomeSala}">
                             </option>
                         </select>
@@ -32,18 +33,18 @@
                         </select>
                     </div>
 
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <label class="form-label" for="pessoa.id">Responsável</label>
                         <select class="form-select" th:field="*{pessoa.id}" required>
                             <option th:each="pessoa : ${listaPessoas}" th:value="${pessoa.id}" th:text="${pessoa.nome}">
                             </option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6">
                         <label class="form-label" for="evento">Nome do Evento</label>
-                        <input class="form-control" type="text" placeholder="Nome do Evento" th:field="${locacao.evento}"
-                        required>
+                        <input class="form-control" type="text" placeholder="Nome do Evento"
+                            th:field="${locacao.evento}" required>
                     </div>
 
                     <div class="col-md-12">
@@ -72,7 +73,8 @@
 
                 <div class="d-grid gap-2 d-sm-flex  justify-content-evenly">
                     <input type="reset" value="Limpar" class="btn btn-warning  btn-shadow bg-gradient" id="btn-reset">
-                    <input type="submit" value="Reservar" class="btn btn-success  btn-shadow bg-gradient" id="btn-input">
+                    <input type="submit" value="Reservar" class="btn btn-success  btn-shadow bg-gradient"
+                        id="btn-input">
                 </div>
             </form>
         </div>

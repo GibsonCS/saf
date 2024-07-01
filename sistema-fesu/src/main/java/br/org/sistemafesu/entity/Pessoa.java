@@ -32,11 +32,11 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Length(min = 11, max = 14)
-    @CPF(message = "CPF inválido.")
+//    @Length(min = 11, max = 14)
+//    @CPF(message = "CPF inválido.")
     private String cpf;
 
-    @NotBlank(message = "Nome é obrigatório.")
+//    @NotBlank(message = "Nome é obrigatório.")
     @Size(max = 255, message = "Nome deve ter no máximo 255 caracteres")
     private String nome;
 
