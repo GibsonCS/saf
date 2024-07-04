@@ -16,7 +16,6 @@
                     <th class="th fw-semibold" scope="col">Modelo</th>
                     <th class="th fw-semibold" scope="col">Número de Série</th>
                     <th class="th fw-semibold" scope="col">Categoria</th>
-                    <th class="th fw-semibold" scope="col">Responsável</th>
                     <th class="th fw-semibold" scope="col">Status</th>
                     <th class="th fw-semibold" scope="col" sec:authorize="hasRole('ADMIN')">Gerenciar</th>
                 </tr>
@@ -28,7 +27,6 @@
                     <td valign="middle"><span th:text="${equipamento.modeloEquipamento}"></span></td>
                     <td valign="middle"><span th:text="${equipamento.numeroSerie}"></span></td>
                     <td valign="middle"><span th:text="${equipamento.tipoEquipamento}"></span></td>
-                    <td valign="middle"><span th:text="${equipamento.pessoa} != null ? ${equipamento.pessoa.nome} : 'Nenhum'"></span></td>
                     <td valign="middle"><span th:text="${equipamento.isLocated} != false ? 'Indisponível em: ' + ${#dates.format(equipamento.locacao.data, 'dd/MM/yyyy')} : 'Disponível'"></span>
                     </td>
                     <td valign="middle">

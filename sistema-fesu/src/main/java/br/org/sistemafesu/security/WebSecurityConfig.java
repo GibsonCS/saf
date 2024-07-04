@@ -18,7 +18,10 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/drive/**").permitAll()
-                        .requestMatchers("/cadastro").permitAll()
+                        .requestMatchers("/cursos").permitAll()
+                        .requestMatchers("/cursos/{id}").permitAll()
+                        .requestMatchers("/cursos/consulta-inscricao").permitAll()
+                        // .requestMatchers("/cadastro").permitAll()
                         .requestMatchers("/logout").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/error").permitAll()

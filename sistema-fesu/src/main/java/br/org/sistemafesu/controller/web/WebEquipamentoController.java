@@ -24,7 +24,7 @@ public class WebEquipamentoController {
 
     @GetMapping()
     public String listarEquipamentos(Model model) {
-        model.addAttribute("listaEquipamentos", equipamentoService.getAll()
+        model.addAttribute("listaEquipamentos", equipamentoService.obterEquipamentos()
             .stream()
             .sorted(Comparator .comparing(Equipamento::getNomeEquipamento)));
         model.addAttribute("equipamento", new Equipamento());
@@ -32,10 +32,9 @@ public class WebEquipamentoController {
         return "lista-equipamento";
     }
 
-    @PostMapping()
+    @PostMapping
     public String cadastrarEquipamento(Equipamento equipamento) {
-        equipamento.setPessoa(null);
-        equipamentoService.save(equipamento);
+        equipamentoService.criarEquipamento(equipamento);
 
         return "redirect:/equipamentos";
     }
@@ -43,7 +42,7 @@ public class WebEquipamentoController {
     @DeleteMapping("{id}")
     public RedirectView deletarEquipamento(@PathVariable("id") Long id) {
         equipamentoService.deleteLocacao(id);
-        equipamentoService.deleteById(id);
+        equipamentoService.deletarEquipamentoPorId(id);
 
         return new RedirectView("/equipamentos");
     }

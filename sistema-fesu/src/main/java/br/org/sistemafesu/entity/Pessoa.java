@@ -1,22 +1,28 @@
 package br.org.sistemafesu.entity;
 
-import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -46,17 +52,36 @@ public class Pessoa {
     @Size(min = 14, max = 15)
     private String telefone;
 
-    // @OneToMany(mappedBy = "pessoa")
-    // private List<Locacao> locacoes;
+    @Email
+    private String email;
 
-    @OneToMany(mappedBy = "pessoa")
-    private List<Equipamento> equipamentos;
+    @Length(min = 9, max = 10)
+    private String rg;
 
-    @CreationTimestamp
-    private Instant createdAt;
+    private Date dataExpedicao;
 
-    @UpdateTimestamp
-    private Instant updatedAt;
+    private String orgaoEmissor;
+
+    private String estadoCivil;
+
+    private String genero;
+
+    @OneToMany
+    private Set<Endereco> enderecos = new HashSet<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "pessoas_cursos",
+        joinColumns = { @JoinColumn(name = "pessoa_id") },
+        inverseJoinColumns = { @JoinColumn(name = "curso_id") }
+    )
+    private List<Curso> cursos = new ArrayList<>();
+
+    // @CreationTimestamp
+    // private Instant createdAt;
+
+    // @UpdateTimestamp
+    // private Instant updatedAt;
 
     public void ifPresent(Object object) {
         throw new UnsupportedOperationException("Unimplemented method 'ifPresent'");

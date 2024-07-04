@@ -39,7 +39,7 @@ public class WebPessoaController {
 
     @DeleteMapping("{id}")
     public RedirectView deletarPessoa(@PathVariable("id") Long id) {
-        pessoaService.deleteWithTreatment(id);
+        pessoaService.deletePessoa(id);
 
         return new RedirectView("/pessoas");
     }

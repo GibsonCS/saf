@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Cadastro</title>
+</head>
+
+<body>
+
+    <div id="editor"></div>
+    <section class="container container-sm my-4" layout:fragment="content">
+
+        <div class="card shadow-sm border-0 p-3">
+            <h4 class="mb-3">Inscrição</h4>
+            <form th:action="@{/cursos/{id}(id=${curso.id})}" th:method="put" th:object="${curso}">
+                <div class="row g-5 mx-0 d-flex text-start align-items-center justify-content-center">
+                    <div class="col-md-2">
+                        <label class="form-label " for="nome">Nome</label>
+                        <!-- Mapeia os valores dos campos name="nome" e name="sobrenome" aos atributos nome e sobrenome do objeto pessoa-->
+                        <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label " for="sobrenome">Sobrenome</label>
+                        <input type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
+                    </div>
+                    <div class="col-md-2">
+
+                        <label class="form-label" for="cpf">CPF</label>
+                        <input type="text" data-inputmask="'mask': '999.999.999-99'" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" name="cpf" id="cpf" placeholder="CPF" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="telefone">Telefone</label>
+                        <input id="telefone" type="tel" class="form-control" name="telefone" autocomplete="off"
+                            data-inputmask="'mask': '(99) 99999-9999'" pattern="\(\d{2}\) \d{5}-\d{4}" required>
+                    </div>
+
+                    <hr class="mt-4">
+
+                    <div class="d-grid gap-2 d-sm-flex  justify-content-evenly w-50">
+                        <input type="reset" value="Limpar" class="btn btn-warning  btn-shadow bg-gradient"
+                            id="btn-reset">
+                        <input type="submit" value="Cadastrar" class="btn btn-success  btn-shadow bg-gradient"
+                            id="btn-input">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="color: red;" th:if="${error}" th:text="${error}"></div>
+    </section>
+</body>
+
+</html>

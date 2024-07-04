@@ -1,5 +1,8 @@
 package br.org.sistemafesu.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.sistemafesu.entity.Equipamento;
@@ -10,22 +13,26 @@ import jakarta.transaction.Transactional;
 import lombok.NonNull;
 
 @Service
-public class EquipamentoService extends AbstractService<Equipamento, EquipamentoRepository> {
-    private final LocacaoRepository locacaoRepository;
+public class EquipamentoService {
 
-    public EquipamentoService(EquipamentoRepository equipamentoRepository, LocacaoRepository locacaoRepository) {
-        super(equipamentoRepository);
+    @Autowired
+    private LocacaoRepository locacaoRepository;
 
-        this.locacaoRepository = locacaoRepository;
+    @Autowired
+    private EquipamentoRepository equipamentoRepository;
+
+    public void criarEquipamento(Equipamento equipamento) {
+        equipamentoRepository.save(equipamento);
     }
 
-    @Override
-    public Equipamento update(@NonNull Long id, @NonNull Equipamento model) {
-        if (model.getId() == null || !repository.existsById(id)) {
-            throw new IllegalArgumentException("Sala não encontrada!");
+    public void deletarEquipamentoPorId(@NonNull Long id) {
+        if (equipamentoRepository.existsById(id)) {
+            equipamentoRepository.deleteById(id);
         }
+    }
 
-        return super.save(model);
+    public List<Equipamento> obterEquipamentos() {
+        return equipamentoRepository.findAll();
     }
 
     @Transactional
@@ -35,11 +42,10 @@ public class EquipamentoService extends AbstractService<Equipamento, Equipamento
         if (locacao != null) {
             for (Equipamento equipamento : locacao.getEquipamentos()) {
                 equipamento.setLocacao(null);
-                repository.save(equipamento); // Atualize o equipamento para refletir a remoção da referência
+                equipamentoRepository.save(equipamento); // Atualize o equipamento para refletir a remoção da referência
                                                          // à locação
             }
-
-            super.deleteById(id);
+            locacaoRepository.delete(locacao);
         }
     }
 }

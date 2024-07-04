@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Cadastro</title>
@@ -9,30 +9,51 @@
 
 <body>
 
-<div id="editor"></div>
-<section class="container container-sm my-4" layout:fragment="content">
+    <div id="editor"></div>
+    <section class="container container-sm my-4" layout:fragment="content">
 
 
-    <div class="p-3">
-        <h4 class="mb-3">Cadastro</h4>
-        <form method="post" class="needs-validation" th:action="@{/cadastro}" novalidate th:object="${user}">
-            <div class="row g-5 mx-0 d-flex text-start align-items-center">
-                <div class="col-md-2">
-                    <input type="hidden" name="id" th:field="*{id}">
-                    <label class="form-label " for="nome">Nome Completo</label>
-                    <input type="text" name="nomeCompleto" id="nome" placeholder="NOME COMPLETO">
-                </div>
-                <div class="col-md-2">
-                    <label class="form-label" for="email">E-mail</label>
-                    <input type="email" name="email" id="email" placeholder="E-MAIL">
-                </div>
+        <div class="card shadow-sm border-0 p-3">
+            <h4 class="mb-3">Cadastro</h4>
+            <form method="post" class="needs-validation" th:action="@{/cadastro}" novalidate th:object="${pessoa}">
+                <div class="row g-5 mx-0 d-flex text-start align-items-center justify-content-center">
+                    <div class="col-md-2">
+                        <label class="form-label " for="nome">Nome</label>
+                        <!-- Mapeia os valores dos campos name="nome" e name="sobrenome" aos atributos nome e sobrenome do objeto pessoa-->
+                        <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label " for="sobrenome">Sobrenome</label>
+                        <input type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
+                    </div>
+                    <div class="col-md-2">
 
-                <div class="col-md-2">
-                    <label class="form-label" for="cpf">CPF</label>
-                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
-                </div>
+                        <label class="form-label" for="cpf">CPF</label>
+                        <input type="text" data-inputmask="'mask': '999.999.999-99'" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" name="cpf" id="cpf" placeholder="CPF" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" for="telefone">Telefone</label>
+                        <input id="telefone" type="tel" class="form-control" name="telefone" autocomplete="off"
+                            data-inputmask="'mask': '(99) 99999-9999'" pattern="\(\d{2}\) \d{5}-\d{4}" required>
+                    </div>
 
-                <div class="col-md-2">
+                    <!-- <div class="col-md-2">
+                        <label class="form-label mb-1" for="categoria">Categoria</label>
+                        <select class="form-select p-1" id="categoria" name="categoria">
+                            <option selected>Categoria</option>
+                            <option value="residente">Residente Jurídico/a</option>
+                            <option value="servidorDpg">Servidor DPGE</option>
+                            <option value="servidor">Servidor</option>
+                            <option value="pan">Pan</option>
+                            <option value="acoesAfirmativas">Ações afirmativas</option>
+                            <option value="nsa">Não se aplica</option>
+                        </select>
+                    </div> -->
+                    <!-- <div class="col-md-2">
                     <label class="form-label " for="rg">RG</label>
                     <input type="text" name="rg" id="rg" placeholder="RG">
                 </div>
@@ -41,8 +62,7 @@
                     <label class="form-label" for="orgaoEmissor">Orgão Emissor</label>
                     <input type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="ORGÃO EMISSOR">
                 </div>
-
-
+220
 
                 <div class="col-md-2">
                     <label class="form-label mb-1" for="cepId">Cep</label>
@@ -111,22 +131,11 @@
                         <option value="solteiro">Solteiro(a)</option>
                         <option value="divorciado">Divorciado(a)</option>
                     </select>
-                </div>
+                </div>-->
 
-                <div class="col-md-2">
-                    <label class="form-label mb-1" for="categoria">Categoria</label>
-                    <select class="form-select p-1" id="categoria" name="categoria">
-                        <option selected>Categoria</option>
-                        <option value="residente">Residente Jurídico/a</option>
-                        <option value="servidorDpg">Servidor DPGE</option>
-                        <option value="servidor">Servidor</option>
-                        <option value="pan">Pan</option>
-                        <option value="acoesAfirmativas">Ações afirmativas</option>
-                        <option value="nsa">Não se aplica</option>
-                    </select>
-                </div>
 
-                <div class="col-md-2">
+
+                    <!--<div class="col-md-2">
                     <label class="form-label mb-1" for="autodeclaracao">Autodeclaração</label>
                     <select class="form-select  p-1" id="autodeclaracao" name="autodeclaracao">
                         <option selected>Autodeclaração</option>
@@ -135,20 +144,20 @@
                         <option value="pessoaParda">Pessoa Parda</option>
                         <option value="pessoaTrans">Pessoa Trans</option>
                     </select>
-                </div>
+                </div> -->
 
-                <hr class="mt-4">
+                    <hr class="mt-4">
 
-                <div class="d-grid gap-2 d-sm-flex  justify-content-evenly">
-                    <input type="reset" value="Limpar" class="btn btn-warning  btn-shadow bg-gradient"
-                           id="btn-reset">
-                    <input type="submit" value="Cadastrar" class="btn btn-success  btn-shadow bg-gradient"
-                           id="btn-input">
+                    <div class="d-grid gap-2 d-sm-flex  justify-content-evenly w-50">
+                        <input type="reset" value="Limpar" class="btn btn-warning  btn-shadow bg-gradient"
+                            id="btn-reset">
+                        <input type="submit" value="Cadastrar" class="btn btn-success  btn-shadow bg-gradient"
+                            id="btn-input">
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-</section>
+            </form>
+        </div>
+    </section>
 </body>
 
 </html>

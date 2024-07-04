@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Reservas</title>
+    <style>
+        hr[data-content] {
+            line-height: 1em;
+            position: relative;
+            outline: 0;
+            border: 0;
+            text-align: center;
+            height: 1.5em;
+            opacity: 1;
+            font-size: 1.5rem;
+        }
+
+        hr[data-content]::before {
+            content: '';
+            background: linear-gradient(to right, transparent, #818078, transparent);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+        }
+
+        hr[data-content]::after {
+            content: attr(data-content);
+            position: relative;
+            display: inline-block;
+            padding: 0 .5em;
+            line-height: 1.5em;
+            background-color: #f8f9fa;
+        }
+        </style>
+</head>
+
+<section layout:fragment="content">
+    <div th:if="${success}" th:text="${success}"></div>
+    <div class="text-center">
+        <table class="table table-light table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Dia</th>
+                    <th scope="col">Início</th>
+                    <th scope="col">Fim</th>
+                    <th scope="col">Modalidade</th>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Objetivo</th>
+                    <th class="text-start" scope="col">Inscreva-se</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="curso : ${listaCursos}">
+                    <!-- "|" -> Concatena a string "Data:" com a data do objeto. -->
+                    <td th:text="|Data: ${#dates.format(curso.data, 'dd/MM/yyyy')}">
+                    <td th:text="${curso.horaInicial}">
+                    <td th:text="${curso.horaFinal}">
+                    <td th:text="${curso.modalidade}">
+                    <td style="text-align: justify; width: 25rem;" th:text="${curso.tema}">
+                    <td style="text-align: justify; width: 25rem;" th:text="${curso.objetivo}">
+                    <td>
+                        <form class="mt-4" th:action="@{/cursos/{id}(id=${curso.id})}" th:method="get">
+                            <input class=" btn btn-success btn-shadow bg-gradient me-4 pe-2" type="submit"
+                                value="Inscreva-se">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<div th:if="${success}" th:text="${success}"></div>

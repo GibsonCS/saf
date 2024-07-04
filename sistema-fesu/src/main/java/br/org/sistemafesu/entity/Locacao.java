@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,7 +24,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@SpringBootApplication
+// @SpringBootApplication
 @ComponentScan(basePackages = "br.org.sistemafesu")
 @Table(name = "locacoes")
 public class Locacao {

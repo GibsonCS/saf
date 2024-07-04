@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,22 +54,19 @@ public class WebLocacaoController {
     }
 
     @PostMapping()
-    public RedirectView insertLocacao(@ModelAttribute("locacao") Model model, Locacao locacao,
-            @RequestParam(required = false) Long equipamentoId) {
+    public RedirectView insertLocacao(Locacao locacao, @RequestParam(required = false) Long equipamentoId) {
         if (locacao != null) {
             locacaoRepository.save(locacao);
         }
 
         if (equipamentoId != null) {
             equipamentoRepository.findById(equipamentoId).ifPresent(equipamento -> {
-                equipamento.setPessoa(locacao.getPessoa());
+                // equipamento.setPessoa(locacao.getPessoa());
                 equipamento.setLocated(true);
                 equipamento.setLocacao(locacao);
                 equipamentoRepository.save(equipamento);
             });
         }
-
-        model.addAttribute("message", "Reserva efetuada com sucesso!");
 
         return new RedirectView("/salas");
     }
