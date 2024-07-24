@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.org.sistemafesu.entity.User;
 import br.org.sistemafesu.service.UserService;
 
 @Controller
@@ -19,9 +18,9 @@ public class WebIndexController {
 
     @GetMapping()
     public String index(Authentication auth, Model model) {
-        User user = userService.getUserUsername(auth.getName());
+        String name = auth.getName();
 
-        model.addAttribute("name", user.getNomeCompleto());
+        model.addAttribute("name",name);
 
         return "index";
     }

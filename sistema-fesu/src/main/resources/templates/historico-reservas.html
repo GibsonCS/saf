@@ -21,7 +21,6 @@
                     <th class="th fw-semibold" scope="col">Data</th>
                     <th class="th fw-semibold" scope="col">Hora Inicial</th>
                     <th class="th fw-semibold" scope="col">Hora Final</th>
-                    <th class="th fw-semibold" scope="col">Responsável</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +30,6 @@
                     <td scope="row"><span th:text="${#dates.format(locacao.data, 'dd/MM/yyyy')}"></span></td>
                     <td scope="row"><span th:text="${locacao.horaInicial}"></span></td>
                     <td scope="row"><span th:text="${locacao.horaFinal}"></span></td>
-                    <td scope="row"><span th:text="${locacao.pessoa?.nome ?: 'Nenhum'}"></span></td>
                 </tr>
             </tbody>
         </table>

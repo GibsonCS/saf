@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://thymeleaf.org " layout:decorate="~{layout.html}"
+    xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Cartão</title>
+    <style>
+        hr[data-content] {
+            line-height: 1em;
+            position: relative;
+            outline: 0;
+            border: 0;
+            text-align: center;
+            height: 1.5em;
+            opacity: 1;
+            font-size: 1.5rem;
+        }
+
+        hr[data-content]::before {
+            content: "";
+            background: linear-gradient(to right,
+                    transparent,
+                    #818078,
+                    transparent);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+        }
+
+        hr[data-content]::after {
+            content: attr(data-content);
+            position: relative;
+            display: inline-block;
+            padding: 0 0.5em;
+            line-height: 1.5em;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<section style="text-align: -moz-center" layout:fragment="content">
+
+    <div class="shadow-sm" style="width: 50%;">
+        <div  style="color: #056847;
+            text-align: justify;
+            font-size: large;
+            font-family: 'Fesudeperj';
+            font-style: oblique;
+            font-weight: bold;
+            margin-top: 3rem; " th:if="${success}" th:text="${success}">
+
+        </div>
+        <div style="text-align: initial;
+            margin-top: .2rem;">
+            <a style="text-decoration: none;
+                color: #056847;
+                margin-left: 5rem;
+                font-family: 'Fesudeperj';"
+                th:href="@{/cursos/consulta-inscricao}">Consultar Inscricão</a>
+        </div>
+
+    </div>
+
+</section>
+
+</html>

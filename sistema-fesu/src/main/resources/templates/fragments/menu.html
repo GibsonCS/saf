@@ -5,35 +5,50 @@
         <li class="nav-item"><a class="nav-link" th:href="@{/pessoas}">Pessoas</a></li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/usuarios}">Usuários</a>
         </li>
-        <li class="nav-item dropdown dropdown-menu-end">
+        <div class="dropdown">
+
             <a class="nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">Reservas</a>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
                 <li><a class="dropdown-item " th:href="@{/reservas}">Listar Reservas</a></li>
                 <li><a class="dropdown-item " th:href="@{/salas}">Salas</a></li>
                 <li><a class="dropdown-item " th:href="@{/reservar}">Reservar</a></li>
-            </ul>
-        </li>
-
-
-        <li class="nav-item dropdown dropdown-menu-end">
-            <a class="nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">Curso</a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                <li><a class="dropdown-item " th:href="@{/cursos/novo}">Cadastrar Curso</a></li>
-                <li><a class="dropdown-item " th:href="@{/cursos}">Lista de Cursos</a></li>
-            </ul>
-        </li>
-
-
-        <li class="nav-item dropdown dropdown-menu-end">
-            <a class="nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">Relatório</a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
                 <li><a class="dropdown-item " th:href="@{/relatorio/historico-reservas}">Histórico de Reservas</a></li>
-                <!-- <li><a class="dropdown-item" href="#">Breve</a></li>
-              <li><a class="dropdown-item" href="#">Breve</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Ssss</a></li> -->
             </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Sair</a></li>
+
+        </div>
+
+        <a class="nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">Curso</a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+            <li><a class="dropdown-item " th:href="@{/cursos/novo}">Cadastrar Curso</a></li>
+            <li><a class="dropdown-item " th:href="@{/cursos}">Lista de Cursos</a></li>
+        </ul>
+
+        <a style="height: 2.4rem; margin-top: .2rem;" class="btn btn-light ms-3 shadow bg-gradient rounded " th:href="@{/logout}">Sair</a>
+
+        <!-- <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Sair</a></li> -->
+        <!-- <div class="dropdown">
+            <button class="btn btn-success shadow-none bg-gradient dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Reservas
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item active" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div> -->
+
+
+
+
+
+        <!-- <a class="nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">Relatório</a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+            <li><a class="dropdown-item " th:href="@{/relatorio/historico-reservas}">Histórico de Reservas</a></li>
+        </ul> -->
     </ul>
 </div>

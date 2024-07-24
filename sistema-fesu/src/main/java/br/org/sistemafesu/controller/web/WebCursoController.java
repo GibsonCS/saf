@@ -54,6 +54,12 @@ public class WebCursoController {
         return "formularioMatricula";
     }
 
+    @GetMapping("/cursos/confirmacao-inscricao")
+    public String obterPaginaConfirmacaoInscricai() {
+
+        return "confirmacaoInscricao";
+    }
+
     @PutMapping("/cursos/{id}")
     // Recebe os parametros enviados pelo formárido de matricula.
     public String matricularPessoa(@PathVariable("id") Long id, @RequestParam("nome") String nome,
@@ -71,6 +77,20 @@ public class WebCursoController {
             }
         }
 
+        List<Pessoa> listaPessoas = pessoaRepository.findAll();
+        for (Pessoa pessoa : listaPessoas) {
+            if (pessoa.getCpf().equalsIgnoreCase(cpf)) {
+                pessoa.getCursos().add(curso);
+                pessoaRepository.save(pessoa);
+                // curso.getPessoas().add(pessoa);
+                // redirectAttributes.addFlashAttribute("success", "Inscricão efetuada com
+                // sucesso!!");
+                model.addAttribute("pessoa", pessoa);
+
+                return "cartaoConfirmacao";
+            }
+        }
+
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(nome);
         pessoa.setSobrenome(sobreNome);
@@ -82,20 +102,22 @@ public class WebCursoController {
         if (!pessoa.getCursos().contains(curso)) {
             pessoa.getCursos().add(curso);
         }
+        pessoaRepository.save(pessoa);
 
         // Verificar se o curso já está associado à pessoa
         if (!curso.getPessoas().contains(pessoa)) {
             curso.getPessoas().add(pessoa);
         }
 
-        // Salvar primeiro a entidade "principal"
-        pessoaRepository.save(pessoa);
         cursoRepository.save(curso);
 
         model.addAttribute("pessoa", pessoa);
-        redirectAttributes.addFlashAttribute("success", "Inscrição efetuada com sucesso!!");
+        redirectAttributes.addFlashAttribute("success",
+                " Confirmada sua inscrição para a(s) palestra(s) na Escola de Educação Financeira da Defensoria Pública. Informamos que a palestra será realizada na Av. Marechal Câmara, n.º 314, 4º andar, sala 2, Centro – RJ, na sede da Defensoria Pública. As modalidades online (formato webcast e videocast) serão disponibilizadas no Youtube da Defensoria Pública do Rio de Janeiro.\n"
+                        + //
+                        "Você pode consultar as palestras em que se encontra inscrito(a) clicando aqui 👇");
 
-        return "cartaoConfirmacao";
+        return "redirect:/cursos/confirmacao-inscricao";
     }
 
     @GetMapping("/cursos/consulta-inscricao")
@@ -111,14 +133,12 @@ public class WebCursoController {
         List<Pessoa> pessoas = pessoaRepository.findAll();
 
         // Verificar se o cpf existe no sistema
-          if (pessoas.stream().filter(p -> p.getCpf().equalsIgnoreCase(cpf)).findFirst().isEmpty()) {
-                redirectAttributes.addFlashAttribute("error", "O CPF informado não consta em nosso sistema.");
-                return "redirect:/cursos/consulta-inscricao";
-            }
+        if (pessoas.stream().filter(p -> p.getCpf().equalsIgnoreCase(cpf)).findFirst().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "O CPF informado não consta em nosso sistema.");
+            return "redirect:/cursos/consulta-inscricao";
+        }
 
-        pessoas.stream().filter(p -> p.getCpf().equalsIgnoreCase(cpf)).findFirst().ifPresent((pessoa) -> {
-            model.addAttribute("pessoa", pessoa);
-        });
+        model.addAttribute("pessoa", pessoas.stream().filter(p -> p.getCpf().equalsIgnoreCase(cpf)).findFirst().get());
 
         return "cartaoConfirmacao";
     }

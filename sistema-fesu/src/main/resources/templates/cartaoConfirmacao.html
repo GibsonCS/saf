@@ -42,7 +42,7 @@
     <div th:if="${success}" th:text="${success}"></div>
     <div class="text-center">
 
-        <table class="table table-light table-striped table-responsive" th:each="curso : ${pessoa.cursos}" >
+        <table class="table table-light table-striped table-responsive" >
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
@@ -55,9 +55,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:object="${pessoa}">
-                    <!-- "|" -> Concatena a string "Data:" com a data do objeto. -->
+                <tr th:each="curso : ${pessoa.cursos}">
                     <td th:text="${pessoa.nome}">
+                    <!-- "|" -> Concatena a string "Data:" com a data do objeto. -->
                     <td th:text="|Data: ${#dates.format(curso.data, 'dd/MM/yyyy')}">
                     <td th:text="${curso.horaInicial}">
                     <td th:text="${curso.horaFinal}">

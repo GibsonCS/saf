@@ -53,7 +53,6 @@
                             <p class="m-0" th:text="|Início: ${locacao.horaInicial}|"></p>
                             <p class="m-0" th:text="|Término: ${locacao.horaFinal}|"></p>
                             <p class="m-0" th:text="|Descrição: ${locacao.descricao}|"></p>
-                            <p class="m-0" th:text="|Responsável: ${locacao.pessoa?.nome ?: 'Nenhum'}|"></p>
 
                                 <p class="m-0" th:if="${!#lists.isEmpty(locacao.equipamentos)}">
                                 Equipamentos: <br>
