@@ -18,7 +18,6 @@
             <table class="table table-light table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th class="th fw-semibold" scope="col">Nome</th>
                         <th class="th fw-semibold" scope="col">Login</th>
                         <th class="th fw-semibold" scope="col">Privilégio</th>
                         <th class="th fw-semibold" scope="col">Editar</th>
@@ -28,23 +27,22 @@
                 <tbody>
 
                     <tr th:each="usuario : ${listaUsuarios}">
-                        <td> <span th:text="${usuario.nomeCompleto}"></span> </td>
                         <td> <span th:text="${usuario.username}"></span></td>
-                        <!-- <td> <span th:text="${usuario.roles}"></span></td> -->
                         <td>
                             <ul>
                                 <li th:each="funcao : ${usuario.roles}" th:text="${funcao.name}"></li>
                             </ul>
                         </td>
                         <td>
-                            <!-- <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow" data-bs-toggle="modal"
-                                data-bs-target="#modal-add2">Editar</button> -->
-                            <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow bg-gradient" th:attr="onclick=|openModal(${usuario.id})|">Editar</button>
+                            <button style="width: 75px;" , type="button" class="btn btn-success btn-shadow bg-gradient"
+                                th:attr="onclick=|openModal(${usuario.id})|">Editar</button>
 
                         </td>
                         <td>
-                            <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete" th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.nomeCompleto})]\' permanentemente. Deseja realmente deletar?');">
-                                <input  style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit" value="Deletar">
+                            <form th:action="@{/usuarios/{id}(id=${usuario.id})}" th:method="delete"
+                                th:onsubmit="return confirm('Essa operação irá deletar o usuário \'[(${usuario.nomeCompleto})]\' permanentemente. Deseja realmente deletar?');">
+                                <input style="width: 75px;" class="btn btn-danger btn-shadow bg-gradient" type="submit"
+                                    value="Deletar">
                             </form>
                         </td>
 
@@ -75,8 +73,8 @@
                             <div class="row g-3 mb-3">
                                 <div class="col-md-12">
                                     <label for="name" class="col-form-label fw-semibold">Nome:</label>
-                                    <input type="text" class="form-control" th:field="*{name}"
-                                        autocomplete="off" required>
+                                    <input type="text" class="form-control" th:field="*{name}" autocomplete="off"
+                                        required>
                                     <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
                                         <li th:class="text-danger" th:each="err : ${#fields.errors('password)}">
                                             <small th:text="${err}"></small>
@@ -120,8 +118,10 @@
                         </form>
                     </div>
                     <div class="modal-footer justify-content-evenly">
-                        <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create2">Limpar</button>
-                        <button type="submit" class="btn btn-success btn-shadow bg-gradient def" form="form-create2">Atualizar</button>
+                        <button type="reset" class="btn btn-warning btn-shadow bg-gradient def"
+                            form="form-create2">Limpar</button>
+                        <button type="submit" class="btn btn-success btn-shadow bg-gradient def"
+                            form="form-create2">Atualizar</button>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
             window.onload = () => {
                 modal = new bootstrap.Modal(editModal);
 
-                document.getElementById("password").addEventListener("input", function(){
+                document.getElementById("password").addEventListener("input", function () {
                     const confirmarSenha = document.getElementById("confirm-password");
                     const text = confirmarSenha.nextElementSibling.innerText;
                     const length = this.value.length;
@@ -157,7 +157,7 @@
                     }
                 });
 
-                document.getElementById("confirm-password").addEventListener("input", function(){
+                document.getElementById("confirm-password").addEventListener("input", function () {
                     const senha = document.getElementById("password").value;
                     const text = senha.nextElementSibling.innerText;
                     const length = this.value.length;
@@ -180,7 +180,7 @@
                 const senha1 = document.getElementById('password');
                 const senha2 = document.getElementById('confirm-password');
 
-                if(senha1.nodeValue != senha2.nodeValue){
+                if (senha1.nodeValue != senha2.nodeValue) {
                     window.alert('As senhas não conferem');
 
                     return false;
@@ -192,24 +192,24 @@
             function openModal(uid) {
                 if (modal) {
                     fetch(`/api/usuario/${uid}`)
-                    .then((response) => response.json())
-                    .then((user) => {
-                        for (const [key, value] of Object.entries(user)) {
-                            const element = editModal.querySelector(`#${key}`);
+                        .then((response) => response.json())
+                        .then((user) => {
+                            for (const [key, value] of Object.entries(user)) {
+                                const element = editModal.querySelector(`#${key}`);
 
-                            if (element) {
-                                if (key === "roles") {
-                                    value.forEach((role) => {
-                                        element.querySelector(`option[value="${role.id}"]`).selected = true;
-                                    });
-                                } else {
-                                    element.value = value;
+                                if (element) {
+                                    if (key === "roles") {
+                                        value.forEach((role) => {
+                                            element.querySelector(`option[value="${role.id}"]`).selected = true;
+                                        });
+                                    } else {
+                                        element.value = value;
+                                    }
                                 }
                             }
-                        }
 
-                        modal.show();
-                    });
+                            modal.show();
+                        });
                 }
             }
         </script>
@@ -240,7 +240,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="password" class="col-form-label fw-semibold">Senha:</label>
-                                    <input  type="password" class="form-control" th:field="*{password}" value=""
+                                    <input type="password" class="form-control" th:field="*{password}" value=""
                                         required>
                                     <div class="invalid-feedback">A senha deve conter 3 ou mais caracteres.</div>
                                     <ul class="errors p-0 ps-4" th:if="${#fields.hasErrors()}">
@@ -250,8 +250,10 @@
                                     </ul>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="confirm-password" class="col-form-label fw-semibold">Confirmar Senha:</label>
-                                    <input id="confirm-password" name="confirm-password" type="password" class="form-control" required>
+                                    <label for="confirm-password" class="col-form-label fw-semibold">Confirmar
+                                        Senha:</label>
+                                    <input id="confirm-password" name="confirm-password" type="password"
+                                        class="form-control" required>
                                     <div class="invalid-feedback">A senha e confirmação de senha não conferem.</div>
                                 </div>
                             </div>
@@ -270,8 +272,10 @@
                     </form>
                 </div>
                 <div class="modal-footer justify-content-evenly">
-                    <button type="reset" class="btn btn-warning btn-shadow bg-gradient def" form="form-create">Limpar</button>
-                    <button id="btnCadastro"  type="submit" class="btn btn-success btn-shadow bg-gradient def" form="form-create">Cadastrar</button>
+                    <button type="reset" class="btn btn-warning btn-shadow bg-gradient def"
+                        form="form-create">Limpar</button>
+                    <button id="btnCadastro" type="submit" class="btn btn-success btn-shadow bg-gradient def"
+                        form="form-create">Cadastrar</button>
                 </div>
             </div>
         </div>
