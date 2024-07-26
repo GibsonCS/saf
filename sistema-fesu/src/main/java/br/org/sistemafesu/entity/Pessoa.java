@@ -11,14 +11,11 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -69,12 +66,7 @@ public class Pessoa {
     @OneToMany
     private Set<Endereco> enderecos = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "pessoas_cursos",
-        joinColumns = { @JoinColumn(name = "pessoa_id") },
-        inverseJoinColumns = { @JoinColumn(name = "curso_id") }
-    )
+    @ManyToMany(mappedBy = "pessoas")
     private List<Curso> cursos = new ArrayList<>();
 
     // @CreationTimestamp

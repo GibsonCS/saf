@@ -70,6 +70,7 @@ public class WebCursoController {
         Curso curso = cursoRepository.findById(id).get();
         java.util.List<Pessoa> pessoas = curso.getPessoas();
 
+        // Verificar se o cpf existe no curso
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getCpf().equals(cpf)) {
                 redirectAttributes.addFlashAttribute("error", "O CPF informado já está matriculado no curso.");
@@ -77,38 +78,17 @@ public class WebCursoController {
             }
         }
 
-        List<Pessoa> listaPessoas = pessoaRepository.findAll();
-        for (Pessoa pessoa : listaPessoas) {
-            if (pessoa.getCpf().equalsIgnoreCase(cpf)) {
-                pessoa.getCursos().add(curso);
-                pessoaRepository.save(pessoa);
-                // curso.getPessoas().add(pessoa);
-                // redirectAttributes.addFlashAttribute("success", "Inscricão efetuada com
-                // sucesso!!");
-                model.addAttribute("pessoa", pessoa);
-
-                return "cartaoConfirmacao";
-            }
-        }
-
+        // Criar pessoa e matricular
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(nome);
         pessoa.setSobrenome(sobreNome);
         pessoa.setCpf(cpf);
         pessoa.setEmail(email);
         pessoa.setTelefone(telefone);
-
-        // Verificar se a pessoa já está associada ao curso
-        if (!pessoa.getCursos().contains(curso)) {
-            pessoa.getCursos().add(curso);
-        }
+        pessoa.getCursos().add(curso);
         pessoaRepository.save(pessoa);
 
-        // Verificar se o curso já está associado à pessoa
-        if (!curso.getPessoas().contains(pessoa)) {
-            curso.getPessoas().add(pessoa);
-        }
-
+        curso.getPessoas().add(pessoa);
         cursoRepository.save(curso);
 
         model.addAttribute("pessoa", pessoa);
@@ -135,6 +115,7 @@ public class WebCursoController {
         // Verificar se o cpf existe no sistema
         if (pessoas.stream().filter(p -> p.getCpf().equalsIgnoreCase(cpf)).findFirst().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "O CPF informado não consta em nosso sistema.");
+
             return "redirect:/cursos/consulta-inscricao";
         }
 
