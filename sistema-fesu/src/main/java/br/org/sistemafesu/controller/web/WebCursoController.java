@@ -16,6 +16,7 @@ import br.org.sistemafesu.entity.Curso;
 import br.org.sistemafesu.entity.Pessoa;
 import br.org.sistemafesu.repository.CursoRepository;
 import br.org.sistemafesu.repository.PessoaRepository;
+import br.org.sistemafesu.service.CursoService;
 
 @Controller
 public class WebCursoController {
@@ -25,6 +26,9 @@ public class WebCursoController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private CursoService cursoService;
 
     @GetMapping("/cursos/novo")
     public String obterPaginaCadastroCurso(Model model) {
@@ -68,33 +72,27 @@ public class WebCursoController {
             @RequestParam("telefone") String telefone, RedirectAttributes redirectAttributes, Model model) {
 
         Curso curso = cursoRepository.findById(id).get();
-        java.util.List<Pessoa> pessoas = curso.getPessoas();
 
-        // Verificar se o cpf existe no curso
-        for (Pessoa pessoa : pessoas) {
-            if (pessoa.getCpf().equals(cpf)) {
-                redirectAttributes.addFlashAttribute("error", "O CPF informado já está matriculado no curso.");
+        for (Pessoa pessoa : curso.getPessoas()) {
+
+            if (pessoa.getCpf().equalsIgnoreCase(cpf)) {
+
+                redirectAttributes.addFlashAttribute("error",
+                        "O CPF informado já está matriculado no curso.");
                 return "redirect:/cursos/" + id;
             }
+
         }
 
-        // Criar pessoa e matricular
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(nome);
-        pessoa.setSobrenome(sobreNome);
-        pessoa.setCpf(cpf);
-        pessoa.setEmail(email);
-        pessoa.setTelefone(telefone);
-        pessoa.getCursos().add(curso);
-        pessoaRepository.save(pessoa);
-
-        curso.getPessoas().add(pessoa);
-        cursoRepository.save(curso);
-
-        model.addAttribute("pessoa", pessoa);
+        model.addAttribute("pessoa",
+                cursoService.matricularPessoaNoCurso(curso, nome, sobreNome, cpf, email, telefone));
         redirectAttributes.addFlashAttribute("success",
-                " Confirmada sua inscrição para a(s) palestra(s) na Escola de Educação Financeira da Defensoria Pública. Informamos que a palestra será realizada na Av. Marechal Câmara, n.º 314, 4º andar, sala 2, Centro – RJ, na sede da Defensoria Pública. As modalidades online (formato webcast e videocast) serão disponibilizadas no Youtube da Defensoria Pública do Rio de Janeiro.\n"
-                        + //
+                " Confirmada sua inscrição para a(s) palestra(s) na Escola de Educação Financeira da Defensoria Pública. "
+                        +
+                        "Informamos que a palestra será realizada na Av. Marechal Câmara, n.º 314, 4º andar, sala 2, Centro – RJ, na sede da Defensoria Pública."
+                        +
+                        " As modalidades online (formato webcast e videocast) serão disponibilizadas no Youtube da Defensoria Pública do Rio de Janeiro.\n"
+                        +
                         "Você pode consultar as palestras em que se encontra inscrito(a) clicando aqui 👇");
 
         return "redirect:/cursos/confirmacao-inscricao";
