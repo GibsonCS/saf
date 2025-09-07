@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
 import br.org.sistemafesu.entity.Sala;
 import br.org.sistemafesu.service.LocacaoService;
 import br.org.sistemafesu.service.SalaService;
@@ -17,11 +16,10 @@ import br.org.sistemafesu.service.SalaService;
 @RequestMapping("/salas")
 public class WebSalaController {
     private final SalaService salaService;
-    private final LocacaoService locacaoService;
 
     public WebSalaController(SalaService salaService, LocacaoService locacaoService) {
         this.salaService = salaService;
-        this.locacaoService = locacaoService;
+
     }
 
     @GetMapping()

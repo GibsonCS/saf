@@ -2,17 +2,12 @@ package br.org.sistemafesu.service;
 
 import br.org.sistemafesu.entity.Role;
 import br.org.sistemafesu.repository.RoleRepository;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import br.org.sistemafesu.entity.User;
 import br.org.sistemafesu.repository.UserRepository;
 import lombok.NonNull;
-
-import javax.swing.*;
 import java.util.*;
 
 @Service
@@ -20,6 +15,7 @@ public class UserService extends AbstractService<User, UserRepository> {
 
     @Autowired
     private RoleRepository roleRepository;
+
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public UserService(UserRepository userRepository) {

@@ -10,7 +10,7 @@
 <body>
     <section class="flex-fill" layout:fragment="content">
         <div class="container" style="max-width: 250px; margin: auto; margin-top: 150px;">
-            <img class="my-5" th:src="@{/assets/images/fesu-marca.svg}" alt="Fesudeperj">
+            <img class="my-5" th:src="@{/assets/images/fesu-marca.svg}" alt="">
 
             <div class="alert alert-danger" role="alert" th:if="${param.error}">
                 [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
@@ -34,7 +34,7 @@
                 </div>
 
                 <button class="btn btn-lg btn-success w-100 btn-block mt-3 bg-gradient mb-2" type="submit">Entrar</button>
-                <p><small>Novo por aqui? <a style="text-decoration: none;" href="/cadastro">Cadastre-se</a></small></p>            </form>
+                <!-- <p><small>Novo por aqui? <a style="text-decoration: none;" href="/cadastro">Cadastre-se</a></small></p>            </form> -->
         </div>
 
         <script>
