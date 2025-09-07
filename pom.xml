@@ -11,7 +11,7 @@
 	<groupId>br.org</groupId>
 	<artifactId>sistema</artifactId>
 	<version>v1.3</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>sistema</name>
 	<description>Sistem Administration</description>
 	<properties>
