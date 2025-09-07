@@ -9,18 +9,16 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.org</groupId>
-	<artifactId>sistema-fesu</artifactId>
+	<artifactId>sistema</artifactId>
 	<version>v1.3</version>
 	<packaging>war</packaging>
-	<name>sistema-fesu</name>
-	<description>Sistem Administration Fesudeperj SAF</description>
+	<name>sistema</name>
+	<description>Sistem Administration</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
-
-
+	
 	    <dependency>
 	        <groupId>org.springdoc</groupId>
 	        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
