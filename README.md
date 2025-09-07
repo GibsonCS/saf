@@ -52,51 +52,6 @@ Principais campos:
 
 Se for usar Heroku, siga os passos do README para deploy.
 
-## Diagrama das Relações de Tabelas (Mermaid)
-
-```mermaid
-erDiagram
-    SALA ||--o{ LOCACAO : "possui"
-    LOCACAO ||--|{ EQUIPAMENTO : "inclui"
-    PESSOA ||--o{ LOCACAO : "reserva"
-    USER ||--o{ LOCACAO : "realiza"
-    USER ||--o{ ROLE : "possui"
-
-    PESSOA {
-        id
-        cpf
-        nome
-        sobrenome
-    }
-    SALA {
-        id
-        nomeSala
-    }
-    LOCACAO {
-        id
-        data
-        horaInicial
-    }
-    EQUIPAMENTO {
-        id
-        nomeEquipamento
-        modeloEquipamento
-        numeroSerie
-        marcaEquipamento
-        tipoEquipamento
-    }
-    USER {
-        id
-        nomeCompleto
-        username
-    }
-    ROLE {
-        id
-        name
-    }
-
-```
-
 ## Diagrama das Relações das Entidades
 
 ```mermaid
@@ -162,3 +117,8 @@ classDiagram
     User "1" --> "*" Endereco : enderecos
     User "*" --> "*" Role : roles
 ```
+
+## Link da Aplicação Funcionando
+
+Acesse o sistema online:
+[https://administrate-system-c502ed86eb0c.herokuapp.com/login](https://administrate-system-c502ed86eb0c.herokuapp.com/login)
